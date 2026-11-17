@@ -3,155 +3,127 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SALMAN Bot — منصة الذكاء الاصطناعي السحابية المجانية</title>
-<meta name="description" content="SALMAN Bot: موقع ذكاء اصطناعي مجاني 100% — شخصية ناطقة، تقارير وأبحاث علمية، عروض تقديمية، استوديو تعديل الصور والفيديو، ومزامنة سحابية عبر GitHub.">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🤖</text></svg>">
+<title>Salman-Bot — مساعدك الذكي المجاني</title>
+<meta name="description" content="SALMAN Bot: مساعد ذكاء اصطناعي مجاني — محادثة، تقارير وأبحاث، عروض تقديمية، استوديو صور وفيديو.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>✳️</text></svg>">
 <style>
 :root{
-  --bg:#040705; --bg2:#080f0b; --panel:#0a120d; --panel2:#0f1c15; --line:#123324;
-  --txt:#f2fff8; --dim:#7ea893;
-  --neon:#00ff9d; --neon-soft:rgba(0,255,157,.35); --neon-dim:rgba(0,255,157,.12);
-  --pk:#ec4899; --am:#f59e0b; --gd:#7dffb0;
-  --glow:0 0 14px var(--neon-soft);
+  --bg:#fafafa; --panel:#ffffff; --panel2:#f4f4f5; --line:#e4e4e7;
+  --txt:#18181b; --dim:#71717a;
+  --acc:#10b981; --acc-soft:rgba(16,185,129,.12);
+  --pk:#ec4899; --am:#f59e0b; --blue:#3b82f6;
+  --radius:14px; --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
 }
-body.light{
-  --bg:#f2f7f3; --bg2:#e8efe9; --panel:#ffffff; --panel2:#eef6f0; --line:#c9ded0;
-  --txt:#0c1f15; --dim:#527565;
-  --neon:#00a35c; --neon-soft:rgba(0,163,92,.28); --neon-dim:rgba(0,163,92,.08);
-  --gd:#007a45; --glow:0 0 10px var(--neon-soft);
+body.dark{
+  --bg:#0d1117; --panel:#161b22; --panel2:#1f2630; --line:#30363d;
+  --txt:#e6edf3; --dim:#8b949e;
+  --acc:#10b981; --acc-soft:rgba(16,185,129,.15);
+  --shadow:0 1px 3px rgba(0,0,0,.4);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--txt);height:100vh;overflow:hidden;background:
-  linear-gradient(var(--neon-dim) 1px,transparent 1px),
-  linear-gradient(90deg,var(--neon-dim) 1px,transparent 1px),
-  radial-gradient(1100px 550px at 85% -10%,rgba(0,255,157,.10) 0%,transparent 55%),
-  radial-gradient(900px 500px at 8% 108%,rgba(0,255,157,.07) 0%,transparent 55%),var(--bg);
-  background-size:44px 44px,44px 44px,auto,auto}
-.app{max-width:1150px;margin:0 auto;padding:12px 14px;height:100vh;display:flex;flex-direction:column}
+body{font-family:"Segoe UI",system-ui,Tahoma,Arial,sans-serif;color:var(--txt);height:100vh;overflow:hidden;background:var(--bg)}
+.app{max-width:820px;margin:0 auto;padding:0 16px;height:100vh;display:flex;flex-direction:column}
 
 /* ===== الترويسة ===== */
-header{display:flex;align-items:center;gap:12px;padding:6px 2px 10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
-.logo{width:46px;height:46px;border-radius:12px;background:#02120a;border:2px solid var(--neon);
-  display:grid;place-items:center;font-size:22px;box-shadow:var(--glow);animation:gl 3s ease-in-out infinite}
-@keyframes gl{0%,100%{box-shadow:0 0 10px var(--neon-soft)}50%{box-shadow:0 0 26px var(--neon-soft)}}
-h1{font-size:1.22rem;font-weight:700}
-h1 b{color:var(--neon);text-shadow:0 0 12px var(--neon-soft)}
-h1 small{display:block;font-size:.68rem;color:var(--dim);font-weight:400}
+header{display:flex;align-items:center;gap:10px;padding:14px 0 10px}
+.brand{display:flex;align-items:center;gap:10px}
+.dot{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d1fae5,var(--acc) 60%,#047857);flex-shrink:0;transition:.3s;box-shadow:0 0 0 3px var(--acc-soft)}
+.dot.state-listen{background:radial-gradient(circle at 35% 30%,#d1fae5,#34d399 60%,#065f46);animation:bl 1s infinite}
+.dot.state-think{background:radial-gradient(circle at 35% 30%,#fef3c7,var(--am) 60%,#92400e);animation:bl .9s infinite}
+.dot.state-speak{background:radial-gradient(circle at 35% 30%,#fce7f3,var(--pk) 60%,#9d174d)}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.55}}
+.brand b{font-size:1.05rem;letter-spacing:.3px}
+.chip{font-size:.72rem;color:var(--dim);background:var(--panel2);border:1px solid var(--line);padding:3px 10px;border-radius:99px}
 .grow{flex:1}
-.hbtn{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:8px 13px;border-radius:10px;cursor:pointer;font-size:.84rem;transition:.2s}
-.hbtn:hover{color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
+.ico{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:7px;border-radius:10px;color:var(--dim);transition:.15s}
+.ico:hover{background:var(--panel2);color:var(--txt)}
 
-/* ===== التبويبات ===== */
-.tabs{display:flex;gap:8px;margin:8px 0 0}
-.tabs button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:9px;border-radius:12px;cursor:pointer;font-size:.9rem;transition:.2s}
-.tabs button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
-
-/* ===== الأقسام ===== */
-.view{display:none}
-.view.on{display:flex;flex-direction:column;flex:1;min-height:0}
-
-/* ===== الشخصية ===== */
-.hero{display:flex;align-items:center;gap:16px;padding:8px 4px}
-.orb{position:relative;width:88px;height:88px;flex-shrink:0}
-.orb .core{position:absolute;inset:14px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#d8ffe9 0%,var(--neon) 40%,#014d30 80%);
-  box-shadow:0 0 26px var(--neon-soft),inset 0 0 14px rgba(255,255,255,.3);transition:.4s}
-.orb .ring{position:absolute;inset:4px;border-radius:50%;border:2px solid var(--neon-soft);animation:pulse 2.6s infinite}
-.orb .ring.r2{inset:-4px;animation-delay:1.3s}
-@keyframes pulse{0%{transform:scale(.92);opacity:.8}70%{transform:scale(1.14);opacity:0}100%{opacity:0}}
-.orb.state-listen .core{background:radial-gradient(circle at 35% 30%,#d8ffe9 0%,#5eead4 40%,#0f766e 80%);box-shadow:0 0 30px rgba(94,234,212,.5)}
-.orb.state-think .core{background:radial-gradient(circle at 35% 30%,#fef3c7 0%,var(--am) 40%,#92400e 80%);box-shadow:0 0 30px rgba(245,158,11,.55);animation:flick .9s infinite}
-.orb.state-speak .core{background:radial-gradient(circle at 35% 30%,#fce7f3 0%,var(--pk) 40%,#831843 80%);box-shadow:0 0 32px rgba(236,72,153,.55)}
-@keyframes flick{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
-.heroInfo{flex:1;min-width:0}
-.heroInfo .name{font-weight:700;font-size:1.02rem}
-.heroInfo .name em{font-style:normal;color:var(--neon);font-size:.85rem}
-.heroInfo .st{font-size:.8rem;color:var(--dim);margin-top:2px;min-height:1.2em}
-#waves{width:100%;max-width:400px;height:42px;display:block;opacity:.9}
-
-/* ===== الأوضاع ===== */
-.modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
-.modes button{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:99px;cursor:pointer;font-size:.82rem;transition:.2s}
-.modes button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
+/* ===== شريط الأدوات ===== */
+.tools{display:flex;gap:8px;align-items:center;margin:2px 0 10px;flex-wrap:wrap}
+.tools select{background:var(--panel);border:1px solid var(--line);border-radius:99px;color:var(--txt);padding:7px 14px;font-family:inherit;font-size:.84rem;cursor:pointer;box-shadow:var(--shadow)}
+.tools .quiet{background:none;border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:99px;cursor:pointer;font-size:.8rem;transition:.15s}
+.tools .quiet:hover{color:var(--acc);border-color:var(--acc)}
+#status{font-size:.75rem;color:var(--dim)}
 
 /* ===== الدردشة ===== */
-.chat{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:10px;min-height:100px;box-shadow:inset 0 0 40px rgba(0,0,0,.25)}
-.msg{max-width:85%;padding:10px 14px;border-radius:14px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
-.msg.user{align-self:flex-start;background:linear-gradient(135deg,#062b1c,#0a1f33);border:1px solid var(--neon)}
-body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff)}
-.msg.bot{align-self:flex-end;background:var(--panel2);border:1px solid var(--line)}
-.msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;font-size:.76rem;color:var(--neon)}
+.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:14px 2px;min-height:80px}
+.msg{max-width:88%;padding:11px 15px;border-radius:16px;line-height:1.85;white-space:pre-wrap;word-break:break-word;font-size:.95rem}
+.msg.user{align-self:flex-start;background:var(--acc);color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-end;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px;box-shadow:var(--shadow)}
+.msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;font-size:.76rem}
 .msg img.att{max-width:200px;border-radius:10px;display:block;margin-top:6px}
-.msg img.genimg{max-width:100%;border-radius:10px;margin-top:8px;display:block;border:1px solid var(--line)}
-.dlImg{color:var(--gd);font-size:.78rem;text-decoration:none;display:block;margin-top:6px}
-.actBtn{display:inline-block;margin:8px 4px 0 0;background:transparent;border:1px solid var(--neon);color:var(--neon);font-weight:bold;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:.2s}
-.actBtn:hover{background:var(--neon);color:#01130b}
+.msg img.genimg{max-width:100%;border-radius:12px;margin-top:8px;display:block}
+.dlImg{color:var(--acc);font-size:.78rem;text-decoration:none;display:block;margin-top:6px;font-weight:600}
+.actBtn{display:inline-block;margin:8px 4px 0 0;background:var(--panel2);border:1px solid var(--line);color:var(--txt);font-weight:600;padding:7px 13px;border-radius:10px;cursor:pointer;font-size:.8rem;transition:.15s}
+.actBtn:hover{border-color:var(--acc);color:var(--acc)}
 .typing{display:inline-flex;gap:4px;padding:4px 2px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--neon);animation:bnc 1s infinite}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--dim);animation:bnc 1s infinite}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}
-.chips button{background:transparent;border:1px dashed var(--line);color:var(--dim);padding:5px 11px;border-radius:99px;cursor:pointer;font-size:.76rem}
-.chips button:hover{color:var(--neon);border-color:var(--neon)}
+@keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.chips{display:flex;gap:7px;flex-wrap:wrap;padding:4px 0 8px}
+.chips button{background:none;border:1px solid var(--line);color:var(--dim);padding:6px 12px;border-radius:99px;cursor:pointer;font-size:.78rem;transition:.15s}
+.chips button:hover{color:var(--acc);border-color:var(--acc)}
 
 /* ===== الإدخال ===== */
-.compose{margin-top:8px}
+.compose{padding:6px 0 14px}
 .attRow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.76rem;color:var(--neon)}
-.attPill button{background:none;border:none;color:var(--pk);cursor:pointer;font-size:.9rem}
-.inRow{display:flex;gap:8px;align-items:flex-end}
-.inRow textarea{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--txt);padding:12px 14px;resize:none;font-family:inherit;font-size:1rem;min-height:50px;max-height:140px}
-.inRow textarea:focus{outline:none;border-color:var(--neon);box-shadow:var(--glow)}
-.inRow button{width:50px;height:50px;border:none;border-radius:14px;font-size:1.15rem;cursor:pointer;flex-shrink:0}
-.send{background:var(--neon);color:#01130b;font-weight:bold}
-.inRow button.ghost{background:var(--panel);border:1px solid var(--line);color:var(--dim)}
-.inRow button.ghost.rec{background:#7f1d1d;color:#fff;border-color:var(--pk)}
-.hint{font-size:.7rem;color:var(--dim);margin-top:5px;text-align:center}
-.hint code{color:var(--neon);direction:ltr;display:inline-block}
+.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.76rem}
+.attPill button{background:none;border:none;color:var(--pk);cursor:pointer;font-size:.85rem}
+.inRow{display:flex;gap:8px;align-items:flex-end;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:8px 10px;box-shadow:var(--shadow)}
+.inRow textarea{flex:1;background:none;border:none;color:var(--txt);padding:8px 6px;resize:none;font-family:inherit;font-size:.98rem;min-height:24px;max-height:130px;outline:none}
+.inRow button{width:40px;height:40px;border:none;border-radius:50%;font-size:1.05rem;cursor:pointer;flex-shrink:0;background:none;transition:.15s}
+.inRow button:hover{background:var(--panel2)}
+.send{background:var(--acc)!important;color:#fff}
+.inRow button.rec{background:#dc2626!important;color:#fff}
+.hint{font-size:.68rem;color:var(--dim);margin-top:8px;text-align:center}
+.hint code{color:var(--acc);direction:ltr;display:inline-block}
 
 /* ===== الاستوديوهات ===== */
-.studio{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px}
+.studio{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:8px 0}
+.stTop{display:flex;align-items:center;gap:8px}
+.stTop h3{flex:1;font-size:.95rem}
 .stWrap{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-.stCanvasBox{flex:1.2;min-width:280px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
-.stCanvasBox canvas,.stCanvasBox video{max-width:100%;max-height:46vh;border-radius:10px;background:#000}
+.stCanvasBox{flex:1.2;min-width:280px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px;text-align:center;box-shadow:var(--shadow)}
+.stCanvasBox canvas,.stCanvasBox video{max-width:100%;max-height:44vh;border-radius:10px;background:#000}
 .stCtrls{flex:1;min-width:270px;display:flex;flex-direction:column;gap:10px}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
-.box h4{color:var(--neon);font-size:.88rem;margin-bottom:8px}
-.box label{display:flex;justify-content:space-between;font-size:.76rem;color:var(--dim);margin:6px 0 2px}
-.box input[type=range]{width:100%;accent-color:var(--neon)}
-.box input[type=text],.box input[type=number],.box select{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:8px 10px;font-family:inherit;margin:3px 0}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
+.box h4{font-size:.85rem;margin-bottom:8px}
+.box label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--dim);margin:6px 0 2px}
+.box input[type=range]{width:100%;accent-color:var(--acc)}
+.box input[type=text],.box select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:8px 10px;font-family:inherit;margin:3px 0;outline:none}
+.box input[type=text]:focus{border-color:var(--acc)}
 .box input[type=color]{width:44px;height:30px;border:1px solid var(--line);border-radius:6px;background:none;padding:0;cursor:pointer}
 .rowBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.84rem}
-.btn:hover{border-color:var(--neon);color:var(--neon)}
-.btn.primary{background:var(--neon);color:#01130b;border:none;font-weight:bold}
-.btn.primary:hover{box-shadow:0 0 18px var(--neon-soft);color:#01130b}
+.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.84rem;transition:.15s}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.primary{background:var(--acc);color:#fff;border:none;font-weight:600}
+.btn.primary:hover{opacity:.9;color:#fff}
 .btn.mini{padding:6px 10px;font-size:.78rem}
-.prog{font-size:.8rem;color:var(--gd);min-height:1.2em;margin-top:6px}
+.prog{font-size:.78rem;color:var(--acc);min-height:1.2em;margin-top:6px}
 .note{font-size:.7rem;color:var(--dim);line-height:1.8}
 
 /* ===== النوافذ ===== */
-.modal{position:fixed;inset:0;background:rgba(2,6,4,.85);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(5px)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(3px)}
 .modal.open{display:flex}
-.sheet{background:var(--panel);border:1px solid var(--neon);border-radius:18px;width:100%;max-width:660px;max-height:90vh;overflow-y:auto;padding:20px;box-shadow:0 0 40px var(--neon-dim)}
-.sheet h3{margin-bottom:6px;color:var(--neon)}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.sheet h3{margin-bottom:6px;font-size:1rem}
 .sheet .sub{font-size:.8rem;color:var(--dim);line-height:1.8;margin-bottom:8px}
-.sheet label{display:block;font-size:.82rem;color:var(--dim);margin:12px 0 4px}
-.sheet input,.sheet select{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit}
-.sheet a{color:var(--neon)}
+.sheet label{display:block;font-size:.8rem;color:var(--dim);margin:12px 0 4px}
+.sheet input,.sheet select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit;outline:none}
+.sheet input:focus,.sheet select:focus{border-color:var(--acc)}
+.sheet a{color:var(--acc)}
 .rowBtns .btn{padding:9px 16px;font-size:.88rem}
-.btn.warn{border-color:#7f1d1d;color:#fca5a5}
 .divider{border:none;border-top:1px solid var(--line);margin:16px 0}
-ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
-#repSheet{max-width:1020px;width:100%}
+ol.steps{margin:8px 20px 0 0;font-size:.8rem;color:var(--dim);line-height:2.1}
+#repSheet{max-width:1000px;width:100%}
 .repBar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .repBar h3{margin:0;flex:1}
 #repFrame{width:100%;height:72vh;border:1px solid var(--line);border-radius:12px;background:#fff}
 #slModal{padding:0;background:#000}
-.slTop{display:flex;gap:8px;align-items:center;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
-.slTop h3{margin:0;flex:1;color:var(--neon);font-size:.95rem}
-#slFrame{width:100%;height:calc(100vh - 53px);border:none;background:#0a0f0c}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--neon);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;box-shadow:var(--glow)}
+.slTop{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--panel)}
+.slTop h3{margin:0;flex:1;font-size:.9rem}
+#slFrame{width:100%;height:calc(100vh - 54px);border:none}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--txt);color:var(--bg);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;font-size:.85rem}
 .toast.show{opacity:1}
 ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 </style>
@@ -159,70 +131,65 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 <body>
 <div class="app">
   <header>
-    <div class="logo">🤖</div>
-    <h1><b>SALMAN Bot</b> <small>منصة الذكاء الاصطناعي السحابية — تقارير · أبحاث · عروض · استوديو صور وفيديو · مجانية 100%</small></h1>
+    <div class="brand">
+      <span class="dot" id="orb" title="حالة سلمان"></span>
+      <b>Salman-Bot</b>
+      <span class="chip" id="engName">Pollinations · مجاني</span>
+    </div>
     <div class="grow"></div>
-    <button class="hbtn" id="themeBtn">☀️ نهاري</button>
-    <button class="hbtn" id="cloudBtn">☁️ سحابة</button>
-    <button class="hbtn" id="engBtn">⚙️ المحركات</button>
-    <button class="hbtn" id="clearBtn">🗑️</button>
+    <button class="ico" id="themeBtn" title="الوضع الليلي/النهاري">🌙</button>
+    <button class="ico" id="cloudBtn" title="سحابة GitHub">☁️</button>
+    <button class="ico" id="engBtn" title="المحركات والمفاتيح">⚙️</button>
+    <button class="ico" id="clearBtn" title="محادثة جديدة">🗑️</button>
   </header>
-
-  <nav class="tabs">
-    <button data-v="chat" class="active">💬 المحادثة</button>
-    <button data-v="img">🎨 استوديو الصور</button>
-    <button data-v="vid">🎬 استوديو الفيديو</button>
-  </nav>
 
   <!-- ======== المحادثة ======== -->
   <section class="view on" id="v-chat">
-    <div class="hero">
-      <div class="orb" id="orb"><div class="ring"></div><div class="ring r2"></div><div class="core"></div></div>
-      <div class="heroInfo">
-        <div class="name">SALMAN <em id="engName">· نَبراس الحر (مجاني)</em></div>
-        <div class="st" id="status">مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖</div>
-        <canvas id="waves" width="800" height="84"></canvas>
-      </div>
+    <div class="tools">
+      <select id="modeSel" title="وضع العمل"></select>
+      <button class="quiet" onclick="gotoView('img')">🎨 الصور</button>
+      <button class="quiet" onclick="gotoView('vid')">🎬 الفيديو</button>
+      <span class="grow"></span>
+      <span id="status">جاهز — كيف أساعدك؟</span>
     </div>
-    <div class="modes" id="modesBar"></div>
     <div class="chat" id="chat"></div>
     <div class="chips" id="chips"></div>
     <div class="compose">
       <div class="attRow" id="attRow"></div>
       <div class="inRow">
-        <button class="ghost" id="micBtn" title="تحدث بالصوت">🎤</button>
-        <button class="ghost" id="attBtn" title="إرفاق ملفات">📎</button>
-        <textarea id="input" rows="1" placeholder="اكتب رسالتك لسلمان... أو /imagine وصف الصورة"></textarea>
-        <button class="send" id="sendBtn" title="إرسال">🚀</button>
+        <button id="attBtn" title="إرفاق ملفات">📎</button>
+        <button id="micBtn" title="تحدث بالصوت">🎤</button>
+        <textarea id="input" rows="1" placeholder="اكتب رسالتك... أو /imagine وصف الصورة"></textarea>
+        <button class="send" id="sendBtn" title="إرسال">➤</button>
       </div>
-      <div class="hint">مجاني بالكامل · تقارير · أبحاث · عروض تقديمية · <code>/imagine</code> للصور · استوديو الصور والفيديو من الأعلى</div>
+      <div class="hint">مجاني بالكامل · تقارير · أبحاث · عروض تقديمية · <code>/imagine</code> للصور</div>
     </div>
   </section>
 
   <!-- ======== استوديو الصور ======== -->
   <section class="view" id="v-img">
     <div class="studio">
+      <div class="stTop"><h3>🎨 استوديو الصور</h3><button class="btn mini" onclick="gotoView('chat')">← عودة للمحادثة</button></div>
       <div class="stWrap">
         <div class="stCanvasBox">
           <canvas id="imgCv" width="640" height="400"></canvas>
-          <div class="prog" id="imgSrcInfo">حمّل صورة من الزرين في اللوحة الجانبية ←</div>
+          <div class="prog" id="imgSrcInfo">حمّل صورة أو ولّد صورة جديدة من اللوحة الجانبية</div>
         </div>
         <div class="stCtrls">
           <div class="box">
             <h4>📁 المصدر</h4>
             <div class="rowBtns">
               <button class="btn primary" onclick="document.getElementById('imgFile').click()">📁 رفع صورة</button>
-              <button class="btn" id="genNewImg">🎨 توليد صورة جديدة</button>
+              <button class="btn" id="genNewImg">🎨 توليد صورة</button>
             </div>
             <input id="imgUrl" type="text" placeholder="أو الصق رابط صورة هنا...">
             <div class="rowBtns"><button class="btn mini" id="loadUrlBtn">🔗 تحميل الرابط</button></div>
             <input type="file" id="imgFile" accept="image/*" hidden>
           </div>
           <div class="box">
-            <h4>🪄 التعديل بالذكاء الاصطناعي</h4>
+            <h4>🪄 التعديل بالذكاء الاصطناعي (مجاني)</h4>
             <input id="aiEditPrompt" type="text" placeholder="مثال: اجعل الخلفية غروب الشمس وأضف طائرة">
             <div class="rowBtns"><button class="btn primary" id="aiEditBtn">✨ عدّل بالذكاء الاصطناعي</button></div>
-            <div class="note">يعمل عبر محرك Pollinations المجاني — للأفضل استخدم صورة من رابط أو مولّدة داخلياً.</div>
           </div>
           <div class="box">
             <h4>🎚️ الفلاتر والتعديلات</h4>
@@ -234,7 +201,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
             <label>سيبيا <span id="vse">0%</span></label><input type="range" id="ise" min="0" max="100" value="0">
             <label>ضبابية <span id="vbl">0px</span></label><input type="range" id="ibl" min="0" max="20" value="0">
             <div class="rowBtns">
-              <button class="btn mini" id="btnRot">⟳ تدوير 90°</button>
+              <button class="btn mini" id="btnRot">⟳ تدوير</button>
               <button class="btn mini" id="btnFlh">↔ قلب أفقي</button>
               <button class="btn mini" id="btnFlv">↕ قلب رأسي</button>
               <button class="btn mini" id="imgReset">↺ إعادة ضبط</button>
@@ -245,7 +212,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
             <input id="txtImg" type="text" placeholder="اكتب نص العلامة المائية...">
             <label>الحجم <span id="vti">36</span></label><input type="range" id="tsi" min="12" max="120" value="36">
             <div class="rowBtns" style="align-items:center">
-              <input type="color" id="tci" value="#00ff9d">
+              <input type="color" id="tci" value="#10b981">
               <select id="tpi" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
             </div>
           </div>
@@ -270,18 +237,17 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   <!-- ======== استوديو الفيديو ======== -->
   <section class="view" id="v-vid">
     <div class="studio">
+      <div class="stTop"><h3>🎬 استوديو الفيديو</h3><button class="btn mini" onclick="gotoView('chat')">← عودة للمحادثة</button></div>
       <div class="stWrap">
         <div class="stCanvasBox">
           <video id="vidPlayer" controls playsinline style="display:none"></video>
           <canvas id="vidCv" style="display:none"></canvas>
-          <div class="prog" id="vidProg">🎬 حمّل فيديو للبدء — القص والفلاتر والتصدير تعمل داخل متصفحك مجاناً</div>
+          <div class="prog" id="vidProg">🎬 حمّل فيديو للبدء — القص والفلاتر والتصدير تعمل داخل متصفحك</div>
         </div>
         <div class="stCtrls">
           <div class="box">
             <h4>📁 المصدر</h4>
-            <div class="rowBtns">
-              <button class="btn primary" onclick="document.getElementById('vidFile').click()">📁 رفع فيديو</button>
-            </div>
+            <div class="rowBtns"><button class="btn primary" onclick="document.getElementById('vidFile').click()">📁 رفع فيديو</button></div>
             <input type="file" id="vidFile" accept="video/*" hidden>
           </div>
           <div class="box">
@@ -294,7 +260,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
             </div>
           </div>
           <div class="box">
-            <h4>🎚️ الفلاتر</h4>
+            <h4>🎚️ الفلاتر والسرعة</h4>
             <label>السطوع <span id="vvbr">100%</span></label><input type="range" id="vbr2" min="0" max="200" value="100">
             <label>التباين <span id="vvct">100%</span></label><input type="range" id="vct2" min="0" max="200" value="100">
             <label>التشبع <span id="vvsa">100%</span></label><input type="range" id="vsa2" min="0" max="200" value="100">
@@ -312,14 +278,14 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
             <input id="vidTxt" type="text" placeholder="اكتب نص العنوان...">
             <label>الحجم <span id="vvt">48</span></label><input type="range" id="vtsz" min="16" max="160" value="48">
             <div class="rowBtns" style="align-items:center">
-              <input type="color" id="vtc" value="#00ff9d">
+              <input type="color" id="vtc" value="#10b981">
               <select id="vtp" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
             </div>
           </div>
           <div class="box">
             <h4>🎬 التصدير</h4>
             <div class="rowBtns"><button class="btn primary" id="vidExport">🎥 تصدير الفيديو المعدّل</button></div>
-            <div class="note">التصدير يجري داخل متصفحك بالكامل (بدون رفع للسيرفر) وبصيغة WebM — يستغرق زمن مشابه لمدة المقطع. النصوص والفلاتر تُطبَّق على النسخة النهائية.</div>
+            <div class="note">التصدير يجري داخل متصفحك بالكامل (خصوصية تامة) بصيغة WebM — يستغرق زمناً مشابهاً لمدة المقطع.</div>
           </div>
         </div>
       </div>
@@ -329,30 +295,24 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 
 <input type="file" id="fileInput" multiple hidden>
 
-<!-- نافذة المحركات -->
+<!-- المحركات -->
 <div class="modal" id="engModal"><div class="sheet">
-  <h3>⚙️ محركات الذكاء الاصطناعي المجانية</h3>
-  <p class="sub">اربط سلمان بأي محرك سحابي مجاني عالمي. الافتراضي يعمل فوراً بدون مفتاح، والمفاتيح تُخزَّن في متصفحك فقط.</p>
+  <h3>⚙️ المحركات والمفاتيح</h3>
+  <p class="sub">المفاتيح المدمجة تعمل تلقائياً. يمكن أيضاً إضافة مفتاح شخصي هنا (يُخزَّن في متصفحك فقط).</p>
   <label>المحرك:</label>
   <select id="engSel">
-    <option value="pollinations">🌊 Pollinations — مجاني بدون مفتاح (افتراضي)</option>
-    <option value="gemini">💎 Google Gemini API — مفتاح مجاني</option>
-    <option value="groq">⚡ Groq LPU — مفتاح مجاني، الأسرع عالمياً</option>
-    <option value="openrouter">🧩 OpenRouter — نماذج :free مجانية</option>
-    <option value="github">🐙 GitHub Models API — برمز GitHub</option>
-    <option value="mistral">🇪🇺 Mistral La Plateforme — طبقة مجانية</option>
-    <option value="cohere">🔗 Cohere Trial API — مفاتيح تجريبية</option>
+    <option value="pollinations">Pollinations — مجاني بدون مفتاح (افتراضي)</option>
+    <option value="gemini">Google Gemini API</option>
+    <option value="groq">Groq LPU</option>
+    <option value="openrouter">OpenRouter</option>
+    <option value="github">GitHub Models API</option>
+    <option value="mistral">Mistral</option>
+    <option value="cohere">Cohere</option>
   </select>
   <label id="keyLabel">مفتاح API:</label>
-  <input id="keyInput" type="password" placeholder="اتركه فارغاً مع Pollinations">
-  <p style="font-size:.76rem;color:var(--dim);margin-top:10px;line-height:2">
-    🔑 روابط المفاتيح المجانية:<br>
-    • Gemini: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a><br>
-    • Groq: <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a><br>
-    • OpenRouter: <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a><br>
-    • Mistral: <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">console.mistral.ai/api-keys</a><br>
-    • Cohere: <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">dashboard.cohere.com/api-keys</a><br>
-    • GitHub Models: <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Tokens</a>
+  <input id="keyInput" type="password" placeholder="اتركه فارغاً لاستخدام المفتاح المدمج">
+  <p style="font-size:.74rem;color:var(--dim);margin-top:10px;line-height:2">
+    🔑 مفاتيح مجانية: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Gemini</a> · <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq</a> · <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OpenRouter</a> · <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub</a>
   </p>
   <div class="rowBtns">
     <button class="btn primary" id="saveEng">💾 حفظ</button>
@@ -360,34 +320,31 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   </div>
 </div></div>
 
-<!-- نافذة سحابة GitHub -->
+<!-- سحابة GitHub -->
 <div class="modal" id="cloudModal"><div class="sheet">
-  <h3>☁️ سحابة GitHub — مزامنة ونشر مجاني</h3>
-  <p class="sub">استخدم مستودعك كقاعدة بيانات سحابية مجانية لمزامنة محادثاتك وتقاريرك بين جميع أجهزتك، وانشر الموقع مجاناً على GitHub Pages.</p>
+  <h3>☁️ سحابة GitHub</h3>
+  <p class="sub">مزامنة محادثاتك بين الأجهزة عبر ملف <b>salman-bot-data.json</b> في مستودعك، ونشر الموقع على GitHub Pages.</p>
   <div class="rowBtns" style="margin-top:0">
-    <button class="btn primary" id="dlBtn">⬇️ تحميل index.html للنشر</button>
+    <button class="btn primary" id="dlBtn">⬇️ تحميل الموقع للنشر</button>
     <button class="btn" id="expBtn">📤 تصدير JSON</button>
     <button class="btn" id="impBtn">📥 استيراد JSON</button>
     <input type="file" id="impFile" accept=".json" hidden>
   </div>
   <hr class="divider">
   <label>اسم مستخدم GitHub:</label>
-  <input id="ghUser" placeholder="مثال: TEaG3">
+  <input id="ghUser" placeholder="TEaG3">
   <label>اسم المستودع:</label>
-  <input id="ghRepo" placeholder="مثال: Salman-Bot">
-  <label>رمز الوصول الشخصي (صلاحية Contents: Read & Write):</label>
-  <input id="ghToken" type="password" placeholder="github_pat_... أو ghp_...">
+  <input id="ghRepo" placeholder="Salman-Bot">
+  <label>رمز الوصول الشخصي (Contents: Read &amp; Write):</label>
+  <input id="ghToken" type="password" placeholder="github_pat_...">
   <div class="rowBtns">
     <button class="btn primary" id="pushBtn">☁️ رفع المحادثات</button>
     <button class="btn" id="pullBtn">⬇️ سحب المحادثات</button>
   </div>
-  <hr class="divider">
-  <h3 style="font-size:.95rem">🚀 النشر المجاني على GitHub Pages</h3>
   <ol class="steps">
-    <li>اضغط «تحميل index.html للنشر» أعلاه.</li>
-    <li>في مستودعك: <b>Add file → Upload files</b> وارفع الملف.</li>
-    <li>اذهب إلى <b>Settings → Pages</b> واختر <b>main / (root)</b> ثم Save.</li>
-    <li>موقعك: <span id="pagesUrl" style="direction:ltr;display:inline-block;color:var(--gd)">https://teag3.github.io/Salman-Bot/</span></li>
+    <li>أنشئ رمزاً من <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Tokens</a> بصلاحية Contents: Read and write.</li>
+    <li>«رفع المحادثات» يكتب/يحدّث ملف قاعدة البيانات في مستودعك تلقائياً.</li>
+    <li>«سحب المحادثات» يجلبها على أي جهاز آخر.</li>
   </ol>
   <div class="rowBtns"><button class="btn" id="closeCloud">إغلاق</button></div>
 </div></div>
@@ -395,9 +352,9 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 <!-- عارض التقارير -->
 <div class="modal" id="repModal"><div class="sheet" id="repSheet">
   <div class="repBar">
-    <h3>📊 عارض التقارير والأبحاث</h3>
+    <h3>📊 التقرير</h3>
     <button class="btn" id="repPrint">🖨️ طباعة / PDF</button>
-    <button class="btn primary" id="repDl">⬇️ تحميل التقرير</button>
+    <button class="btn primary" id="repDl">⬇️ تحميل</button>
     <button class="btn" id="closeRep">✕</button>
   </div>
   <iframe id="repFrame" title="التقرير"></iframe>
@@ -408,7 +365,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   <div class="slTop">
     <h3>📽️ العرض التقديمي</h3>
     <button class="btn" id="slFull">⛶ ملء الشاشة</button>
-    <button class="btn primary" id="slDl">⬇️ تحميل العرض</button>
+    <button class="btn primary" id="slDl">⬇️ تحميل</button>
     <button class="btn" id="closeSl">✕</button>
   </div>
   <iframe id="slFrame" title="العرض"></iframe>
@@ -420,65 +377,74 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 "use strict";
 const $=s=>document.querySelector(s);
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}}};
-function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){toast("⚠️ مساحة التخزين ممتلئة — صدّر المحادثة أو امسح القديمة")}}
+function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){toast("⚠️ مساحة التخزين ممتلئة")}}
+
+/* ============ المفاتيح المدمجة (تُستخدم تلقائياً بدون إعدادات) ============ */
+const BUILTIN={
+  gemini:"",      // ضع مفتاح Google AI Studio هنا
+  groq:"",        // ضع مفتاح Groq هنا
+  openrouter:"",
+  github:"",
+  mistral:"",
+  cohere:""
+};
 
 /* ==================== التبويبات ==================== */
-document.querySelectorAll(".tabs button").forEach(b=>{
-  b.onclick=()=>{
-    document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
-    document.querySelectorAll("section.view").forEach(x=>x.classList.remove("on"));
-    b.classList.add("active");$("#v-"+b.dataset.v).classList.add("on");
-  };
-});
 function gotoView(v){
-  document.querySelector(".tabs button[data-v='"+v+"']").click();
+  document.querySelectorAll("section.view").forEach(x=>x.classList.remove("on"));
+  $("#v-"+v).classList.add("on");
 }
 
 /* ==================== الوضع الليلي/النهاري ==================== */
-let theme=LS.get("theme","dark");
+let theme=LS.get("theme","light");
 function applyTheme(){
-  document.body.classList.toggle("light",theme==="light");
-  $("#themeBtn").textContent=theme==="light"?"🌙 ليلي":"☀️ نهاري";
+  document.body.classList.toggle("dark",theme==="dark");
+  $("#themeBtn").textContent=theme==="dark"?"☀️":"🌙";
 }
-$("#themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";save("theme",theme);applyTheme();};
+$("#themeBtn").onclick=()=>{theme=theme==="dark"?"light":"dark";save("theme",theme);applyTheme();};
 applyTheme();
 
 /* ==================== الأوضاع ==================== */
 const MODES={
- general:{name:"🌟 شامل",sys:"أنت «SALMAN»، مساعد ذكاء اصطناعي سحابي عربي ودود ودقيق. أجب بالعربية المبسطة إلا إذا طُلب غير ذلك، وبإجابات منظمة وعملية.",
+ general:{name:"💬 محادثة عامة",sys:"أنت «Salman-Bot»، مساعد ذكاء اصطناعي عربي ودود ودقيق. أجب بالعربية المبسطة إلا إذا طُلب غير ذلك، وبإجابات منظمة وعملية.",
   chips:["✍️ اكتب لي رسالة رسمية","🧠 اشرح مفهوماً معقداً ببساطة","📅 خطط لي يومي","🌍 ترجم واشرح نصاً"]},
- reports:{name:"📊 تقارير وأبحاث",sys:"أنت «SALMAN»، باحث وخبير في إعداد التقارير والأبحاث العلمية الاحترافية. عند طلب المستخدم تقريراً أو بحثاً، أنتج التقرير كاملاً داخل كتلة واحدة تبدأ بـ ```report وتنتهي بـ ``` بدون وسم html أو body أو أي CSS. البنية المطلوبة:\n<h1>عنوان التقرير</h1>\n<p>مقدمة وملخص تنفيذي</p>\nأقسام بـ <h2> و<h3> وفقرات <p> وقوائم <ul>/<ol>\n2 إلى 4 جداول <table> بيانات حقيقية مناسبة لموضوع البحث (استخدم <thead> و<tbody>)\n3 إلى 5 صور توضيحية مكانها الصحيح بالشكل: <img src=\"IMG:english descriptive prompt\"> (الوصف دائماً بالإنجليزية بعد IMG:)\n<h2>الخلاصة والتوصيات</h2>\n<h2>المراجع</h2> بقائمة <ol>\nاجعل المحتوى علمياً دقيقاً وغنياً بالشروحات. لا تكتب أي كلام خارج كتلة report.",
-  chips:["📊 تقرير عن الطاقة المتجددة","🔬 بحث علمي عن الذكاء الاصطناعي","📈 تقرير تحليل السوق السعودي","🧪 بحث في علم الأحياء عن الخلايا"]},
- slides:{name:"📽️ عروض تقديمية",sys:"أنت «SALMAN»، خبير في تصميم العروض التقديمية العلمية والمهنية. عند طلب المستخدم عرضاً تقديمياً، أنتج العرض كاملاً داخل كتلة واحدة تبدأ بـ ```slides وتنتهي بـ ``` بدون وسم html أو CSS. البنية:\nمن 7 إلى 10 شرائح، كل شريحة داخل <section> ... </section>\nالشريحة الأولى: <h1>عنوان العرض</h1> و<p>سطر تعريفي</p>\nكل شريحة متوسطة: <h2>عنوان الشريحة</h2> + <ul> من 3 إلى 5 نقاط + <p> شرح علمي موجز\nشريحة واحدة على الأقل فيها <table> بيانات مناسبة\nكل شريحتين تقريباً صورة توضيحية: <img src=\"IMG:english descriptive prompt\"> (وصف إنجليزي دائماً)\nالشريحة الأخيرة: خاتمة وشكر <h2>شكراً لكم</h2>\nلا تكتب أي كلام خارج كتلة slides.",
-  chips:["📽️ عرض عن الطاقة الشمسية","🎓 عرض تعليمي عن البراكين","📊 عرض تقديمي لخطة عمل","🧬 عرض عن علم الوراثة"]},
- coder:{name:"💻 مبرمج",sys:"أنت «SALMAN» في وضع المبرمج. قدّم كوداً كاملاً قابلاً للتشغيل مع شرح موجز. عند طلب صفحات ويب اكتب ملف HTML كاملاً داخل كتلة ```html ليتمكن المستخدم من معاينته مباشرة. ركّز على أفضل الممارسات.",
+ reports:{name:"📊 تقرير أو بحث علمي",sys:"أنت «Salman-Bot»، باحث وخبير في إعداد التقارير والأبحاث العلمية الاحترافية. عند طلب المستخدم تقريراً أو بحثاً، أنتج التقرير كاملاً داخل كتلة واحدة تبدأ بـ ```report وتنتهي بـ ``` بدون وسم html أو body أو أي CSS. البنية المطلوبة:\n<h1>عنوان التقرير</h1>\n<p>مقدمة وملخص تنفيذي</p>\nأقسام بـ <h2> و<h3> وفقرات <p> وقوائم <ul>/<ol>\n2 إلى 4 جداول <table> بيانات مناسبة (استخدم <thead> و<tbody>)\n3 إلى 5 صور توضيحية بالشكل: <img src=\"IMG:english descriptive prompt\"> (الوصف إنجليزي دائماً)\n<h2>الخلاصة والتوصيات</h2>\n<h2>المراجع</h2> بقائمة <ol>\nلا تكتب أي كلام خارج كتلة report.",
+  chips:["📊 تقرير عن الطاقة المتجددة","🔬 بحث علمي عن الذكاء الاصطناعي","📈 تقرير تحليل السوق السعودي","🧪 بحث في الأحياء عن الخلايا"]},
+ slides:{name:"📽️ عرض تقديمي",sys:"أنت «Salman-Bot»، خبير تصميم العروض التقديمية. أنتج العرض كاملاً داخل كتلة واحدة تبدأ بـ ```slides وتنتهي بـ ``` بدون وسم html أو CSS. البنية:\nمن 7 إلى 10 شرائح، كل شريحة داخل <section>...</section>\nالشريحة الأولى: <h1>عنوان العرض</h1> و<p>سطر تعريفي</p>\nكل شريحة: <h2>عنوان</h2> + <ul> من 3 إلى 5 نقاط + <p> شرح موجز\nشريحة واحدة على الأقل فيها <table> بيانات\nكل شريحتين صورة: <img src=\"IMG:english descriptive prompt\">\nالشريحة الأخيرة: <h2>شكراً لكم</h2>\nلا تكتب أي كلام خارج كتلة slides.",
+  chips:["📽️ عرض عن الطاقة الشمسية","🎓 عرض تعليمي عن البراكين","📊 عرض لخطة عمل","🧬 عرض عن الوراثة"]},
+ coder:{name:"💻 مبرمج",sys:"أنت «Salman-Bot» في وضع المبرمج. قدّم كوداً كاملاً قابلاً للتشغيل مع شرح موجز. عند طلب صفحات ويب اكتب ملف HTML كاملاً داخل كتلة ```html. ركّز على أفضل الممارسات.",
   chips:["🌐 صفحة هبوط HTML كاملة","🐍 حل تمرين بايثون","🐞 صحح لي هذا الكود","🎮 لعبة جافاسكربت بسيطة"]},
- writer:{name:"✍️ كاتب",sys:"أنت «SALMAN» في وضع كاتب المحتوى. اكتب محتوى عربياً إبداعياً جذاباً: مقالات، منشورات، إعلانات، قصص، سيناريوهات. اقترح عناوين بديلة دائماً.",
+ writer:{name:"✍️ كاتب محتوى",sys:"أنت «Salman-Bot» في وضع كاتب المحتوى. اكتب محتوى عربياً إبداعياً جذاباً: مقالات، منشورات، إعلانات، قصص. اقترح عناوين بديلة دائماً.",
   chips:["📝 مقال عن الذكاء الاصطناعي","📱 منشور إنستغرام جذاب","🚀 وصف منتج تسويقي","📖 قصة قصيرة للأطفال"]},
- files:{name:"📂 محلل ملفات",sys:"أنت «SALMAN» في وضع محلل الملفات. سيرفق المستخدم محتوى الملفات في رسالته. حلّلها بدقة: ملخص، نقاط رئيسية، ملاحظات، وتوصيات. وإن كانت كوداً فحلّلها برمجياً واقترح تحسينات.",
+ files:{name:"📂 محلل ملفات",sys:"أنت «Salman-Bot» في وضع محلل الملفات. سيرفق المستخدم محتوى الملفات في رسالته. حلّلها بدقة: ملخص، نقاط رئيسية، ملاحظات، وتوصيات.",
   chips:["📊 لخّص الملف المرفق","🔍 ابحث عن أخطاء في الكود","📈 استخرج النقاط المهمة","❓ اطرح أسئلة عن الملف"]},
- images:{name:"🎨 منشئ صور",sys:"أنت «SALMAN» في وضع منشئ الصور. مهمتك تحويل فكرة المستخدم إلى وصف إنجليزي غني ومفصل (prompt) احترافي لتوليد صور مذهلة. أجب باختصار واذكر الوصف الذي صغته.",
+ images:{name:"🎨 توليد صور",sys:"أنت «Salman-Bot» في وضع توليد الصور. مهمتك تحويل فكرة المستخدم إلى وصف إنجليزي غني ومفصل (prompt) لتوليد صور مذهلة. أجب باختصار واذكر الوصف الذي صغته.",
   chips:["🏙️ مدينة مستقبلية بالغروب","🐱 قط رائد فضاء كرتوني","🍜 صورة طعام احترافية","🌄 منظر طبيعي خيالي"]},
 };
 let mode=LS.get("mode","general");
 
 /* ==================== المحركات ==================== */
 const ENG={
- pollinations:{name:"Pollinations (مجاني)",model:"openai",keyless:true},
+ pollinations:{name:"Pollinations · مجاني",model:"openai",keyless:true},
  gemini:{name:"Google Gemini",model:"gemini-2.0-flash"},
  groq:{name:"Groq LPU",model:"llama-3.3-70b-versatile"},
- openrouter:{name:"OpenRouter Free",model:"meta-llama/llama-3.3-70b-instruct:free"},
+ openrouter:{name:"OpenRouter",model:"meta-llama/llama-3.3-70b-instruct:free"},
  github:{name:"GitHub Models",model:"openai/gpt-4o-mini"},
  mistral:{name:"Mistral",model:"mistral-small-latest"},
  cohere:{name:"Cohere",model:"command-r7b-12-2024"},
 };
 let engine=LS.get("engine","pollinations");
 let keys=LS.get("keys",{});
-$("#engName").textContent="· "+ENG[engine].name;
+function engLabel(){
+ const hasBuiltin=BUILTIN[engine]&&BUILTIN[engine].trim();
+ $("#engName").textContent=(ENG[engine].name)+(hasBuiltin?" · مفتاح مدمج":engine==="pollinations"?" · مجاني":"");
+}
+engLabel();
 
 async function callAI(messages,images){
- const e=ENG[engine]||ENG.pollinations,k=(keys[engine]||"").trim();
- if(!e.keyless&&!k)throw new Error("أضف مفتاح API من ⚙️ المحركات أولاً");
+ const e=ENG[engine]||ENG.pollinations;
+ const k=((keys[engine]&&keys[engine].trim())||BUILTIN[engine]||"").trim();
+ if(!e.keyless&&!k)throw new Error("أضف مفتاح API من ⚙️ المحركات أو استخدم المحرك الافتراضي المجاني");
  if(engine==="gemini"){
    const contents=messages.map(m=>({role:m.role==="assistant"?"model":"user",parts:[{text:m.content}]}));
    (images||[]).forEach(im=>contents.push({role:"user",parts:[{inline_data:{mime_type:im.mime,data:im.b64}}]}));
@@ -499,29 +465,9 @@ async function callAI(messages,images){
  return j.choices?.[0]?.message?.content||j.choices?.[0]?.text||"لم أتلقَّ رداً";
 }
 
-/* ==================== الشخصية ==================== */
-const cv=$("#waves"),wx=cv.getContext("2d");
-const COLORS={idle:[0,255,157],listen:[94,234,212],think:[245,158,11],speak:[236,72,153]};
-let botState="idle",wt=0;
-function drawWaves(){
- const [r,g,b]=COLORS[botState];
- const amp=botState==="speak"?1:botState==="think"?.55:botState==="listen"?.75:.3;
- wx.clearRect(0,0,cv.width,cv.height);
- for(let l=0;l<3;l++){
-   wx.beginPath();wx.strokeStyle="rgba("+r+","+g+","+b+","+(0.9-l*0.3)+")";wx.lineWidth=2.5-l*0.6;
-   for(let x=0;x<=cv.width;x+=4){
-     const y=cv.height/2+Math.sin(x*.03+wt*(1+l*.4))*12*amp+Math.sin(x*.08-wt*1.7)*7*amp+Math.sin(x*.015+wt*.7)*5*amp;
-     x===0?wx.moveTo(x,y):wx.lineTo(x,y);
-   }
-   wx.stroke();
- }
- wt+=botState==="think"?.09:.05;
- requestAnimationFrame(drawWaves);
-}
-drawWaves();
+/* ==================== حالة الشخصية ==================== */
 function setState(s,msg){
- botState=s;
- $("#orb").className="orb"+(s==="idle"?"":" state-"+s);
+ $("#orb").className="dot"+(s==="idle"?"":" state-"+s);
  if(msg)$("#status").textContent=msg;
 }
 
@@ -534,15 +480,15 @@ function speak(text){
  const ar=synth.getVoices().find(v=>v.lang&&v.lang.startsWith("ar"));
  if(ar)u.voice=ar;
  u.lang="ar-SA";
- u.onstart=()=>setState("speak","🔴 SALMAN يتحدث...");
- u.onend=()=>setState("idle","جاهز — اكتب سؤالك أو اضغط 🎤");
+ u.onstart=()=>setState("speak","🔊 Salman-Bot يتحدث...");
+ u.onend=()=>setState("idle","جاهز — كيف أساعدك؟");
  synth.speak(u);
 }
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 $("#micBtn").onclick=()=>{
  if(!SR){toast("متصفحك لا يدعم الاستماع الصوتي — استخدم Chrome أو Edge");return;}
  const r=new SR();r.lang="ar-SA";r.interimResults=false;
- setState("listen","🎙️ أستمع إليك... تحدث الآن");
+ setState("listen","🎙️ أستمع إليك...");
  $("#micBtn").classList.add("rec");
  const stop=()=>{$("#micBtn").classList.remove("rec");try{r.stop()}catch{}setState("idle","جاهز");};
  r.onresult=e=>{stop();$("#input").value=e.results[0][0].transcript;$("#input").dispatchEvent(new Event("input"));$("#sendBtn").click();};
@@ -569,42 +515,41 @@ function download(name,blobOrText,type){
  const a=document.createElement("a");
  a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
 }
+function mkBtn(txt,fn){const b=document.createElement("button");b.className="actBtn";b.textContent=txt;b.onclick=fn;return b;}
 
 /* ==================== أنماط التقارير والعروض ==================== */
 const REPORT_CSS=`
  body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;max-width:860px;margin:0 auto;padding:36px 28px;color:#14201a;background:#fff;line-height:1.9;font-size:15px}
- h1{color:#014d30;border-bottom:3px solid #00ff9d;padding-bottom:10px;font-size:1.7rem}
- h2{color:#014d30;border-right:4px solid #00ff9d;padding-right:10px;margin-top:28px}
- h3{color:#036e44;margin-top:20px}
+ h1{color:#065f46;border-bottom:3px solid #10b981;padding-bottom:10px;font-size:1.7rem}
+ h2{color:#065f46;border-right:4px solid #10b981;padding-right:10px;margin-top:28px}
+ h3{color:#047857;margin-top:20px}
  table{border-collapse:collapse;width:100%;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
- th{background:#014d30;color:#fff;padding:9px 12px;font-size:.88rem}
- td{border:1px solid #cfe5d9;padding:8px 12px;font-size:.88rem}
+ th{background:#065f46;color:#fff;padding:9px 12px;font-size:.88rem}
+ td{border:1px solid #d1e7dd;padding:8px 12px;font-size:.88rem}
  tr:nth-child(even) td{background:#f2faf6}
- img{max-width:100%;border-radius:10px;border:1px solid #cfe5d9;display:block;margin:14px auto;box-shadow:0 3px 14px rgba(0,0,0,.12)}
- ul,ol{padding-right:22px;margin:10px 0}
- li{margin:5px 0}
- p{margin:9px 0}
+ img{max-width:100%;border-radius:10px;display:block;margin:14px auto;box-shadow:0 3px 14px rgba(0,0,0,.12)}
+ ul,ol{padding-right:22px;margin:10px 0}li{margin:5px 0}p{margin:9px 0}
  @media print{img{box-shadow:none}body{padding:10mm}}
 `;
 const DECK_CSS=`
  *{box-sizing:border-box;margin:0}
- body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:#04070a;overflow:hidden}
+ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:#0d1117;overflow:hidden}
  #deck{width:100vw;height:calc(100vh - 56px);position:relative}
- .slide{display:none;width:100%;height:100%;padding:5vh 7vw;flex-direction:column;justify-content:center;background:radial-gradient(900px 500px at 85% -10%,rgba(0,255,157,.12),transparent 55%),#060b09;color:#f2fff8}
+ .slide{display:none;width:100%;height:100%;padding:5vh 7vw;flex-direction:column;justify-content:center;color:#e6edf3}
  .slide.on{display:flex}
- .slide h1{color:#00ff9d;font-size:2.6rem;text-shadow:0 0 24px rgba(0,255,157,.45);margin-bottom:14px}
- .slide h2{color:#00ff9d;font-size:1.9rem;margin-bottom:16px;border-right:5px solid #00ff9d;padding-right:14px}
- .slide p{font-size:1.15rem;line-height:1.9;color:#cfe5d9;max-width:60ch}
- .slide ul{padding-right:24px;font-size:1.15rem;line-height:2}
+ .slide h1{color:#10b981;font-size:2.5rem;margin-bottom:14px}
+ .slide h2{color:#10b981;font-size:1.8rem;margin-bottom:16px;border-right:5px solid #10b981;padding-right:14px}
+ .slide p{font-size:1.12rem;line-height:1.9;color:#c9d1d9;max-width:60ch}
+ .slide ul{padding-right:24px;font-size:1.12rem;line-height:2}
  .slide li{margin:6px 0}
- .slide img{max-height:34vh;max-width:46vw;border-radius:12px;border:2px solid rgba(0,255,157,.4);box-shadow:0 0 30px rgba(0,255,157,.2);display:block;margin:14px 0}
+ .slide img{max-height:32vh;max-width:44vw;border-radius:12px;display:block;margin:14px 0}
  .slide table{border-collapse:collapse;margin:12px 0;font-size:1rem}
- .slide th{background:#014d30;color:#fff;padding:9px 16px}
- .slide td{border:1px solid #1a3a2c;padding:8px 16px}
- .ctr{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;background:#0a120d;border-top:1px solid #123324;z-index:9}
- .ctr button{background:#0f1c15;border:1px solid #00ff9d;color:#00ff9d;font-size:1.05rem;padding:8px 22px;border-radius:10px;cursor:pointer}
- .ctr button:hover{background:#00ff9d;color:#01130b}
- .ctr span{color:#7ea893;font-size:.9rem;min-width:70px;text-align:center}
+ .slide th{background:#065f46;color:#fff;padding:9px 16px}
+ .slide td{border:1px solid #30363d;padding:8px 16px}
+ .ctr{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;background:#161b22;border-top:1px solid #30363d;z-index:9}
+ .ctr button{background:#1f2630;border:1px solid #10b981;color:#10b981;font-size:1rem;padding:8px 22px;border-radius:10px;cursor:pointer}
+ .ctr button:hover{background:#10b981;color:#fff}
+ .ctr span{color:#8b949e;font-size:.9rem;min-width:70px;text-align:center}
 `;
 
 /* ==================== الدردشة ==================== */
@@ -643,19 +588,23 @@ function addMsg(role,content,extra){
 }
 function render(){
  chatBox.innerHTML="";
- if(!history.length)addMsg("bot","مرحباً! أنا SALMAN 🤖 — ذكاؤك السحابي المجاني.\n\n• 📊 اطلب تقريراً أو بحثاً علمياً كاملاً بالصور والجداول\n• 📽️ اطلب عرضاً تقديمياً جاهزاً\n• 🎨 استوديو الصور و🎬 استوديو الفيديو للتعديل الاحترافي\n• 🎤 تحدث معي صوتياً · 📎 أرفق ملفات · 🎨 /imagine وصف الصورة\n• ☀️🌙 بدّل بين الوضع الليلي والنهاري\n\nكيف أساعدك اليوم؟");
+ if(!history.length)addMsg("bot","مرحباً! أنا Salman-Bot ✳️ — مساعدك الذكي المجاني.\n\n• 💬 اسألني أي شيء أو تحدث معي صوتياً 🎤\n• 📊 اطلب تقريراً أو بحثاً علمياً بالصور والجداول\n• 📽️ اطلب عرضاً تقديمياً جاهزاً\n• 🎨🎬 استوديو الصور والفيديو من الشريط العلوي\n\nكيف أساعدك اليوم؟");
  else history.forEach(m=>addMsg(m.role,m.content,m));
 }
 render();
 
 function buildModes(){
- const bar=$("#modesBar"),cp=$("#chips");bar.innerHTML="";cp.innerHTML="";
+ const sel=$("#modeSel");sel.innerHTML="";
  Object.entries(MODES).forEach(([id,m])=>{
-   const b=document.createElement("button");b.textContent=m.name;
-   if(id===mode)b.classList.add("active");
-   b.onclick=()=>{mode=id;save("mode",mode);buildModes();};
-   bar.appendChild(b);
+   const o=document.createElement("option");o.value=id;o.textContent=m.name;
+   if(id===mode)o.selected=true;
+   sel.appendChild(o);
  });
+ sel.onchange=()=>{mode=sel.value;save("mode",mode);buildChips();};
+ buildChips();
+}
+function buildChips(){
+ const cp=$("#chips");cp.innerHTML="";
  MODES[mode].chips.forEach(c=>{
    const b=document.createElement("button");b.textContent=c;
    b.onclick=()=>{$("#input").value=c;$("#input").focus();$("#input").dispatchEvent(new Event("input"));};
@@ -691,7 +640,7 @@ function renderAtt(){
 
 /* ==================== الإرسال ==================== */
 $("#input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("#sendBtn").click();}});
-$("#input").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,140)+"px";});
+$("#input").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,130)+"px";});
 $("#sendBtn").onclick=async()=>{
  const input=$("#input"),text=input.value.trim();
  if(!text&&!attachments.length)return;
@@ -708,7 +657,7 @@ $("#sendBtn").onclick=async()=>{
    return;
  }
 
- setState("think","💭 SALMAN يفكّر...");
+ setState("think","💭 أفكّر...");
  const typing=addMsg("bot","");
  typing.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';
  try{
@@ -722,7 +671,6 @@ $("#sendBtn").onclick=async()=>{
    let fileNote="";
    if(atts.length){
      fileNote="\n\n📎 مرفقات المستخدم:\n"+atts.map(a=>a.isImg?"[صورة: "+a.name+"]":"[ملف: "+a.name+"]\n"+a.text).join("\n---\n");
-     if(atts.some(a=>a.isImg)&&engine!=="gemini"&&engine!=="pollinations")toast("ملاحظة: تحليل الصور يعمل بأفضل جودة مع محرك Gemini");
    }
    const msgs=[{role:"system",content:MODES[mode].sys},
      ...history.slice(-20).map(m=>({role:m.role==="bot"?"assistant":"user",content:m.content}))];
@@ -747,7 +695,7 @@ $("#sendBtn").onclick=async()=>{
        const deck=buildDeck(slBlock);
        const title=firstTag(slBlock,"h1")||"عرض تقديمي";
        const count=(slBlock.match(/<section/gi)||[]).length;
-       const summary="📽️ جاهز! أنشأت لك عرضاً تقديمياً من "+count+" شريحة: «"+title+"» — بالصور والجداول والشروح.";
+       const summary="📽️ جاهز! أنشأت لك عرضاً من "+count+" شريحة: «"+title+"» — بالصور والجداول والشروح.";
        typing.innerHTML="";typing.textContent=summary;
        typing.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(deck)));
        typing.appendChild(mkBtn("⬇️ تحميل العرض",()=>download("salman-presentation.html",deck)));
@@ -765,12 +713,14 @@ $("#sendBtn").onclick=async()=>{
    typing.innerHTML="";typing.textContent="⚠️ "+err.message;
    setState("idle","حدث خطأ — حاول مرة أخرى");return;
  }
- if(botState!=="speak")setState("idle","جاهز — اكتب سؤالك أو اضغط 🎤");
+ if(botStateFlag!=="speak")setState("idle","جاهز — كيف أساعدك؟");
 };
-function mkBtn(txt,fn){const b=document.createElement("button");b.className="actBtn";b.textContent=txt;b.onclick=fn;return b;}
+let botStateFlag="idle";
+const _origSetState=setState;
+setState=function(s,msg){botStateFlag=s;_origSetState(s,msg);};
 
-async function genImage(prompt,keepText){
- setState("think","🎨 أُولّد صورتك الآن...");
+async function genImage(prompt){
+ setState("think","🎨 أولّد صورتك...");
  const url=imgURL(prompt);
  const t=addMsg("bot","🎨 إليك صورتك — من وصف: "+prompt);
  const im=document.createElement("img");im.className="genimg";im.src=url;
@@ -779,12 +729,12 @@ async function genImage(prompt,keepText){
  t.appendChild(mkBtn("🎨 فتح في الاستوديو",()=>openStudioUrl(url)));
  history.push({role:"bot",content:"🎨 "+prompt,genimg:url});save("history",history);
  chatBox.scrollTop=chatBox.scrollHeight;
- setState("idle","جاهز — جرّب وصفاً آخر أو عد إلى المحادثة");
+ setState("idle","جاهز — جرّب وصفاً آخر");
 }
 
 /* ==================== عارض التقارير ==================== */
 function wrapReport(html){
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — SALMAN Bot</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — Salman-Bot</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
 }
 function openReport(html){
  currentReport=html;
@@ -806,7 +756,7 @@ function buildDeck(block){
  }catch{}
  if(!secs.length)secs=[filled];
  const slides=secs.map(s=>'<section class="slide">'+s+'</section>').join("");
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — SALMAN Bot</title><style>'+DECK_CSS+'</style></head><body>'
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — Salman-Bot</title><style>'+DECK_CSS+'</style></head><body>'
    +'<div id="deck">'+slides+'</div>'
    +'<div class="ctr"><button onclick="go(-1)">السابق ▶</button><span id="cnt"></span><button onclick="go(1)">◀ التالي</button><button onclick="fs()">⛶</button></div>'
    +'<script>\nvar i=0,S=document.querySelectorAll(".slide");\nfunction show(){S.forEach(function(s,k){s.classList.toggle("on",k===i)});document.getElementById("cnt").textContent=(i+1)+" / "+S.length;}\nfunction go(d){i=Math.min(S.length-1,Math.max(0,i+d));show();}\nfunction fs(){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}\ndocument.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(1);if(e.key==="ArrowRight")go(-1);});\nshow();\n<\/script></body></html>';
@@ -841,18 +791,11 @@ function filterStr(pre){
  if(+g("bl")!==0)p.push("blur("+g("bl")+"px)");
  return p.join(" ")||"none";
 }
-function bindVals(pre,ids,fmt){
- ids.forEach(id=>{
-   $("#"+pre+id).addEventListener("input",function(){
-     $("#v"+id).textContent=fmt?fmt(this.value):this.value;
-     renderImg();
-   });
- });
-}
-["br","ct","sa","hu","gr","se","bl"].forEach(id=>$("#i"+id).addEventListener("input",renderImg));
-["br","ct","sa","gr","se"].forEach(id=>{$("#i"+id).addEventListener("input",function(){$("#v"+id).textContent=this.value+"%";});});
-$("#ihu").addEventListener("input",function(){$("#vhu").textContent=this.value+"°";});
-$("#ibl").addEventListener("input",function(){$("#vbl").textContent=this.value+"px";});
+["br","ct","sa","hu","gr","se","bl"].forEach(id=>$("#i"+id).addEventListener("input",function(){
+ const map={br:"vbr",ct:"vct",sa:"vsa",hu:"vhu",gr:"vgr",se:"vse",bl:"vbl"};
+ $("#"+map[id]).textContent=["hu"].includes(id)?this.value+"°":["bl"].includes(id)?this.value+"px":this.value+"%";
+ renderImg();
+}));
 ["rsSel","txtImg","tsi","tci","tpi"].forEach(id=>$("#"+id).addEventListener("input",renderImg));
 $("#tsi").addEventListener("input",function(){$("#vti").textContent=this.value;});
 
@@ -860,7 +803,7 @@ function loadSource(src,type){
  ist.src=src;ist.srcType=type;ist.rot=0;ist.fx=1;ist.fy=1;
  const im=new Image();
  if(type==="url")im.crossOrigin="anonymous";
- im.onload=()=>{img=im;renderImg();toast("✅ تم تحميل الصورة إلى الاستوديو");};
+ im.onload=()=>{img=im;renderImg();toast("✅ تم تحميل الصورة");};
  im.onerror=()=>toast("⚠️ تعذر تحميل الصورة");
  im.src=src;
 }
@@ -877,7 +820,7 @@ $("#loadUrlBtn").onclick=()=>{
 $("#genNewImg").onclick=()=>{
  const p=$("#aiEditPrompt").value.trim()||prompt("اكتب وصف الصورة المطلوب توليدها:");
  if(!p)return;
- toast("🎨 سلمان يولّد صورتك...");
+ toast("🎨 Salman-Bot يولّد صورتك...");
  loadSource(imgURL(p,1024,1024),"url");
 };
 $("#btnRot").onclick=()=>{ist.rot=(ist.rot+90)%360;renderImg();};
@@ -902,7 +845,7 @@ function drawText(ctx,w,h,txt,size,color,pos){
 }
 function renderImg(){
  const c=$("#imgCv"),ctx=c.getContext("2d");
- if(!img){c.width=640;c.height=400;ctx.fillStyle="#0a120d";ctx.fillRect(0,0,640,400);return;}
+ if(!img){c.width=640;c.height=400;ctx.fillStyle=getComputedStyle(document.body).getPropertyValue("--panel2")||"#eee";ctx.fillRect(0,0,640,400);return;}
  const rs=$("#rsSel").value;
  let w=img.naturalWidth,h=img.naturalHeight;
  if(rs==="1080"){const s=Math.min(1,1080/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);}
@@ -925,31 +868,28 @@ function renderImg(){
  drawText(ctx,c.width,c.height,$("#txtImg").value,+$("#tsi").value,$("#tci").value,$("#tpi").value);
 }
 $("#dlPng").onclick=()=>{
- try{
-   $("#imgCv").toBlob(b=>{if(b)download("salman-image.png",b,"image/png");else throw 0;});
- }catch{toast("⚠️ الصورة من مصدر خارجي محمي — استخدم زر التحميل من المحادثة");}
+ try{$("#imgCv").toBlob(b=>{if(b)download("salman-image.png",b,"image/png");});}
+ catch{toast("⚠️ الصورة من مصدر محمي — استخدم زر التحميل من المحادثة");}
 };
 $("#dlJpg").onclick=()=>{
  try{
    const c2=document.createElement("canvas");c2.width=$("#imgCv").width;c2.height=$("#imgCv").height;
-   c2.getContext("2d").fillStyle="#fff";c2.getContext("2d").fillRect(0,0,c2.width,c2.height);
-   c2.getContext("2d").drawImage($("#imgCv"),0,0);
-   c2.toBlob(b=>{if(b)download("salman-image.jpg",b,"image/jpeg");else throw 0;});
- }catch{toast("⚠️ الصورة من مصدر خارجي محمي — استخدم زر التحميل من المحادثة");}
+   const x=c2.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c2.width,c2.height);x.drawImage($("#imgCv"),0,0);
+   c2.toBlob(b=>{if(b)download("salman-image.jpg",b,"image/jpeg");});
+ }catch{toast("⚠️ الصورة من مصدر محمي — استخدم زر التحميل من المحادثة");}
 };
-/* التعديل بالذكاء الاصطناعي (Pollinations Kontext) */
 $("#aiEditBtn").onclick=()=>{
  const p=$("#aiEditPrompt").value.trim();
  if(!p){toast("اكتب وصف التعديل المطلوب");return;}
- if(!ist.src){toast("حمّل صورة أولاً (ملف أو رابط أو صورة مولّدة)");return;}
+ if(!ist.src){toast("حمّل صورة أولاً");return;}
  let imgParam="";
  if(ist.srcType==="url"||ist.src.startsWith("data:"))imgParam="&image="+encodeURIComponent(ist.src);
  const url="https://image.pollinations.ai/prompt/"+encodeURIComponent(p)+"?model=kontext&nologo=true"+imgParam;
- toast("🪄 سلمان يعدّل صورتك بالذكاء الاصطناعي... قد تستغرق دقيقة");
+ toast("🪄 Salman-Bot يعدّل صورتك... قد تستغرق دقيقة");
  const im=new Image();
  im.crossOrigin="anonymous";
- im.onload=()=>{loadSource(im.src,"url");};
- im.onerror=()=>toast("⚠️ فشل التعديل — جرّب صياغة أخرى للوصف");
+ im.onload=()=>loadSource(im.src,"url");
+ im.onerror=()=>toast("⚠️ فشل التعديل — جرّب صياغة أخرى");
  im.src=url;
 };
 
@@ -958,7 +898,7 @@ const vidPlayer=$("#vidPlayer");
 ["br2","ct2","sa2","gr2","se2","bl2"].forEach(id=>$("#v"+id).addEventListener("input",function(){
  const map={br2:"vvbr",ct2:"vvct",sa2:"vvsa",gr2:"vvgr",se2:"vvse",bl2:"vvbl"};
  $("#"+map[id]).textContent=id.includes("bl")?this.value+"px":this.value+"%";
- vidPlayer.style.filter=filterStr("v");
+ vidPlayer.style.filter=vFilter();
 }));
 function vFilter(){
  const g=id=>$("#v"+id).value;
@@ -988,7 +928,7 @@ $("#vidFile").onchange=e=>{
    $("#trimStart").max=vidPlayer.duration;$("#trimEnd").max=vidPlayer.duration;
    $("#trimStart").value=0;$("#trimEnd").value=vidPlayer.duration;
    $("#vts").textContent=fmtT(0);$("#vte").textContent=fmtT(vidPlayer.duration);
-   $("#vidProg").textContent="🎬 الفيديو جاهز ("+fmtT(vidPlayer.duration)+") — اضبط القص والفلاتر ثم صدّر";
+   $("#vidProg").textContent="🎬 الفيديو جاهز ("+fmtT(vidPlayer.duration)+")";
  };
  e.target.value="";
 };
@@ -1000,7 +940,7 @@ $("#vtsz").addEventListener("input",function(){$("#vvt").textContent=this.value;
 $("#vidExport").onclick=async()=>{
  if(!vidPlayer.src||!vidPlayer.videoWidth){toast("حمّل فيديو أولاً");return;}
  const s=+$("#trimStart").value,e2=+$("#trimEnd").value;
- if(e2-s<0.3){toast("مدة القص قصيرة جداً — ضبط البداية والنهاية");return;}
+ if(e2-s<0.3){toast("مدة القص قصيرة جداً");return;}
  const speed=+$("#spdSel").value;
  const c=$("#vidCv");c.width=vidPlayer.videoWidth;c.height=vidPlayer.videoHeight;
  const ctx=c.getContext("2d");
@@ -1021,14 +961,13 @@ $("#vidExport").onclick=async()=>{
  rec.onstop=()=>{
    const blob=new Blob(chunks,{type:"video/webm"});
    download("salman-video.webm",blob,"video/webm");
-   $("#vidProg").textContent="";toast("🎬 تم تصدير الفيديو المعدّل بنجاح");
-   setState&&0;
+   $("#vidProg").textContent="";toast("🎬 تم تصدير الفيديو بنجاح");
  };
  vidPlayer.currentTime=s;vidPlayer.playbackRate=speed;vidPlayer.muted=true;
  try{await vidPlayer.play();}catch{toast("⚠️ اضغط على الفيديو أولاً لتفعيل التشغيل");return;}
  rec.start(250);
  const dur=(e2-s)/speed,t0=Date.now();
- const prog=setInterval(()=>{$("#vidProg").textContent="🎬 يجري التصدير... "+Math.min(99,Math.round((Date.now()-t0)/1000/dur*100))+"% — اترك التبويب مفتوحاً";},300);
+ const prog=setInterval(()=>{$("#vidProg").textContent="🎬 يجري التصدير... "+Math.min(99,Math.round((Date.now()-t0)/1000/dur*100))+"%";},300);
  const loop=()=>{
    ctx.filter=vFilter();
    ctx.drawImage(vidPlayer,0,0,c.width,c.height);
@@ -1048,7 +987,8 @@ $("#vidExport").onclick=async()=>{
 function syncKeyUI(){
  const v=$("#engSel").value;
  $("#keyInput").value=keys[v]||"";
- $("#keyLabel").textContent=v==="pollinations"?"Pollinations يعمل بدون مفتاح — اترك الحقل فارغاً:":"مفتاح API (يُخزَّن في متصفحك فقط):";
+ const b=BUILTIN[v]&&BUILTIN[v].trim();
+ $("#keyLabel").textContent=v==="pollinations"?"Pollinations يعمل بدون مفتاح:":(b?"يوجد مفتاح مدمج — اتركه فارغاً لاستخدامه:":"مفتاح API (يُخزَّن في متصفحك فقط):");
 }
 $("#engBtn").onclick=()=>{$("#engSel").value=engine;syncKeyUI();$("#engModal").classList.add("open");};
 $("#closeEng").onclick=()=>$("#engModal").classList.remove("open");
@@ -1059,30 +999,25 @@ $("#saveEng").onclick=()=>{
  const k=$("#keyInput").value.trim();
  if(k)keys[engine]=k;else delete keys[engine];
  save("engine",engine);save("keys",keys);
- $("#engName").textContent="· "+ENG[engine].name;
+ engLabel();
  $("#engModal").classList.remove("open");
- toast("✅ تم الحفظ — SALMAN يعمل الآن عبر: "+ENG[engine].name);
+ toast("✅ تم الحفظ");
 };
 $("#clearBtn").onclick=()=>{
  if(synth)synth.cancel();
- if(confirm("مسح كل المحادثة؟")){history=[];save("history",[]);render();toast("تم مسح المحادثة");setState("idle","مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖");}
+ if(confirm("محادثة جديدة؟")){history=[];save("history",[]);render();setState("idle","جاهز — كيف أساعدك؟");}
 };
 
 /* ==================== سحابة GitHub ==================== */
 ["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).value=LS.get(id,""));
-["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).addEventListener("input",function(){save(id,this.value);updatePagesUrl();}));
-function updatePagesUrl(){
- const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim();
- $("#pagesUrl").textContent=u&&r?("https://"+u+".github.io/"+r+"/"):"https://teag3.github.io/Salman-Bot/";
-}
-updatePagesUrl();
+["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).addEventListener("input",function(){save(id,this.value);}));
 $("#cloudBtn").onclick=()=>$("#cloudModal").classList.add("open");
 $("#closeCloud").onclick=()=>$("#cloudModal").classList.remove("open");
 $("#cloudModal").onclick=e=>{if(e.target.id==="cloudModal")$("#cloudModal").classList.remove("open");};
 $("#dlBtn").onclick=()=>{
  const html="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
  download("index.html",html);
- toast("🚀 تم التحميل — ارفعه إلى مستودعك وفعّل GitHub Pages");
+ toast("🚀 تم التحميل — ارفعه إلى مستودعك");
 };
 $("#expBtn").onclick=()=>{
  const a=document.createElement("a");
@@ -1093,13 +1028,13 @@ $("#impBtn").onclick=()=>$("#impFile").click();
 $("#impFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const rd=new FileReader();
- rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;$("#engSel").value=engine;$("#engName").textContent="· "+ENG[engine].name;}save("history",history);save("engine",engine);render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;engLabel();}save("history",history);save("engine",engine);render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
  rd.readAsText(f);
 };
 $("#pushBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
  if(!u||!r||!t){toast("أكمل اسم المستخدم والمستودع والرمز أولاً");return;}
- setState("think","☁️ أرفع بياناتك إلى سحابة GitHub...");
+ setState("think","☁️ جارٍ الرفع...");
  try{
    let sha;
    const g=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{headers:{Authorization:"Bearer "+t}});
@@ -1108,12 +1043,12 @@ $("#pushBtn").onclick=async()=>{
      method:"PUT",
      headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},
      body:JSON.stringify({
-       message:"💾 SALMAN Bot: مزامنة "+new Date().toLocaleString("ar"),
+       message:"💾 Salman-Bot: مزامنة "+new Date().toLocaleString("ar"),
        content:btoa(unescape(encodeURIComponent(JSON.stringify({engine,history,updated:new Date().toISOString()},null,2)))),
        sha
      })
    });
-   if(!p.ok)throw new Error("فشل الرفع (رمز "+p.status+") — تأكد من صلاحية Contents: Write في الرمز");
+   if(!p.ok)throw new Error("فشل الرفع (رمز "+p.status+")");
    toast("☁️✅ تم رفع "+history.length+" رسالة إلى مستودعك");
  }catch(err){toast("⚠️ "+err.message);}
  setState("idle","جاهز");
@@ -1121,24 +1056,24 @@ $("#pushBtn").onclick=async()=>{
 $("#pullBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
  if(!u||!r){toast("أكمل اسم المستخدم واسم المستودع");return;}
- setState("think","☁️ أسحب بياناتك من سحابة GitHub...");
+ setState("think","☁️ جارٍ السحب...");
  try{
    const res=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{headers:t?{Authorization:"Bearer "+t}:{}});
-   if(!res.ok)throw new Error(res.status===404?"لا توجد بيانات محفوظة بعد في المستودع":"فشل السحب (رمز "+res.status+")");
+   if(!res.ok)throw new Error(res.status===404?"لا توجد بيانات محفوظة بعد":"فشل السحب (رمز "+res.status+")");
    const j=await res.json();
    const d=JSON.parse(decodeURIComponent(escape(atob(j.content))));
    history=d.history||[];
-   if(d.engine){engine=d.engine;$("#engSel").value=engine;$("#engName").textContent="· "+ENG[engine].name;}
+   if(d.engine){engine=d.engine;engLabel();}
    save("history",history);save("engine",engine);
    render();
-   toast("☁️✅ تم سحب "+history.length+" رسالة من السحابة");
+   toast("☁️✅ تم سحب "+history.length+" رسالة");
  }catch(err){toast("⚠️ "+err.message);}
  setState("idle","جاهز");
 };
 
 /* ==================== تنبيهات ==================== */
 let tt;
-function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3200);}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3000);}
 if(synth)synth.getVoices();
 </script>
 </body>
