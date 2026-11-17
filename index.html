@@ -4,10 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SALMAN Bot — منصة الذكاء الاصطناعي السحابية المجانية</title>
-<meta name="description" content="سلمان بوت: موقع ذكاء اصطناعي مجاني 100% — شخصية ناطقة، تقارير وأبحاث علمية بالصور والجداول، عروض تقديمية، وتوليد صور، مع مزامنة سحابية عبر GitHub.">
+<meta name="description" content="SALMAN Bot: موقع ذكاء اصطناعي مجاني 100% — شخصية ناطقة، تقارير وأبحاث علمية، عروض تقديمية، استوديو تعديل الصور والفيديو، ومزامنة سحابية عبر GitHub.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🤖</text></svg>">
 <style>
-/* ============ الوضع الليلي (افتراضي): أسود + أبيض + نيون أخضر ============ */
 :root{
   --bg:#040705; --bg2:#080f0b; --panel:#0a120d; --panel2:#0f1c15; --line:#123324;
   --txt:#f2fff8; --dim:#7ea893;
@@ -15,7 +14,6 @@
   --pk:#ec4899; --am:#f59e0b; --gd:#7dffb0;
   --glow:0 0 14px var(--neon-soft);
 }
-/* ============ الوضع النهاري ============ */
 body.light{
   --bg:#f2f7f3; --bg2:#e8efe9; --panel:#ffffff; --panel2:#eef6f0; --line:#c9ded0;
   --txt:#0c1f15; --dim:#527565;
@@ -29,7 +27,7 @@ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--txt);height:100v
   radial-gradient(1100px 550px at 85% -10%,rgba(0,255,157,.10) 0%,transparent 55%),
   radial-gradient(900px 500px at 8% 108%,rgba(0,255,157,.07) 0%,transparent 55%),var(--bg);
   background-size:44px 44px,44px 44px,auto,auto}
-.app{max-width:1100px;margin:0 auto;padding:12px 14px;height:100vh;display:flex;flex-direction:column}
+.app{max-width:1150px;margin:0 auto;padding:12px 14px;height:100vh;display:flex;flex-direction:column}
 
 /* ===== الترويسة ===== */
 header{display:flex;align-items:center;gap:12px;padding:6px 2px 10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -42,11 +40,19 @@ h1 small{display:block;font-size:.68rem;color:var(--dim);font-weight:400}
 .grow{flex:1}
 .hbtn{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:8px 13px;border-radius:10px;cursor:pointer;font-size:.84rem;transition:.2s}
 .hbtn:hover{color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
-.hbtn.on{color:var(--neon);border-color:var(--neon)}
+
+/* ===== التبويبات ===== */
+.tabs{display:flex;gap:8px;margin:8px 0 0}
+.tabs button{flex:1;background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:9px;border-radius:12px;cursor:pointer;font-size:.9rem;transition:.2s}
+.tabs button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
+
+/* ===== الأقسام ===== */
+.view{display:none}
+.view.on{display:flex;flex-direction:column;flex:1;min-height:0}
 
 /* ===== الشخصية ===== */
 .hero{display:flex;align-items:center;gap:16px;padding:8px 4px}
-.orb{position:relative;width:92px;height:92px;flex-shrink:0}
+.orb{position:relative;width:88px;height:88px;flex-shrink:0}
 .orb .core{position:absolute;inset:14px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#d8ffe9 0%,var(--neon) 40%,#014d30 80%);
   box-shadow:0 0 26px var(--neon-soft),inset 0 0 14px rgba(255,255,255,.3);transition:.4s}
@@ -66,25 +72,24 @@ h1 small{display:block;font-size:.68rem;color:var(--dim);font-weight:400}
 /* ===== الأوضاع ===== */
 .modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
 .modes button{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:99px;cursor:pointer;font-size:.82rem;transition:.2s}
-.modes button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow);text-shadow:0 0 8px var(--neon-soft)}
+.modes button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
 
 /* ===== الدردشة ===== */
-.chat{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:10px;min-height:120px;box-shadow:inset 0 0 40px rgba(0,0,0,.25)}
+.chat{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:10px;min-height:100px;box-shadow:inset 0 0 40px rgba(0,0,0,.25)}
 .msg{max-width:85%;padding:10px 14px;border-radius:14px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
 .msg.user{align-self:flex-start;background:linear-gradient(135deg,#062b1c,#0a1f33);border:1px solid var(--neon)}
-body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff);border:1px solid var(--neon)}
+body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff)}
 .msg.bot{align-self:flex-end;background:var(--panel2);border:1px solid var(--line)}
 .msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;font-size:.76rem;color:var(--neon)}
 .msg img.att{max-width:200px;border-radius:10px;display:block;margin-top:6px}
 .msg img.genimg{max-width:100%;border-radius:10px;margin-top:8px;display:block;border:1px solid var(--line)}
 .dlImg{color:var(--gd);font-size:.78rem;text-decoration:none;display:block;margin-top:6px}
 .actBtn{display:inline-block;margin:8px 4px 0 0;background:transparent;border:1px solid var(--neon);color:var(--neon);font-weight:bold;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:.2s}
-.actBtn:hover{background:var(--neon);color:#01130b;box-shadow:var(--glow)}
+.actBtn:hover{background:var(--neon);color:#01130b}
 .typing{display:inline-flex;gap:4px;padding:4px 2px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--neon);animation:bnc 1s infinite;box-shadow:0 0 8px var(--neon-soft)}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--neon);animation:bnc 1s infinite}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}
 .chips button{background:transparent;border:1px dashed var(--line);color:var(--dim);padding:5px 11px;border-radius:99px;cursor:pointer;font-size:.76rem}
 .chips button:hover{color:var(--neon);border-color:var(--neon)}
@@ -99,11 +104,31 @@ body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff);border:1
 .inRow textarea:focus{outline:none;border-color:var(--neon);box-shadow:var(--glow)}
 .inRow button{width:50px;height:50px;border:none;border-radius:14px;font-size:1.15rem;cursor:pointer;flex-shrink:0}
 .send{background:var(--neon);color:#01130b;font-weight:bold}
-.send:hover{box-shadow:0 0 22px var(--neon-soft)}
 .inRow button.ghost{background:var(--panel);border:1px solid var(--line);color:var(--dim)}
 .inRow button.ghost.rec{background:#7f1d1d;color:#fff;border-color:var(--pk)}
 .hint{font-size:.7rem;color:var(--dim);margin-top:5px;text-align:center}
 .hint code{color:var(--neon);direction:ltr;display:inline-block}
+
+/* ===== الاستوديوهات ===== */
+.studio{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:4px 2px}
+.stWrap{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.stCanvasBox{flex:1.2;min-width:280px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.stCanvasBox canvas,.stCanvasBox video{max-width:100%;max-height:46vh;border-radius:10px;background:#000}
+.stCtrls{flex:1;min-width:270px;display:flex;flex-direction:column;gap:10px}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.box h4{color:var(--neon);font-size:.88rem;margin-bottom:8px}
+.box label{display:flex;justify-content:space-between;font-size:.76rem;color:var(--dim);margin:6px 0 2px}
+.box input[type=range]{width:100%;accent-color:var(--neon)}
+.box input[type=text],.box input[type=number],.box select{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:8px 10px;font-family:inherit;margin:3px 0}
+.box input[type=color]{width:44px;height:30px;border:1px solid var(--line);border-radius:6px;background:none;padding:0;cursor:pointer}
+.rowBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.84rem}
+.btn:hover{border-color:var(--neon);color:var(--neon)}
+.btn.primary{background:var(--neon);color:#01130b;border:none;font-weight:bold}
+.btn.primary:hover{box-shadow:0 0 18px var(--neon-soft);color:#01130b}
+.btn.mini{padding:6px 10px;font-size:.78rem}
+.prog{font-size:.8rem;color:var(--gd);min-height:1.2em;margin-top:6px}
+.note{font-size:.7rem;color:var(--dim);line-height:1.8}
 
 /* ===== النوافذ ===== */
 .modal{position:fixed;inset:0;background:rgba(2,6,4,.85);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(5px)}
@@ -114,67 +139,192 @@ body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff);border:1
 .sheet label{display:block;font-size:.82rem;color:var(--dim);margin:12px 0 4px}
 .sheet input,.sheet select{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit}
 .sheet a{color:var(--neon)}
-.rowBtns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:9px 16px;border-radius:10px;cursor:pointer;font-size:.88rem}
-.btn:hover{border-color:var(--neon);color:var(--neon)}
-.btn.primary{background:var(--neon);color:#01130b;border:none;font-weight:bold}
-.btn.primary:hover{box-shadow:0 0 18px var(--neon-soft);color:#01130b}
+.rowBtns .btn{padding:9px 16px;font-size:.88rem}
 .btn.warn{border-color:#7f1d1d;color:#fca5a5}
 .divider{border:none;border-top:1px solid var(--line);margin:16px 0}
 ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--neon);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;box-shadow:var(--glow)}
-.toast.show{opacity:1}
-::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
-
-/* ===== عارض التقارير ===== */
 #repSheet{max-width:1020px;width:100%}
 .repBar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
 .repBar h3{margin:0;flex:1}
 #repFrame{width:100%;height:72vh;border:1px solid var(--line);border-radius:12px;background:#fff}
-
-/* ===== عارض العروض ===== */
 #slModal{padding:0;background:#000}
 .slTop{display:flex;gap:8px;align-items:center;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
 .slTop h3{margin:0;flex:1;color:var(--neon);font-size:.95rem}
 #slFrame{width:100%;height:calc(100vh - 53px);border:none;background:#0a0f0c}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--neon);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;box-shadow:var(--glow)}
+.toast.show{opacity:1}
+::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
     <div class="logo">🤖</div>
-    <h1><b>SALMAN Bot</b> <small>منصة الذكاء الاصطناعي السحابية — تقارير · أبحاث · عروض تقديمية · مجانية 100%</small></h1>
+    <h1><b>SALMAN Bot</b> <small>منصة الذكاء الاصطناعي السحابية — تقارير · أبحاث · عروض · استوديو صور وفيديو · مجانية 100%</small></h1>
     <div class="grow"></div>
-    <button class="hbtn" id="themeBtn" title="الوضع الليلي / النهاري">☀️ نهاري</button>
-    <button class="hbtn" id="cloudBtn">☁️ سحابة GitHub</button>
+    <button class="hbtn" id="themeBtn">☀️ نهاري</button>
+    <button class="hbtn" id="cloudBtn">☁️ سحابة</button>
     <button class="hbtn" id="engBtn">⚙️ المحركات</button>
     <button class="hbtn" id="clearBtn">🗑️</button>
   </header>
 
-  <!-- الشخصية التفاعلية -->
-  <div class="hero">
-    <div class="orb" id="orb"><div class="ring"></div><div class="ring r2"></div><div class="core"></div></div>
-    <div class="heroInfo">
-      <div class="name">SALMAN <em id="engName">· نَبراس الحر (مجاني)</em></div>
-      <div class="st" id="status">مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖</div>
-      <canvas id="waves" width="800" height="84"></canvas>
-    </div>
-  </div>
+  <nav class="tabs">
+    <button data-v="chat" class="active">💬 المحادثة</button>
+    <button data-v="img">🎨 استوديو الصور</button>
+    <button data-v="vid">🎬 استوديو الفيديو</button>
+  </nav>
 
-  <div class="modes" id="modesBar"></div>
-  <div class="chat" id="chat"></div>
-  <div class="chips" id="chips"></div>
-
-  <div class="compose">
-    <div class="attRow" id="attRow"></div>
-    <div class="inRow">
-      <button class="ghost" id="micBtn" title="تحدث بالصوت">🎤</button>
-      <button class="ghost" id="attBtn" title="إرفاق ملفات">📎</button>
-      <textarea id="input" rows="1" placeholder="اكتب رسالتك لسلمان... أو /imagine وصف الصورة"></textarea>
-      <button class="send" id="sendBtn" title="إرسال">🚀</button>
+  <!-- ======== المحادثة ======== -->
+  <section class="view on" id="v-chat">
+    <div class="hero">
+      <div class="orb" id="orb"><div class="ring"></div><div class="ring r2"></div><div class="core"></div></div>
+      <div class="heroInfo">
+        <div class="name">SALMAN <em id="engName">· نَبراس الحر (مجاني)</em></div>
+        <div class="st" id="status">مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖</div>
+        <canvas id="waves" width="800" height="84"></canvas>
+      </div>
     </div>
-    <div class="hint">مجاني بالكامل · جرّب: تقرير · بحث علمي · عرض تقديمي · <code>/imagine</code> للصور · مفتاح مجاني من ⚙️ المحركات</div>
-  </div>
+    <div class="modes" id="modesBar"></div>
+    <div class="chat" id="chat"></div>
+    <div class="chips" id="chips"></div>
+    <div class="compose">
+      <div class="attRow" id="attRow"></div>
+      <div class="inRow">
+        <button class="ghost" id="micBtn" title="تحدث بالصوت">🎤</button>
+        <button class="ghost" id="attBtn" title="إرفاق ملفات">📎</button>
+        <textarea id="input" rows="1" placeholder="اكتب رسالتك لسلمان... أو /imagine وصف الصورة"></textarea>
+        <button class="send" id="sendBtn" title="إرسال">🚀</button>
+      </div>
+      <div class="hint">مجاني بالكامل · تقارير · أبحاث · عروض تقديمية · <code>/imagine</code> للصور · استوديو الصور والفيديو من الأعلى</div>
+    </div>
+  </section>
+
+  <!-- ======== استوديو الصور ======== -->
+  <section class="view" id="v-img">
+    <div class="studio">
+      <div class="stWrap">
+        <div class="stCanvasBox">
+          <canvas id="imgCv" width="640" height="400"></canvas>
+          <div class="prog" id="imgSrcInfo">حمّل صورة من الزرين في اللوحة الجانبية ←</div>
+        </div>
+        <div class="stCtrls">
+          <div class="box">
+            <h4>📁 المصدر</h4>
+            <div class="rowBtns">
+              <button class="btn primary" onclick="document.getElementById('imgFile').click()">📁 رفع صورة</button>
+              <button class="btn" id="genNewImg">🎨 توليد صورة جديدة</button>
+            </div>
+            <input id="imgUrl" type="text" placeholder="أو الصق رابط صورة هنا...">
+            <div class="rowBtns"><button class="btn mini" id="loadUrlBtn">🔗 تحميل الرابط</button></div>
+            <input type="file" id="imgFile" accept="image/*" hidden>
+          </div>
+          <div class="box">
+            <h4>🪄 التعديل بالذكاء الاصطناعي</h4>
+            <input id="aiEditPrompt" type="text" placeholder="مثال: اجعل الخلفية غروب الشمس وأضف طائرة">
+            <div class="rowBtns"><button class="btn primary" id="aiEditBtn">✨ عدّل بالذكاء الاصطناعي</button></div>
+            <div class="note">يعمل عبر محرك Pollinations المجاني — للأفضل استخدم صورة من رابط أو مولّدة داخلياً.</div>
+          </div>
+          <div class="box">
+            <h4>🎚️ الفلاتر والتعديلات</h4>
+            <label>السطوع <span id="vbr">100%</span></label><input type="range" id="ibr" min="0" max="200" value="100">
+            <label>التباين <span id="vct">100%</span></label><input type="range" id="ict" min="0" max="200" value="100">
+            <label>التشبع <span id="vsa">100%</span></label><input type="range" id="isa" min="0" max="200" value="100">
+            <label>تدوير الألوان <span id="vhu">0°</span></label><input type="range" id="ihu" min="0" max="360" value="0">
+            <label>أبيض وأسود <span id="vgr">0%</span></label><input type="range" id="igr" min="0" max="100" value="0">
+            <label>سيبيا <span id="vse">0%</span></label><input type="range" id="ise" min="0" max="100" value="0">
+            <label>ضبابية <span id="vbl">0px</span></label><input type="range" id="ibl" min="0" max="20" value="0">
+            <div class="rowBtns">
+              <button class="btn mini" id="btnRot">⟳ تدوير 90°</button>
+              <button class="btn mini" id="btnFlh">↔ قلب أفقي</button>
+              <button class="btn mini" id="btnFlv">↕ قلب رأسي</button>
+              <button class="btn mini" id="imgReset">↺ إعادة ضبط</button>
+            </div>
+          </div>
+          <div class="box">
+            <h4>✏️ نص على الصورة</h4>
+            <input id="txtImg" type="text" placeholder="اكتب نص العلامة المائية...">
+            <label>الحجم <span id="vti">36</span></label><input type="range" id="tsi" min="12" max="120" value="36">
+            <div class="rowBtns" style="align-items:center">
+              <input type="color" id="tci" value="#00ff9d">
+              <select id="tpi" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
+            </div>
+          </div>
+          <div class="box">
+            <h4>📐 الأبعاد والتصدير</h4>
+            <select id="rsSel">
+              <option value="orig">الأبعاد الأصلية</option>
+              <option value="1080">أقصى بعد 1080px</option>
+              <option value="720">أقصى بعد 720px</option>
+              <option value="sq">مربع 1:1 (قص مركزي)</option>
+            </select>
+            <div class="rowBtns">
+              <button class="btn primary" id="dlPng">⬇️ PNG</button>
+              <button class="btn primary" id="dlJpg">⬇️ JPG</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== استوديو الفيديو ======== -->
+  <section class="view" id="v-vid">
+    <div class="studio">
+      <div class="stWrap">
+        <div class="stCanvasBox">
+          <video id="vidPlayer" controls playsinline style="display:none"></video>
+          <canvas id="vidCv" style="display:none"></canvas>
+          <div class="prog" id="vidProg">🎬 حمّل فيديو للبدء — القص والفلاتر والتصدير تعمل داخل متصفحك مجاناً</div>
+        </div>
+        <div class="stCtrls">
+          <div class="box">
+            <h4>📁 المصدر</h4>
+            <div class="rowBtns">
+              <button class="btn primary" onclick="document.getElementById('vidFile').click()">📁 رفع فيديو</button>
+            </div>
+            <input type="file" id="vidFile" accept="video/*" hidden>
+          </div>
+          <div class="box">
+            <h4>✂️ القص</h4>
+            <label>البداية <span id="vts">0:00</span></label><input type="range" id="trimStart" min="0" max="0" value="0" step="0.1">
+            <label>النهاية <span id="vte">0:00</span></label><input type="range" id="trimEnd" min="0" max="0" value="0" step="0.1">
+            <div class="rowBtns">
+              <button class="btn mini" id="setStart">⏱️ البداية = الآن</button>
+              <button class="btn mini" id="setEnd">⏱️ النهاية = الآن</button>
+            </div>
+          </div>
+          <div class="box">
+            <h4>🎚️ الفلاتر</h4>
+            <label>السطوع <span id="vvbr">100%</span></label><input type="range" id="vbr2" min="0" max="200" value="100">
+            <label>التباين <span id="vvct">100%</span></label><input type="range" id="vct2" min="0" max="200" value="100">
+            <label>التشبع <span id="vvsa">100%</span></label><input type="range" id="vsa2" min="0" max="200" value="100">
+            <label>أبيض وأسود <span id="vvgr">0%</span></label><input type="range" id="vgr2" min="0" max="100" value="0">
+            <label>سيبيا <span id="vvse">0%</span></label><input type="range" id="vse2" min="0" max="100" value="0">
+            <label>ضبابية <span id="vvbl">0px</span></label><input type="range" id="vbl2" min="0" max="20" value="0">
+            <div class="rowBtns">
+              <label style="align-items:center;gap:6px">السرعة <select id="spdSel" style="width:auto"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></label>
+              <label style="align-items:center;gap:6px"><input type="checkbox" id="muteChk"> 🔇 بدون صوت</label>
+              <button class="btn mini" id="vidReset">↺ إعادة ضبط</button>
+            </div>
+          </div>
+          <div class="box">
+            <h4>✏️ نص على الفيديو</h4>
+            <input id="vidTxt" type="text" placeholder="اكتب نص العنوان...">
+            <label>الحجم <span id="vvt">48</span></label><input type="range" id="vtsz" min="16" max="160" value="48">
+            <div class="rowBtns" style="align-items:center">
+              <input type="color" id="vtc" value="#00ff9d">
+              <select id="vtp" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
+            </div>
+          </div>
+          <div class="box">
+            <h4>🎬 التصدير</h4>
+            <div class="rowBtns"><button class="btn primary" id="vidExport">🎥 تصدير الفيديو المعدّل</button></div>
+            <div class="note">التصدير يجري داخل متصفحك بالكامل (بدون رفع للسيرفر) وبصيغة WebM — يستغرق زمن مشابه لمدة المقطع. النصوص والفلاتر تُطبَّق على النسخة النهائية.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
 
 <input type="file" id="fileInput" multiple hidden>
@@ -237,12 +387,12 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
     <li>اضغط «تحميل index.html للنشر» أعلاه.</li>
     <li>في مستودعك: <b>Add file → Upload files</b> وارفع الملف.</li>
     <li>اذهب إلى <b>Settings → Pages</b> واختر <b>main / (root)</b> ثم Save.</li>
-    <li>موقعك الجاهز خلال دقيقة: <span id="pagesUrl" style="direction:ltr;display:inline-block;color:var(--gd)">https://teag3.github.io/Salman-Bot/</span></li>
+    <li>موقعك: <span id="pagesUrl" style="direction:ltr;display:inline-block;color:var(--gd)">https://teag3.github.io/Salman-Bot/</span></li>
   </ol>
   <div class="rowBtns"><button class="btn" id="closeCloud">إغلاق</button></div>
 </div></div>
 
-<!-- عارض التقارير والأبحاث -->
+<!-- عارض التقارير -->
 <div class="modal" id="repModal"><div class="sheet" id="repSheet">
   <div class="repBar">
     <h3>📊 عارض التقارير والأبحاث</h3>
@@ -253,7 +403,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   <iframe id="repFrame" title="التقرير"></iframe>
 </div></div>
 
-<!-- عارض العروض التقديمية -->
+<!-- عارض العروض -->
 <div class="modal" id="slModal">
   <div class="slTop">
     <h3>📽️ العرض التقديمي</h3>
@@ -271,6 +421,18 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 const $=s=>document.querySelector(s);
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}}};
 function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){toast("⚠️ مساحة التخزين ممتلئة — صدّر المحادثة أو امسح القديمة")}}
+
+/* ==================== التبويبات ==================== */
+document.querySelectorAll(".tabs button").forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll(".tabs button").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll("section.view").forEach(x=>x.classList.remove("on"));
+    b.classList.add("active");$("#v-"+b.dataset.v).classList.add("on");
+  };
+});
+function gotoView(v){
+  document.querySelector(".tabs button[data-v='"+v+"']").click();
+}
 
 /* ==================== الوضع الليلي/النهاري ==================== */
 let theme=LS.get("theme","dark");
@@ -337,7 +499,7 @@ async function callAI(messages,images){
  return j.choices?.[0]?.message?.content||j.choices?.[0]?.text||"لم أتلقَّ رداً";
 }
 
-/* ==================== الشخصية الهولوغرامية ==================== */
+/* ==================== الشخصية ==================== */
 const cv=$("#waves"),wx=cv.getContext("2d");
 const COLORS={idle:[0,255,157],listen:[94,234,212],think:[245,158,11],speak:[236,72,153]};
 let botState="idle",wt=0;
@@ -388,7 +550,7 @@ $("#micBtn").onclick=()=>{
  r.start();
 };
 
-/* ==================== أدوات مساعدة ==================== */
+/* ==================== أدوات ==================== */
 function imgURL(prompt,w,h){
  return "https://image.pollinations.ai/prompt/"+encodeURIComponent(prompt.trim())+"?width="+(w||1024)+"&height="+(h||1024)+"&nologo=true&seed="+Math.floor(Math.random()*1e6);
 }
@@ -402,13 +564,13 @@ function extractBlock(text,tag){
 function firstTag(html,tag){
  try{const d=new DOMParser().parseFromString(html,"text/html");const e=d.querySelector(tag);return e?e.textContent.trim():"";}catch{return "";}
 }
-function download(name,html){
+function download(name,blobOrText,type){
+ const blob=blobOrText instanceof Blob?blobOrText:new Blob([blobOrText],{type:type||"text/html"});
  const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));
- a.download=name;a.click();URL.revokeObjectURL(a.href);
+ a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
 }
 
-/* ==================== أنماط التقرير والعرض ==================== */
+/* ==================== أنماط التقارير والعروض ==================== */
 const REPORT_CSS=`
  body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;max-width:860px;margin:0 auto;padding:36px 28px;color:#14201a;background:#fff;line-height:1.9;font-size:15px}
  h1{color:#014d30;border-bottom:3px solid #00ff9d;padding-bottom:10px;font-size:1.7rem}
@@ -439,22 +601,20 @@ const DECK_CSS=`
  .slide table{border-collapse:collapse;margin:12px 0;font-size:1rem}
  .slide th{background:#014d30;color:#fff;padding:9px 16px}
  .slide td{border:1px solid #1a3a2c;padding:8px 16px}
- .slide .two{display:flex;gap:5vw;align-items:center}
  .ctr{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;background:#0a120d;border-top:1px solid #123324;z-index:9}
  .ctr button{background:#0f1c15;border:1px solid #00ff9d;color:#00ff9d;font-size:1.05rem;padding:8px 22px;border-radius:10px;cursor:pointer}
  .ctr button:hover{background:#00ff9d;color:#01130b}
  .ctr span{color:#7ea893;font-size:.9rem;min-width:70px;text-align:center}
 `;
 
-/* ==================== واجهة الدردشة ==================== */
+/* ==================== الدردشة ==================== */
 const chatBox=$("#chat");
 let history=LS.get("history",[]);
 let currentReport=null,currentDeck=null;
 
 function decorate(d,content){
  if(/```html/i.test(content)&&/<html|<!DOCTYPE|<div|<body/i.test(content)){
-   const b=document.createElement("button");b.className="actBtn";b.textContent="👁️ معاينة كود HTML";
-   b.onclick=()=>openPreview(content);d.appendChild(b);
+   d.appendChild(mkBtn("👁️ معاينة كود HTML",()=>openPreview(content)));
  }
 }
 function addMsg(role,content,extra){
@@ -467,20 +627,15 @@ function addMsg(role,content,extra){
  if(extra?.genimg){
    const im=document.createElement("img");im.className="genimg";im.src=extra.genimg;d.appendChild(im);
    const a=document.createElement("a");a.href=extra.genimg;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";d.appendChild(a);
+   d.appendChild(mkBtn("🎨 فتح في الاستوديو",()=>openStudioUrl(extra.genimg)));
  }
  if(extra?.reportHtml){
-   const b1=document.createElement("button");b1.className="actBtn";b1.textContent="📖 فتح التقرير";
-   b1.onclick=()=>openReport(extra.reportHtml);
-   const b2=document.createElement("button");b2.className="actBtn";b2.textContent="⬇️ تحميل";
-   b2.onclick=()=>download("salman-report.html",wrapReport(extra.reportHtml));
-   d.appendChild(b1);d.appendChild(b2);
+   d.appendChild(mkBtn("📖 فتح التقرير",()=>openReport(extra.reportHtml)));
+   d.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-report.html",wrapReport(extra.reportHtml))));
  }
  if(extra?.slidesHtml){
-   const b1=document.createElement("button");b1.className="actBtn";b1.textContent="▶️ تشغيل العرض";
-   b1.onclick=()=>openSlides(extra.slidesHtml);
-   const b2=document.createElement("button");b2.className="actBtn";b2.textContent="⬇️ تحميل";
-   b2.onclick=()=>download("salman-presentation.html",extra.slidesHtml);
-   d.appendChild(b1);d.appendChild(b2);
+   d.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(extra.slidesHtml)));
+   d.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-presentation.html",extra.slidesHtml)));
  }
  if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml)decorate(d,content);
  chatBox.appendChild(d);chatBox.scrollTop=chatBox.scrollHeight;
@@ -488,12 +643,11 @@ function addMsg(role,content,extra){
 }
 function render(){
  chatBox.innerHTML="";
- if(!history.length)addMsg("bot","مرحباً! أنا SALMAN 🤖 — ذكاؤك السحابي المجاني.\n\n• 📊 اطلب تقريراً أو بحثاً علمياً كاملاً بالصور التوضيحية والجداول\n• 📽️ اطلب عرضاً تقديمياً جاهزاً للتقديم\n• 🎤 تحدث معي صوتياً · 📎 أرفق ملفات · 🎨 /imagine وصف الصورة\n• ☀️🌙 بدّل بين الوضع النهاري والليلي من الأعلى\n\nكيف أساعدك اليوم؟");
+ if(!history.length)addMsg("bot","مرحباً! أنا SALMAN 🤖 — ذكاؤك السحابي المجاني.\n\n• 📊 اطلب تقريراً أو بحثاً علمياً كاملاً بالصور والجداول\n• 📽️ اطلب عرضاً تقديمياً جاهزاً\n• 🎨 استوديو الصور و🎬 استوديو الفيديو للتعديل الاحترافي\n• 🎤 تحدث معي صوتياً · 📎 أرفق ملفات · 🎨 /imagine وصف الصورة\n• ☀️🌙 بدّل بين الوضع الليلي والنهاري\n\nكيف أساعدك اليوم؟");
  else history.forEach(m=>addMsg(m.role,m.content,m));
 }
 render();
 
-/* ==================== الأوضاع والأزرار السريعة ==================== */
 function buildModes(){
  const bar=$("#modesBar"),cp=$("#chips");bar.innerHTML="";cp.innerHTML="";
  Object.entries(MODES).forEach(([id,m])=>{
@@ -565,7 +719,6 @@ $("#sendBtn").onclick=async()=>{
      await genImage(p.slice(0,600),true);
      return;
    }
-
    let fileNote="";
    if(atts.length){
      fileNote="\n\n📎 مرفقات المستخدم:\n"+atts.map(a=>a.isImg?"[صورة: "+a.name+"]":"[ملف: "+a.name+"]\n"+a.text).join("\n---\n");
@@ -577,7 +730,6 @@ $("#sendBtn").onclick=async()=>{
    const imgs=atts.filter(a=>a.isImg&&engine==="gemini").map(a=>({mime:a.mime,b64:a.data.split(",")[1]}));
    const reply=await callAI(msgs,imgs);
 
-   /* === معالجة التقارير === */
    const repBlock=extractBlock(reply,"report");
    if(repBlock){
      const html=fillImages(repBlock);
@@ -589,9 +741,7 @@ $("#sendBtn").onclick=async()=>{
      history.push({role:"bot",content:summary,reportHtml:html});
      save("history",history);
      speak(summary);
-   }
-   /* === معالجة العروض === */
-   else{
+   }else{
      const slBlock=extractBlock(reply,"slides");
      if(slBlock){
        const deck=buildDeck(slBlock);
@@ -604,8 +754,7 @@ $("#sendBtn").onclick=async()=>{
        history.push({role:"bot",content:summary,slidesHtml:deck});
        save("history",history);
        speak(summary);
-     }
-     else{
+     }else{
        history.push({role:"bot",content:reply});
        save("history",history);
        typing.innerHTML="";typing.textContent=reply;decorate(typing,reply);
@@ -627,6 +776,7 @@ async function genImage(prompt,keepText){
  const im=document.createElement("img");im.className="genimg";im.src=url;
  const a=document.createElement("a");a.href=url;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";
  t.appendChild(im);t.appendChild(a);
+ t.appendChild(mkBtn("🎨 فتح في الاستوديو",()=>openStudioUrl(url)));
  history.push({role:"bot",content:"🎨 "+prompt,genimg:url});save("history",history);
  chatBox.scrollTop=chatBox.scrollHeight;
  setState("idle","جاهز — جرّب وصفاً آخر أو عد إلى المحادثة");
@@ -634,7 +784,7 @@ async function genImage(prompt,keepText){
 
 /* ==================== عارض التقارير ==================== */
 function wrapReport(html){
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — سلمان بوت</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — SALMAN Bot</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
 }
 function openReport(html){
  currentReport=html;
@@ -656,7 +806,7 @@ function buildDeck(block){
  }catch{}
  if(!secs.length)secs=[filled];
  const slides=secs.map(s=>'<section class="slide">'+s+'</section>').join("");
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — سلمان بوت</title><style>'+DECK_CSS+'</style></head><body>'
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — SALMAN Bot</title><style>'+DECK_CSS+'</style></head><body>'
    +'<div id="deck">'+slides+'</div>'
    +'<div class="ctr"><button onclick="go(-1)">السابق ▶</button><span id="cnt"></span><button onclick="go(1)">◀ التالي</button><button onclick="fs()">⛶</button></div>'
    +'<script>\nvar i=0,S=document.querySelectorAll(".slide");\nfunction show(){S.forEach(function(s,k){s.classList.toggle("on",k===i)});document.getElementById("cnt").textContent=(i+1)+" / "+S.length;}\nfunction go(d){i=Math.min(S.length-1,Math.max(0,i+d));show();}\nfunction fs(){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}\ndocument.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(1);if(e.key==="ArrowRight")go(-1);});\nshow();\n<\/script></body></html>';
@@ -670,14 +820,231 @@ $("#closeSl").onclick=()=>$("#slModal").classList.remove("open");
 $("#slDl").onclick=()=>{if(currentDeck)download("salman-presentation.html",currentDeck);};
 $("#slFull").onclick=()=>{const el=$("#slModal");if(document.fullscreenElement)document.exitFullscreen();else el.requestFullscreen&&el.requestFullscreen();};
 
-/* ==================== معاينة HTML العامة ==================== */
 function openPreview(content){
  const m=content.match(/```(?:html)?\s*([\s\S]*?)```/i);
  $("#repFrame").srcdoc=m?m[1]:content;
  $("#repModal").classList.add("open");
 }
 
-/* ==================== نافذة المحركات ==================== */
+/* ==================== استوديو الصور ==================== */
+let img=null;
+const ist={src:null,srcType:null,rot:0,fx:1,fy:1};
+function filterStr(pre){
+ const g=id=>$("#"+pre+id).value;
+ const p=[];
+ if(+g("br")!==100)p.push("brightness("+g("br")+"%)");
+ if(+g("ct")!==100)p.push("contrast("+g("ct")+"%)");
+ if(+g("sa")!==100)p.push("saturate("+g("sa")+"%)");
+ if(+g("hu")!==0)p.push("hue-rotate("+g("hu")+"deg)");
+ if(+g("gr")!==0)p.push("grayscale("+g("gr")+"%)");
+ if(+g("se")!==0)p.push("sepia("+g("se")+"%)");
+ if(+g("bl")!==0)p.push("blur("+g("bl")+"px)");
+ return p.join(" ")||"none";
+}
+function bindVals(pre,ids,fmt){
+ ids.forEach(id=>{
+   $("#"+pre+id).addEventListener("input",function(){
+     $("#v"+id).textContent=fmt?fmt(this.value):this.value;
+     renderImg();
+   });
+ });
+}
+["br","ct","sa","hu","gr","se","bl"].forEach(id=>$("#i"+id).addEventListener("input",renderImg));
+["br","ct","sa","gr","se"].forEach(id=>{$("#i"+id).addEventListener("input",function(){$("#v"+id).textContent=this.value+"%";});});
+$("#ihu").addEventListener("input",function(){$("#vhu").textContent=this.value+"°";});
+$("#ibl").addEventListener("input",function(){$("#vbl").textContent=this.value+"px";});
+["rsSel","txtImg","tsi","tci","tpi"].forEach(id=>$("#"+id).addEventListener("input",renderImg));
+$("#tsi").addEventListener("input",function(){$("#vti").textContent=this.value;});
+
+function loadSource(src,type){
+ ist.src=src;ist.srcType=type;ist.rot=0;ist.fx=1;ist.fy=1;
+ const im=new Image();
+ if(type==="url")im.crossOrigin="anonymous";
+ im.onload=()=>{img=im;renderImg();toast("✅ تم تحميل الصورة إلى الاستوديو");};
+ im.onerror=()=>toast("⚠️ تعذر تحميل الصورة");
+ im.src=src;
+}
+function openStudioUrl(url){gotoView("img");$("#imgUrl").value=url;loadSource(url,"url");}
+$("#imgFile").onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ const rd=new FileReader();rd.onload=()=>loadSource(rd.result,"local");rd.readAsDataURL(f);e.target.value="";
+};
+$("#loadUrlBtn").onclick=()=>{
+ const u=$("#imgUrl").value.trim();
+ if(!u){toast("الصق رابط صورة أولاً");return;}
+ loadSource(u,"url");
+};
+$("#genNewImg").onclick=()=>{
+ const p=$("#aiEditPrompt").value.trim()||prompt("اكتب وصف الصورة المطلوب توليدها:");
+ if(!p)return;
+ toast("🎨 سلمان يولّد صورتك...");
+ loadSource(imgURL(p,1024,1024),"url");
+};
+$("#btnRot").onclick=()=>{ist.rot=(ist.rot+90)%360;renderImg();};
+$("#btnFlh").onclick=()=>{ist.fx*=-1;renderImg();};
+$("#btnFlv").onclick=()=>{ist.fy*=-1;renderImg();};
+$("#imgReset").onclick=()=>{
+ ["br","ct","sa"].forEach(id=>{$("#i"+id).value=100;$("#v"+id).textContent="100%";});
+ ["gr","se"].forEach(id=>{$("#i"+id).value=0;$("#v"+id).textContent="0%";});
+ $("#ihu").value=0;$("#vhu").textContent="0°";
+ $("#ibl").value=0;$("#vbl").textContent="0px";
+ ist.rot=0;ist.fx=1;ist.fy=1;$("#txtImg").value="";renderImg();
+};
+function drawText(ctx,w,h,txt,size,color,pos){
+ if(!txt)return;
+ ctx.save();
+ ctx.font="bold "+Math.round(size*(w/800))+"px Tahoma,Arial";
+ ctx.fillStyle=color;ctx.textAlign="center";
+ ctx.shadowColor="rgba(0,0,0,.6)";ctx.shadowBlur=6;
+ const y=pos==="top"?size*(w/800)+10:pos==="center"?h/2:h-16;
+ ctx.fillText(txt,w/2,y);
+ ctx.restore();
+}
+function renderImg(){
+ const c=$("#imgCv"),ctx=c.getContext("2d");
+ if(!img){c.width=640;c.height=400;ctx.fillStyle="#0a120d";ctx.fillRect(0,0,640,400);return;}
+ const rs=$("#rsSel").value;
+ let w=img.naturalWidth,h=img.naturalHeight;
+ if(rs==="1080"){const s=Math.min(1,1080/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);}
+ if(rs==="720"){const s=Math.min(1,720/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);}
+ if(rs==="sq"){const s=Math.min(w,h);w=s;h=s;}
+ if(ist.rot%180)c.height=w,c.width=h;else c.width=w,c.height=h;
+ ctx.save();
+ ctx.fillStyle="#000";ctx.fillRect(0,0,c.width,c.height);
+ ctx.filter=filterStr("i");
+ ctx.translate(c.width/2,c.height/2);
+ ctx.rotate(ist.rot*Math.PI/180);
+ ctx.scale(ist.fx,ist.fy);
+ if(rs==="sq"){
+   const s=Math.min(img.naturalWidth,img.naturalHeight);
+   ctx.drawImage(img,(img.naturalWidth-s)/2,(img.naturalHeight-s)/2,s,s,-w/2,-h/2,w,h);
+ }else{
+   ctx.drawImage(img,-w/2,-h/2,w,h);
+ }
+ ctx.restore();
+ drawText(ctx,c.width,c.height,$("#txtImg").value,+$("#tsi").value,$("#tci").value,$("#tpi").value);
+}
+$("#dlPng").onclick=()=>{
+ try{
+   $("#imgCv").toBlob(b=>{if(b)download("salman-image.png",b,"image/png");else throw 0;});
+ }catch{toast("⚠️ الصورة من مصدر خارجي محمي — استخدم زر التحميل من المحادثة");}
+};
+$("#dlJpg").onclick=()=>{
+ try{
+   const c2=document.createElement("canvas");c2.width=$("#imgCv").width;c2.height=$("#imgCv").height;
+   c2.getContext("2d").fillStyle="#fff";c2.getContext("2d").fillRect(0,0,c2.width,c2.height);
+   c2.getContext("2d").drawImage($("#imgCv"),0,0);
+   c2.toBlob(b=>{if(b)download("salman-image.jpg",b,"image/jpeg");else throw 0;});
+ }catch{toast("⚠️ الصورة من مصدر خارجي محمي — استخدم زر التحميل من المحادثة");}
+};
+/* التعديل بالذكاء الاصطناعي (Pollinations Kontext) */
+$("#aiEditBtn").onclick=()=>{
+ const p=$("#aiEditPrompt").value.trim();
+ if(!p){toast("اكتب وصف التعديل المطلوب");return;}
+ if(!ist.src){toast("حمّل صورة أولاً (ملف أو رابط أو صورة مولّدة)");return;}
+ let imgParam="";
+ if(ist.srcType==="url"||ist.src.startsWith("data:"))imgParam="&image="+encodeURIComponent(ist.src);
+ const url="https://image.pollinations.ai/prompt/"+encodeURIComponent(p)+"?model=kontext&nologo=true"+imgParam;
+ toast("🪄 سلمان يعدّل صورتك بالذكاء الاصطناعي... قد تستغرق دقيقة");
+ const im=new Image();
+ im.crossOrigin="anonymous";
+ im.onload=()=>{loadSource(im.src,"url");};
+ im.onerror=()=>toast("⚠️ فشل التعديل — جرّب صياغة أخرى للوصف");
+ im.src=url;
+};
+
+/* ==================== استوديو الفيديو ==================== */
+const vidPlayer=$("#vidPlayer");
+["br2","ct2","sa2","gr2","se2","bl2"].forEach(id=>$("#v"+id).addEventListener("input",function(){
+ const map={br2:"vvbr",ct2:"vvct",sa2:"vvsa",gr2:"vvgr",se2:"vvse",bl2:"vvbl"};
+ $("#"+map[id]).textContent=id.includes("bl")?this.value+"px":this.value+"%";
+ vidPlayer.style.filter=filterStr("v");
+}));
+function vFilter(){
+ const g=id=>$("#v"+id).value;
+ const p=[];
+ if(+g("br2")!==100)p.push("brightness("+g("br2")+"%)");
+ if(+g("ct2")!==100)p.push("contrast("+g("ct2")+"%)");
+ if(+g("sa2")!==100)p.push("saturate("+g("sa2")+"%)");
+ if(+g("gr2")!==0)p.push("grayscale("+g("gr2")+"%)");
+ if(+g("se2")!==0)p.push("sepia("+g("se2")+"%)");
+ if(+g("bl2")!==0)p.push("blur("+g("bl2")+"px)");
+ return p.join(" ")||"none";
+}
+$("#vidReset").onclick=()=>{
+ ["br2","ct2","sa2"].forEach(id=>{$("#v"+id).value=100;});
+ ["gr2","se2","bl2"].forEach(id=>{$("#v"+id).value=0;});
+ ["vvbr","vvct","vvsa"].forEach(id=>$("#"+id).textContent="100%");
+ ["vvgr","vvse"].forEach(id=>$("#"+id).textContent="0%");
+ $("#vvbl").textContent="0px";
+ vidPlayer.style.filter="none";
+};
+function fmtT(t){t=Math.max(0,t);const m=Math.floor(t/60),s=Math.floor(t%60);return m+":"+String(s).padStart(2,"0");}
+$("#vidFile").onchange=e=>{
+ const f=e.target.files[0];if(!f)return;
+ vidPlayer.style.display="block";
+ vidPlayer.src=URL.createObjectURL(f);
+ vidPlayer.onloadedmetadata=()=>{
+   $("#trimStart").max=vidPlayer.duration;$("#trimEnd").max=vidPlayer.duration;
+   $("#trimStart").value=0;$("#trimEnd").value=vidPlayer.duration;
+   $("#vts").textContent=fmtT(0);$("#vte").textContent=fmtT(vidPlayer.duration);
+   $("#vidProg").textContent="🎬 الفيديو جاهز ("+fmtT(vidPlayer.duration)+") — اضبط القص والفلاتر ثم صدّر";
+ };
+ e.target.value="";
+};
+$("#setStart").onclick=()=>{$("#trimStart").value=vidPlayer.currentTime;$("#vts").textContent=fmtT(vidPlayer.currentTime);};
+$("#setEnd").onclick=()=>{$("#trimEnd").value=vidPlayer.currentTime;$("#vte").textContent=fmtT(vidPlayer.currentTime);};
+$("#trimStart").addEventListener("input",function(){$("#vts").textContent=fmtT(+this.value);});
+$("#trimEnd").addEventListener("input",function(){$("#vte").textContent=fmtT(+this.value);});
+$("#vtsz").addEventListener("input",function(){$("#vvt").textContent=this.value;});
+$("#vidExport").onclick=async()=>{
+ if(!vidPlayer.src||!vidPlayer.videoWidth){toast("حمّل فيديو أولاً");return;}
+ const s=+$("#trimStart").value,e2=+$("#trimEnd").value;
+ if(e2-s<0.3){toast("مدة القص قصيرة جداً — ضبط البداية والنهاية");return;}
+ const speed=+$("#spdSel").value;
+ const c=$("#vidCv");c.width=vidPlayer.videoWidth;c.height=vidPlayer.videoHeight;
+ const ctx=c.getContext("2d");
+ const stream=c.captureStream(30);
+ if(!$("#muteChk").checked){
+   try{
+     const vs=vidPlayer.captureStream?vidPlayer.captureStream():(vidPlayer.mozCaptureStream&&vidPlayer.mozCaptureStream());
+     if(vs)vs.getAudioTracks().forEach(t=>stream.addTrack(t));
+   }catch{}
+ }
+ let mime="video/webm";
+ try{
+   if(MediaRecorder.isTypeSupported("video/webm;codecs=vp9"))mime="video/webm;codecs=vp9";
+   else if(MediaRecorder.isTypeSupported("video/webm;codecs=vp8"))mime="video/webm;codecs=vp8";
+ }catch{}
+ const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6e6});
+ const chunks=[];rec.ondataavailable=ev=>{if(ev.data.size)chunks.push(ev.data);};
+ rec.onstop=()=>{
+   const blob=new Blob(chunks,{type:"video/webm"});
+   download("salman-video.webm",blob,"video/webm");
+   $("#vidProg").textContent="";toast("🎬 تم تصدير الفيديو المعدّل بنجاح");
+   setState&&0;
+ };
+ vidPlayer.currentTime=s;vidPlayer.playbackRate=speed;vidPlayer.muted=true;
+ try{await vidPlayer.play();}catch{toast("⚠️ اضغط على الفيديو أولاً لتفعيل التشغيل");return;}
+ rec.start(250);
+ const dur=(e2-s)/speed,t0=Date.now();
+ const prog=setInterval(()=>{$("#vidProg").textContent="🎬 يجري التصدير... "+Math.min(99,Math.round((Date.now()-t0)/1000/dur*100))+"% — اترك التبويب مفتوحاً";},300);
+ const loop=()=>{
+   ctx.filter=vFilter();
+   ctx.drawImage(vidPlayer,0,0,c.width,c.height);
+   drawText(ctx,c.width,c.height,$("#vidTxt").value,+$("#vtsz").value,$("#vtc").value,$("#vtp").value);
+   if(vidPlayer.currentTime>=e2||vidPlayer.ended){
+     clearInterval(prog);vidPlayer.pause();vidPlayer.muted=$("#muteChk").checked;
+     try{rec.stop();}catch{}
+     return;
+   }
+   requestAnimationFrame(loop);
+ };
+ requestAnimationFrame(loop);
+ toast("🎬 بدأ التصدير — لا تغيّر التبويب حتى ينتهي");
+};
+
+/* ==================== المحركات ==================== */
 function syncKeyUI(){
  const v=$("#engSel").value;
  $("#keyInput").value=keys[v]||"";
@@ -712,7 +1079,6 @@ updatePagesUrl();
 $("#cloudBtn").onclick=()=>$("#cloudModal").classList.add("open");
 $("#closeCloud").onclick=()=>$("#cloudModal").classList.remove("open");
 $("#cloudModal").onclick=e=>{if(e.target.id==="cloudModal")$("#cloudModal").classList.remove("open");};
-
 $("#dlBtn").onclick=()=>{
  const html="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
  download("index.html",html);
@@ -730,7 +1096,6 @@ $("#impFile").onchange=e=>{
  rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;$("#engSel").value=engine;$("#engName").textContent="· "+ENG[engine].name;}save("history",history);save("engine",engine);render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
  rd.readAsText(f);
 };
-
 $("#pushBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
  if(!u||!r||!t){toast("أكمل اسم المستخدم والمستودع والرمز أولاً");return;}
@@ -743,7 +1108,7 @@ $("#pushBtn").onclick=async()=>{
      method:"PUT",
      headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},
      body:JSON.stringify({
-       message:"💾 سلمان بوت: مزامنة "+new Date().toLocaleString("ar"),
+       message:"💾 SALMAN Bot: مزامنة "+new Date().toLocaleString("ar"),
        content:btoa(unescape(encodeURIComponent(JSON.stringify({engine,history,updated:new Date().toISOString()},null,2)))),
        sha
      })
