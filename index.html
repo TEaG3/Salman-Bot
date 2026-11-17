@@ -3,234 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salman-Bot — مساعدك الذكي المجاني</title>
-<meta name="description" content="Salman-Bot: مساعد ذكاء اصطناعي مجاني — محادثة، تقارير وأبحاث، عروض تقديمية، استوديو صور وفيديو.">
+<title>Salman-Bot</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>✳️</text></svg>">
 <style>
 :root{
-  --bg:#fafafa; --panel:#ffffff; --panel2:#f4f4f5; --line:#e4e4e7;
-  --txt:#18181b; --dim:#71717a;
-  --acc:#10b981; --acc-soft:rgba(16,185,129,.12);
-  --pk:#ec4899; --am:#f59e0b;
-  --radius:14px; --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.05);
+  --bg:#ffffff; --panel:#ffffff; --panel2:#f5f5f5; --line:#e5e5e5;
+  --txt:#171717; --dim:#737373; --acc:#10b981;
 }
-body.dark{
-  --bg:#0d1117; --panel:#161b22; --panel2:#1f2630; --line:#30363d;
-  --txt:#e6edf3; --dim:#8b949e;
-  --acc:#10b981; --acc-soft:rgba(16,185,129,.15);
-  --shadow:0 1px 3px rgba(0,0,0,.4);
-}
+body.dark{--bg:#0f1115;--panel:#161a20;--panel2:#1e242c;--line:#2a3138;--txt:#e8eaed;--dim:#8a93a0}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:"Segoe UI",system-ui,Tahoma,Arial,sans-serif;color:var(--txt);height:100vh;overflow:hidden;background:var(--bg)}
-.app{max-width:820px;margin:0 auto;padding:0 16px;height:100vh;display:flex;flex-direction:column}
-
-header{display:flex;align-items:center;gap:10px;padding:14px 0 10px}
-.brand{display:flex;align-items:center;gap:10px}
-.dot{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d1fae5,var(--acc) 60%,#047857);flex-shrink:0;transition:.3s;box-shadow:0 0 0 3px var(--acc-soft)}
-.dot.state-listen{background:radial-gradient(circle at 35% 30%,#d1fae5,#34d399 60%,#065f46);animation:bl 1s infinite}
-.dot.state-think{background:radial-gradient(circle at 35% 30%,#fef3c7,var(--am) 60%,#92400e);animation:bl .9s infinite}
-.dot.state-speak{background:radial-gradient(circle at 35% 30%,#fce7f3,var(--pk) 60%,#9d174d)}
-@keyframes bl{0%,100%{opacity:1}50%{opacity:.55}}
-.brand b{font-size:1.05rem;letter-spacing:.3px}
-.chip{font-size:.72rem;color:var(--dim);background:var(--panel2);border:1px solid var(--line);padding:3px 10px;border-radius:99px}
+html,body{height:100%}
+body{font-family:"Segoe UI",system-ui,Tahoma,Arial,sans-serif;color:var(--txt);background:var(--bg);overflow:hidden}
+.app{max-width:860px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;padding:0 12px}
+header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);flex-shrink:0}
+.dot{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d1fae5,var(--acc) 65%,#047857);flex-shrink:0;transition:.3s}
+.dot.state-listen{background:radial-gradient(circle at 35% 30%,#d1fae5,#34d399 65%,#065f46);animation:bl 1s infinite}
+.dot.state-think{background:radial-gradient(circle at 35% 30%,#fef3c7,#f59e0b 65%,#92400e);animation:bl .9s infinite}
+.dot.state-speak{background:radial-gradient(circle at 35% 30%,#fce7f3,#ec4899 65%,#9d174d)}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.5}}
+.brand{font-weight:700;font-size:1rem;white-space:nowrap}
+.chip{font-size:.7rem;color:var(--dim);background:var(--panel2);padding:2px 8px;border-radius:99px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
 .grow{flex:1}
-.ico{background:none;border:none;font-size:1.1rem;cursor:pointer;padding:7px;border-radius:10px;color:var(--dim);transition:.15s}
+.ico{background:none;border:none;font-size:1.05rem;cursor:pointer;padding:6px;border-radius:8px;color:var(--dim);flex-shrink:0}
 .ico:hover{background:var(--panel2);color:var(--txt)}
 
-.tools{display:flex;gap:8px;align-items:center;margin:2px 0 10px;flex-wrap:wrap}
-.tools select{background:var(--panel);border:1px solid var(--line);border-radius:99px;color:var(--txt);padding:7px 14px;font-family:inherit;font-size:.84rem;cursor:pointer;box-shadow:var(--shadow);outline:none}
-.tools .quiet{background:none;border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:99px;cursor:pointer;font-size:.8rem;transition:.15s}
-.tools .quiet:hover{color:var(--acc);border-color:var(--acc)}
-#status{font-size:.75rem;color:var(--dim)}
+.tools{display:flex;align-items:center;gap:8px;padding:8px 0;flex-shrink:0}
+.tools select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:5px 10px;font-family:inherit;font-size:.8rem;outline:none;max-width:200px}
+#status{font-size:.72rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-.chat{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:14px 2px;min-height:80px}
-.msg{max-width:88%;padding:11px 15px;border-radius:16px;line-height:1.85;word-break:break-word;font-size:.95rem}
-.msg.user{align-self:flex-start;background:var(--acc);color:#fff;border-bottom-right-radius:4px;white-space:pre-wrap}
-.msg.bot{align-self:flex-end;background:var(--panel);border:1px solid var(--line);border-bottom-left-radius:4px;box-shadow:var(--shadow);white-space:pre-wrap}
+.chat{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:12px;padding:10px 2px}
+.msg{max-width:88%;padding:10px 14px;border-radius:14px;line-height:1.75;word-break:break-word;font-size:.94rem}
+.msg.user{align-self:flex-start;background:var(--acc);color:#fff;white-space:pre-wrap}
+.msg.bot{align-self:flex-end;background:var(--panel2);white-space:pre-wrap}
 .msg.bot.md{white-space:normal}
-/* Markdown */
-.msg.bot.md h2,.msg.bot.md h3,.msg.bot.md h4{margin:10px 0 6px;line-height:1.4}
-.msg.bot.md h2{font-size:1.1rem}.msg.bot.md h3{font-size:1rem}.msg.bot.md h4{font-size:.92rem}
-.msg.bot.md ul,.msg.bot.md ol{margin:8px 20px 8px 0;padding-right:6px}
-.msg.bot.md li{margin:4px 0}
-.msg.bot.md code{background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-family:Consolas,monospace;font-size:.85em;direction:ltr;display:inline-block}
-.msg.bot.md pre{background:#0f172a;color:#e2e8f0;padding:12px;border-radius:10px;overflow-x:auto;margin:8px 0;direction:ltr;text-align:left}
-.msg.bot.md pre code{background:none;border:none;padding:0;color:inherit;font-size:.82rem;white-space:pre;display:block}
-.msg.bot.md table{border-collapse:collapse;margin:10px 0;width:100%;font-size:.85rem}
-.msg.bot.md th{background:var(--panel2);padding:6px 10px;border:1px solid var(--line)}
-.msg.bot.md td{padding:6px 10px;border:1px solid var(--line)}
+.msg.bot.md h2,.msg.bot.md h3,.msg.bot.md h4{margin:8px 0 4px}
+.msg.bot.md h2{font-size:1.05rem}.msg.bot.md h3{font-size:.98rem}.msg.bot.md h4{font-size:.92rem}
+.msg.bot.md ul,.msg.bot.md ol{margin:6px 18px 6px 0}
+.msg.bot.md li{margin:3px 0}
+.msg.bot.md code{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:1px 5px;font-family:Consolas,monospace;font-size:.85em;direction:ltr;display:inline-block}
+.msg.bot.md pre{background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;overflow-x:auto;margin:8px 0;direction:ltr;text-align:left}
+.msg.bot.md pre code{background:none;border:none;padding:0;color:inherit;font-size:.8rem;white-space:pre;display:block}
+.msg.bot.md table{border-collapse:collapse;margin:8px 0;width:100%;font-size:.83rem}
+.msg.bot.md th{background:var(--panel);padding:5px 8px;border:1px solid var(--line)}
+.msg.bot.md td{padding:5px 8px;border:1px solid var(--line)}
 .msg.bot.md a{color:var(--acc)}
-.msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;font-size:.76rem}
-.msg img.att{max-width:200px;border-radius:10px;display:block;margin-top:6px}
-.msg img.genimg{max-width:100%;border-radius:12px;margin-top:8px;display:block}
-.dlImg{color:var(--acc);font-size:.78rem;text-decoration:none;display:block;margin-top:6px;font-weight:600}
-.actBtn{display:inline-block;margin:8px 4px 0 0;background:var(--panel2);border:1px solid var(--line);color:var(--txt);font-weight:600;padding:7px 13px;border-radius:10px;cursor:pointer;font-size:.8rem;transition:.15s}
+.msg .attach{display:inline-block;margin:5px 0 0;padding:4px 8px;background:var(--panel);border:1px solid var(--line);border-radius:6px;font-size:.74rem}
+.msg img.att{max-width:180px;border-radius:8px;display:block;margin-top:5px}
+.msg img.genimg{max-width:100%;border-radius:10px;margin-top:8px;display:block}
+.dlImg{color:var(--acc);font-size:.76rem;display:block;margin-top:5px}
+.actBtn{display:inline-block;margin:6px 4px 0 0;background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:5px 10px;border-radius:8px;cursor:pointer;font-size:.76rem}
 .actBtn:hover{border-color:var(--acc);color:var(--acc)}
-.typing{display:inline-flex;gap:4px;padding:4px 2px}
+.typing{display:inline-flex;gap:4px;padding:3px 2px}
 .typing i{width:6px;height:6px;border-radius:50%;background:var(--dim);animation:bnc 1s infinite}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.chips{display:flex;gap:7px;flex-wrap:wrap;padding:4px 0 8px}
-.chips button{background:none;border:1px solid var(--line);color:var(--dim);padding:6px 12px;border-radius:99px;cursor:pointer;font-size:.78rem;transition:.15s}
+.chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 8px;flex-shrink:0}
+.chips button{background:none;border:1px solid var(--line);color:var(--dim);padding:5px 11px;border-radius:99px;cursor:pointer;font-size:.75rem}
 .chips button:hover{color:var(--acc);border-color:var(--acc)}
 
-.compose{padding:6px 0 14px}
-.attRow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.76rem}
-.attPill button{background:none;border:none;color:var(--pk);cursor:pointer;font-size:.85rem}
-.inRow{display:flex;gap:8px;align-items:flex-end;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:8px 10px;box-shadow:var(--shadow)}
-.inRow textarea{flex:1;background:none;border:none;color:var(--txt);padding:8px 6px;resize:none;font-family:inherit;font-size:.98rem;min-height:24px;max-height:130px;outline:none}
-.inRow button{width:40px;height:40px;border:none;border-radius:50%;font-size:1.05rem;cursor:pointer;flex-shrink:0;background:none;transition:.15s;color:var(--txt)}
+.compose{padding:4px 0 12px;flex-shrink:0}
+.attRow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
+.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:3px 9px;font-size:.74rem}
+.attPill button{background:none;border:none;color:#ef4444;cursor:pointer}
+.inRow{display:flex;gap:6px;align-items:flex-end;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:6px 8px}
+.inRow textarea{flex:1;min-width:0;background:none;border:none;color:var(--txt);padding:8px 4px;resize:none;font-family:inherit;font-size:.95rem;min-height:22px;max-height:120px;outline:none}
+.inRow button{width:36px;height:36px;border:none;border-radius:50%;font-size:1rem;cursor:pointer;flex-shrink:0;background:none;color:var(--txt)}
 .inRow button:hover{background:var(--panel2)}
 .send{background:var(--acc)!important;color:#fff!important}
-.send.stopping{background:var(--pk)!important}
-.inRow button.rec{background:#dc2626!important;color:#fff}
-.hint{font-size:.68rem;color:var(--dim);margin-top:8px;text-align:center}
-.hint code{color:var(--acc);direction:ltr;display:inline-block}
+.send.stopping{background:#ef4444!important}
+.inRow button.rec{background:#ef4444!important;color:#fff}
 
 .studio{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:8px 0}
 .stTop{display:flex;align-items:center;gap:8px}
-.stTop h3{flex:1;font-size:.95rem}
-.stWrap{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
-.stCanvasBox{flex:1.2;min-width:280px;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:10px;text-align:center;box-shadow:var(--shadow)}
-.stCanvasBox canvas,.stCanvasBox video{max-width:100%;max-height:44vh;border-radius:10px;background:#000}
-.stCtrls{flex:1;min-width:270px;display:flex;flex-direction:column;gap:10px}
-.box{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
-.box h4{font-size:.85rem;margin-bottom:8px}
-.box label{display:flex;justify-content:space-between;font-size:.75rem;color:var(--dim);margin:6px 0 2px}
+.stTop h3{flex:1;font-size:.9rem}
+.stWrap{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.stCanvasBox{flex:1 1 300px;min-width:0;background:var(--panel2);border-radius:10px;padding:8px;text-align:center}
+.stCanvasBox canvas,.stCanvasBox video{max-width:100%;max-height:40vh;border-radius:8px;background:#000}
+.stCtrls{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:8px}
+.box{background:var(--panel2);border-radius:10px;padding:10px}
+.box h4{font-size:.82rem;margin-bottom:6px}
+.box label{display:flex;justify-content:space-between;font-size:.72rem;color:var(--dim);margin:5px 0 2px}
 .box input[type=range]{width:100%;accent-color:var(--acc)}
-.box input[type=text],.box select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:8px 10px;font-family:inherit;margin:3px 0;outline:none}
-.box input[type=color]{width:44px;height:30px;border:1px solid var(--line);border-radius:6px;background:none;padding:0;cursor:pointer}
-.rowBtns{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.84rem;transition:.15s}
+.box input[type=text],.box select{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:7px 9px;font-family:inherit;margin:2px 0;outline:none;font-size:.85rem}
+.box input[type=color]{width:40px;height:28px;border:1px solid var(--line);border-radius:6px;background:none;padding:0;cursor:pointer}
+.rowBtns{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.btn{background:var(--panel);border:1px solid var(--line);color:var(--txt);padding:7px 12px;border-radius:8px;cursor:pointer;font-size:.8rem}
 .btn:hover{border-color:var(--acc);color:var(--acc)}
 .btn.primary{background:var(--acc);color:#fff;border:none;font-weight:600}
-.btn.primary:hover{opacity:.9;color:#fff}
-.btn.mini{padding:6px 10px;font-size:.78rem}
-.prog{font-size:.78rem;color:var(--acc);min-height:1.2em;margin-top:6px}
-.note{font-size:.7rem;color:var(--dim);line-height:1.8}
+.btn.mini{padding:5px 9px;font-size:.74rem}
+.prog{font-size:.74rem;color:var(--acc);min-height:1.1em;margin-top:5px}
+.note{font-size:.68rem;color:var(--dim);line-height:1.7}
 
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(3px)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:50;padding:12px}
 .modal.open{display:flex}
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;width:100%;max-width:640px;max-height:88vh;overflow-y:auto;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
-.sheet h3{margin-bottom:6px;font-size:1rem}
-.sheet .sub{font-size:.8rem;color:var(--dim);line-height:1.8;margin-bottom:8px}
-.sheet label{display:block;font-size:.8rem;color:var(--dim);margin:12px 0 4px}
-.sheet input,.sheet select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit;outline:none}
+.sheet{background:var(--panel);border:1px solid var(--line);border-radius:14px;width:100%;max-width:600px;max-height:88dvh;overflow-y:auto;padding:16px}
+.sheet h3{margin-bottom:4px;font-size:.95rem}
+.sheet label{display:block;font-size:.75rem;color:var(--dim);margin:10px 0 3px}
+.sheet input,.sheet select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:8px;color:var(--txt);padding:8px 10px;font-family:inherit;outline:none;font-size:.86rem}
 .sheet a{color:var(--acc)}
-.rowBtns .btn{padding:9px 16px;font-size:.88rem}
-.divider{border:none;border-top:1px solid var(--line);margin:16px 0}
-ol.steps{margin:8px 20px 0 0;font-size:.8rem;color:var(--dim);line-height:2.1}
-#repSheet{max-width:1000px;width:100%}
-.repBar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.rowBtns .btn{padding:8px 14px}
+.divider{border:none;border-top:1px solid var(--line);margin:12px 0}
+.menuItem{display:block;width:100%;text-align:right;background:none;border:none;color:var(--txt);padding:11px 10px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.menuItem:hover{background:var(--panel2)}
+#repSheet{max-width:960px;width:100%;padding:12px}
+.repBar{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
 .repBar h3{margin:0;flex:1}
-#repFrame{width:100%;height:72vh;border:1px solid var(--line);border-radius:12px;background:#fff}
+#repFrame{width:100%;height:74dvh;border:1px solid var(--line);border-radius:8px;background:#fff}
 #slModal{padding:0;background:#000}
-.slTop{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--panel)}
-.slTop h3{margin:0;flex:1;font-size:.9rem}
-#slFrame{width:100%;height:calc(100vh - 54px);border:none}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--txt);color:var(--bg);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;font-size:.85rem}
+.slTop{display:flex;gap:6px;align-items:center;padding:8px 12px;background:var(--panel)}
+.slTop h3{margin:0;flex:1;font-size:.85rem}
+#slFrame{width:100%;height:calc(100dvh - 48px);border:none}
+.toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--txt);color:var(--bg);padding:9px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none;z-index:99;max-width:90vw;font-size:.82rem}
 .toast.show{opacity:1}
-::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:7px}
+@media (max-width:520px){
+  .app{padding:0 8px}
+  .chip{display:none}
+  .msg{max-width:96%}
+  .stCanvasBox,.stCtrls{flex:1 1 100%}
+}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="brand">
-      <span class="dot" id="orb" title="حالة Salman-Bot"></span>
-      <b>Salman-Bot</b>
-      <span class="chip" id="engName">Pollinations · مجاني</span>
-    </div>
-    <div class="grow"></div>
-    <button class="ico" id="themeBtn" title="الوضع الليلي/النهاري">🌙</button>
-    <button class="ico" id="cloudBtn" title="سحابة GitHub">☁️</button>
-    <button class="ico" id="engBtn" title="المحركات والمفاتيح">⚙️</button>
-    <button class="ico" id="clearBtn" title="محادثة جديدة">🗑️</button>
+    <span class="dot" id="orb"></span>
+    <span class="brand">Salman-Bot</span>
+    <span class="chip" id="engName">Pollinations</span>
+    <span class="grow"></span>
+    <button class="ico" id="themeBtn" title="الوضع">🌙</button>
+    <button class="ico" id="menuBtn" title="القائمة">☰</button>
   </header>
 
-  <section class="view on" id="v-chat">
+  <section class="view" id="v-chat" style="display:flex">
     <div class="tools">
-      <select id="modeSel" title="وضع العمل"></select>
-      <button class="quiet" onclick="gotoView('img')">🎨 الصور</button>
-      <button class="quiet" onclick="gotoView('vid')">🎬 الفيديو</button>
+      <select id="modeSel"></select>
       <span class="grow"></span>
-      <span id="status">جاهز — كيف أساعدك؟</span>
+      <span id="status">جاهز</span>
     </div>
     <div class="chat" id="chat"></div>
     <div class="chips" id="chips"></div>
     <div class="compose">
       <div class="attRow" id="attRow"></div>
       <div class="inRow">
-        <button id="attBtn" title="إرفاق ملفات">📎</button>
-        <button id="micBtn" title="تحدث بالصوت">🎤</button>
-        <textarea id="input" rows="1" placeholder="اكتب رسالتك... أو /imagine وصف الصورة"></textarea>
-        <button class="send" id="sendBtn" title="إرسال">➤</button>
+        <button id="attBtn" title="إرفاق">📎</button>
+        <button id="micBtn" title="صوت">🎤</button>
+        <textarea id="input" rows="1" placeholder="اكتب رسالتك..."></textarea>
+        <button class="send" id="sendBtn">➤</button>
       </div>
-      <div class="hint">مجاني بالكامل · الوضع التلقائي يفهم طلبك · <code>/imagine</code> للصور · تقارير · أبحاث · عروض</div>
     </div>
   </section>
 
-  <section class="view" id="v-img">
+  <section class="view" id="v-img" style="display:none">
     <div class="studio">
-      <div class="stTop"><h3>🎨 استوديو الصور</h3><button class="btn mini" onclick="gotoView('chat')">← عودة للمحادثة</button></div>
+      <div class="stTop"><h3>استوديو الصور</h3><button class="btn mini" onclick="gotoView('chat')">← رجوع</button></div>
       <div class="stWrap">
         <div class="stCanvasBox">
           <canvas id="imgCv" width="640" height="400"></canvas>
-          <div class="prog" id="imgSrcInfo">حمّل صورة أو ولّد صورة جديدة من اللوحة الجانبية</div>
+          <div class="prog" id="imgSrcInfo">حمّل صورة</div>
         </div>
         <div class="stCtrls">
           <div class="box">
-            <h4>📁 المصدر</h4>
+            <h4>المصدر</h4>
             <div class="rowBtns">
-              <button class="btn primary" onclick="document.getElementById('imgFile').click()">📁 رفع صورة</button>
-              <button class="btn" id="genNewImg">🎨 توليد صورة</button>
+              <button class="btn primary" onclick="document.getElementById('imgFile').click()">📁 رفع</button>
+              <button class="btn" id="genNewImg">🎨 توليد</button>
             </div>
-            <input id="imgUrl" type="text" placeholder="أو الصق رابط صورة هنا...">
-            <div class="rowBtns"><button class="btn mini" id="loadUrlBtn">🔗 تحميل الرابط</button></div>
+            <input id="imgUrl" type="text" placeholder="رابط صورة">
+            <div class="rowBtns"><button class="btn mini" id="loadUrlBtn">🔗 تحميل</button></div>
             <input type="file" id="imgFile" accept="image/*" hidden>
           </div>
           <div class="box">
-            <h4>🪄 التعديل بالذكاء الاصطناعي (مجاني)</h4>
-            <input id="aiEditPrompt" type="text" placeholder="مثال: اجعل الخلفية غروب الشمس وأضف طائرة">
-            <div class="rowBtns"><button class="btn primary" id="aiEditBtn">✨ عدّل بالذكاء الاصطناعي</button></div>
+            <h4>تعديل بالذكاء الاصطناعي</h4>
+            <input id="aiEditPrompt" type="text" placeholder="اوصف التعديل...">
+            <div class="rowBtns"><button class="btn primary" id="aiEditBtn">✨ عدّل</button></div>
           </div>
           <div class="box">
-            <h4>🎚️ الفلاتر والتعديلات</h4>
-            <label>السطوع <span id="vbr">100%</span></label><input type="range" id="ibr" min="0" max="200" value="100">
-            <label>التباين <span id="vct">100%</span></label><input type="range" id="ict" min="0" max="200" value="100">
-            <label>التشبع <span id="vsa">100%</span></label><input type="range" id="isa" min="0" max="200" value="100">
-            <label>تدوير الألوان <span id="vhu">0°</span></label><input type="range" id="ihu" min="0" max="360" value="0">
-            <label>أبيض وأسود <span id="vgr">0%</span></label><input type="range" id="igr" min="0" max="100" value="0">
+            <h4>الفلاتر</h4>
+            <label>سطوع <span id="vbr">100%</span></label><input type="range" id="ibr" min="0" max="200" value="100">
+            <label>تباين <span id="vct">100%</span></label><input type="range" id="ict" min="0" max="200" value="100">
+            <label>تشبع <span id="vsa">100%</span></label><input type="range" id="isa" min="0" max="200" value="100">
+            <label>تدوير ألوان <span id="vhu">0°</span></label><input type="range" id="ihu" min="0" max="360" value="0">
+            <label>أبيض/أسود <span id="vgr">0%</span></label><input type="range" id="igr" min="0" max="100" value="0">
             <label>سيبيا <span id="vse">0%</span></label><input type="range" id="ise" min="0" max="100" value="0">
             <label>ضبابية <span id="vbl">0px</span></label><input type="range" id="ibl" min="0" max="20" value="0">
             <div class="rowBtns">
               <button class="btn mini" id="btnRot">⟳ تدوير</button>
-              <button class="btn mini" id="btnFlh">↔ قلب أفقي</button>
-              <button class="btn mini" id="btnFlv">↕ قلب رأسي</button>
-              <button class="btn mini" id="imgReset">↺ إعادة ضبط</button>
+              <button class="btn mini" id="btnFlh">↔ قلب</button>
+              <button class="btn mini" id="btnFlv">↕ قلب</button>
+              <button class="btn mini" id="imgReset">↺ ضبط</button>
             </div>
           </div>
           <div class="box">
-            <h4>✏️ نص على الصورة</h4>
-            <input id="txtImg" type="text" placeholder="اكتب نص العلامة المائية...">
-            <label>الحجم <span id="vti">36</span></label><input type="range" id="tsi" min="12" max="120" value="36">
+            <h4>نص على الصورة</h4>
+            <input id="txtImg" type="text" placeholder="النص...">
+            <label>حجم <span id="vti">36</span></label><input type="range" id="tsi" min="12" max="120" value="36">
             <div class="rowBtns" style="align-items:center">
               <input type="color" id="tci" value="#10b981">
               <select id="tpi" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
             </div>
           </div>
           <div class="box">
-            <h4>📐 الأبعاد والتصدير</h4>
+            <h4>تصدير</h4>
             <select id="rsSel">
-              <option value="orig">الأبعاد الأصلية</option>
-              <option value="1080">أقصى بعد 1080px</option>
-              <option value="720">أقصى بعد 720px</option>
-              <option value="sq">مربع 1:1 (قص مركزي)</option>
+              <option value="orig">أصلية</option>
+              <option value="1080">1080px</option>
+              <option value="720">720px</option>
+              <option value="sq">مربع</option>
             </select>
             <div class="rowBtns">
-              <button class="btn primary" id="dlPng">⬇️ PNG</button>
-              <button class="btn primary" id="dlJpg">⬇️ JPG</button>
+              <button class="btn primary" id="dlPng">PNG</button>
+              <button class="btn primary" id="dlJpg">JPG</button>
             </div>
           </div>
         </div>
@@ -238,57 +221,56 @@ ol.steps{margin:8px 20px 0 0;font-size:.8rem;color:var(--dim);line-height:2.1}
     </div>
   </section>
 
-  <section class="view" id="v-vid">
+  <section class="view" id="v-vid" style="display:none">
     <div class="studio">
-      <div class="stTop"><h3>🎬 استوديو الفيديو</h3><button class="btn mini" onclick="gotoView('chat')">← عودة للمحادثة</button></div>
+      <div class="stTop"><h3>استوديو الفيديو</h3><button class="btn mini" onclick="gotoView('chat')">← رجوع</button></div>
       <div class="stWrap">
         <div class="stCanvasBox">
           <video id="vidPlayer" controls playsinline style="display:none"></video>
           <canvas id="vidCv" style="display:none"></canvas>
-          <div class="prog" id="vidProg">🎬 حمّل فيديو للبدء — القص والفلاتر والتصدير تعمل داخل متصفحك</div>
+          <div class="prog" id="vidProg">حمّل فيديو</div>
         </div>
         <div class="stCtrls">
           <div class="box">
-            <h4>📁 المصدر</h4>
+            <h4>المصدر</h4>
             <div class="rowBtns"><button class="btn primary" onclick="document.getElementById('vidFile').click()">📁 رفع فيديو</button></div>
             <input type="file" id="vidFile" accept="video/*" hidden>
           </div>
           <div class="box">
-            <h4>✂️ القص</h4>
+            <h4>القص</h4>
             <label>البداية <span id="vts">0:00</span></label><input type="range" id="trimStart" min="0" max="0" value="0" step="0.1">
             <label>النهاية <span id="vte">0:00</span></label><input type="range" id="trimEnd" min="0" max="0" value="0" step="0.1">
             <div class="rowBtns">
-              <button class="btn mini" id="setStart">⏱️ البداية = الآن</button>
-              <button class="btn mini" id="setEnd">⏱️ النهاية = الآن</button>
+              <button class="btn mini" id="setStart">البداية = الآن</button>
+              <button class="btn mini" id="setEnd">النهاية = الآن</button>
             </div>
           </div>
           <div class="box">
-            <h4>🎚️ الفلاتر والسرعة</h4>
-            <label>السطوع <span id="vvbr">100%</span></label><input type="range" id="vbr2" min="0" max="200" value="100">
-            <label>التباين <span id="vvct">100%</span></label><input type="range" id="vct2" min="0" max="200" value="100">
-            <label>التشبع <span id="vvsa">100%</span></label><input type="range" id="vsa2" min="0" max="200" value="100">
-            <label>أبيض وأسود <span id="vvgr">0%</span></label><input type="range" id="vgr2" min="0" max="100" value="0">
+            <h4>الفلاتر</h4>
+            <label>سطوع <span id="vvbr">100%</span></label><input type="range" id="vbr2" min="0" max="200" value="100">
+            <label>تباين <span id="vvct">100%</span></label><input type="range" id="vct2" min="0" max="200" value="100">
+            <label>تشبع <span id="vvsa">100%</span></label><input type="range" id="vsa2" min="0" max="200" value="100">
+            <label>أبيض/أسود <span id="vvgr">0%</span></label><input type="range" id="vgr2" min="0" max="100" value="0">
             <label>سيبيا <span id="vvse">0%</span></label><input type="range" id="vse2" min="0" max="100" value="0">
             <label>ضبابية <span id="vvbl">0px</span></label><input type="range" id="vbl2" min="0" max="20" value="0">
             <div class="rowBtns">
-              <label style="align-items:center;gap:6px">السرعة <select id="spdSel" style="width:auto"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></label>
-              <label style="align-items:center;gap:6px"><input type="checkbox" id="muteChk"> 🔇 بدون صوت</label>
-              <button class="btn mini" id="vidReset">↺ إعادة ضبط</button>
+              <label style="align-items:center;gap:5px">سرعة <select id="spdSel" style="width:auto"><option value="0.5">0.5x</option><option value="1" selected>1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></label>
+              <label style="align-items:center;gap:5px"><input type="checkbox" id="muteChk"> صامت</label>
+              <button class="btn mini" id="vidReset">↺ ضبط</button>
             </div>
           </div>
           <div class="box">
-            <h4>✏️ نص على الفيديو</h4>
-            <input id="vidTxt" type="text" placeholder="اكتب نص العنوان...">
-            <label>الحجم <span id="vvt">48</span></label><input type="range" id="vtsz" min="16" max="160" value="48">
+            <h4>نص على الفيديو</h4>
+            <input id="vidTxt" type="text" placeholder="النص...">
+            <label>حجم <span id="vvt">48</span></label><input type="range" id="vtsz" min="16" max="160" value="48">
             <div class="rowBtns" style="align-items:center">
               <input type="color" id="vtc" value="#10b981">
               <select id="vtp" style="flex:1"><option value="top">أعلى</option><option value="center">وسط</option><option value="bottom" selected>أسفل</option></select>
             </div>
           </div>
           <div class="box">
-            <h4>🎬 التصدير</h4>
-            <div class="rowBtns"><button class="btn primary" id="vidExport">🎥 تصدير الفيديو المعدّل</button></div>
-            <div class="note">التصدير داخل متصفحك بالكامل (خصوصية تامة) بصيغة WebM.</div>
+            <h4>التصدير</h4>
+            <div class="rowBtns"><button class="btn primary" id="vidExport">🎥 تصدير</button></div>
           </div>
         </div>
       </div>
@@ -298,80 +280,80 @@ ol.steps{margin:8px 20px 0 0;font-size:.8rem;color:var(--dim);line-height:2.1}
 
 <input type="file" id="fileInput" multiple hidden>
 
+<div class="modal" id="menuModal"><div class="sheet" style="max-width:360px;padding:8px">
+  <button class="menuItem" id="engBtn">⚙️ المحركات والمفاتيح</button>
+  <button class="menuItem" id="cloudBtn">☁️ سحابة GitHub</button>
+  <button class="menuItem" onclick="gotoView('img');closeMenu()">🎨 استوديو الصور</button>
+  <button class="menuItem" onclick="gotoView('vid');closeMenu()">🎬 استوديو الفيديو</button>
+  <button class="menuItem" id="clearBtn">🗑️ محادثة جديدة</button>
+</div></div>
+
 <div class="modal" id="engModal"><div class="sheet">
-  <h3>⚙️ المحركات والإعدادات</h3>
-  <p class="sub">الافتراضي مجاني بدون مفتاح. أضف مفتاحاً مجانياً لجودة أعلى (يُخزَّن في متصفحك فقط).</p>
+  <h3>المحركات</h3>
   <label>المحرك:</label>
   <select id="engSel">
-    <option value="pollinations">Pollinations — مجاني بدون مفتاح (افتراضي)</option>
-    <option value="gemini">Google Gemini API</option>
-    <option value="groq">Groq LPU</option>
+    <option value="pollinations">Pollinations — مجاني (افتراضي)</option>
+    <option value="gemini">Google Gemini</option>
+    <option value="groq">Groq</option>
     <option value="openrouter">OpenRouter</option>
-    <option value="github">GitHub Models API</option>
+    <option value="github">GitHub Models</option>
     <option value="mistral">Mistral</option>
     <option value="cohere">Cohere</option>
   </select>
-  <label>نموذج Pollinations (مجاني):</label>
+  <label>نموذج Pollinations:</label>
   <select id="pModelSel">
-    <option value="openai">openai — متوازن (افتراضي)</option>
-    <option value="openai-large">openai-large — أقوى</option>
-    <option value="openai-reasoning">openai-reasoning — تفكير عميق</option>
-    <option value="mistral">mistral — سريع</option>
-    <option value="qwen-coder">qwen-coder — برمجة</option>
+    <option value="openai">openai</option>
+    <option value="openai-large">openai-large</option>
+    <option value="openai-reasoning">openai-reasoning</option>
+    <option value="mistral">mistral</option>
+    <option value="qwen-coder">qwen-coder</option>
   </select>
   <label id="keyLabel">مفتاح API:</label>
-  <input id="keyInput" type="password" placeholder="اتركه فارغاً لاستخدام الافتراضي المجاني">
-  <label>اسمك (اختياري — ليتذكرك البوت):</label>
-  <input id="userName" type="text" placeholder="مثال: محمد">
-  <p style="font-size:.74rem;color:var(--dim);margin-top:10px;line-height:2">
-    🔑 مفاتيح مجانية: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Gemini</a> · <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq</a> · <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">OpenRouter</a> · <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub</a>
-  </p>
+  <input id="keyInput" type="password" placeholder="اختياري">
+  <label>اسمك:</label>
+  <input id="userName" type="text" placeholder="اختياري">
   <div class="rowBtns">
-    <button class="btn primary" id="saveEng">💾 حفظ</button>
+    <button class="btn primary" id="saveEng">حفظ</button>
     <button class="btn" id="closeEng">إلغاء</button>
   </div>
 </div></div>
 
 <div class="modal" id="cloudModal"><div class="sheet">
-  <h3>☁️ سحابة GitHub</h3>
-  <p class="sub">مزامنة محادثاتك بين الأجهزة عبر ملف <b>salman-bot-data.json</b> في مستودعك.</p>
-  <div class="rowBtns" style="margin-top:0">
-    <button class="btn" id="expBtn">📤 تصدير JSON</button>
-    <button class="btn" id="impBtn">📥 استيراد JSON</button>
-    <input type="file" id="impFile" accept=".json" hidden>
-  </div>
-  <hr class="divider">
-  <label>اسم مستخدم GitHub:</label>
+  <h3>سحابة GitHub</h3>
+  <label>المستخدم:</label>
   <input id="ghUser" placeholder="TEaG3">
-  <label>اسم المستودع:</label>
+  <label>المستودع:</label>
   <input id="ghRepo" placeholder="Salman-Bot">
-  <label>رمز الوصول الشخصي (Contents: Read &amp; Write):</label>
+  <label>الرمز (Contents: Read &amp; Write):</label>
   <input id="ghToken" type="password" placeholder="github_pat_...">
   <div class="rowBtns">
-    <button class="btn primary" id="pushBtn">☁️ رفع المحادثات</button>
-    <button class="btn" id="pullBtn">⬇️ سحب المحادثات</button>
+    <button class="btn primary" id="pushBtn">☁️ رفع</button>
+    <button class="btn" id="pullBtn">⬇️ سحب</button>
+    <button class="btn" id="expBtn">تصدير</button>
+    <button class="btn" id="impBtn">استيراد</button>
+    <input type="file" id="impFile" accept=".json" hidden>
+    <button class="btn" id="closeCloud">إغلاق</button>
   </div>
-  <div class="rowBtns"><button class="btn" id="closeCloud">إغلاق</button></div>
 </div></div>
 
 <div class="modal" id="repModal"><div class="sheet" id="repSheet">
   <div class="repBar">
-    <h3>📊 التقرير</h3>
-    <button class="btn" id="repPrint">🖨️ طباعة / PDF</button>
-    <button class="btn primary" id="repDl">⬇️ تحميل</button>
+    <h3>التقرير</h3>
+    <button class="btn" id="repPrint">🖨️</button>
+    <button class="btn primary" id="repDl">⬇️</button>
     <button class="btn" id="closeRep">✕</button>
   </div>
-  <iframe id="repFrame" title="التقرير"></iframe>
+  <iframe id="repFrame"></iframe>
 </div></div>
 
 <div class="modal" id="slModal">
   <div class="slTop">
-    <h3>📽️ العرض التقديمي</h3>
-    <button class="btn" id="slFull">⛶ ملء الشاشة</button>
-    <button class="btn primary" id="slDl">⬇️ تحميل</button>
+    <h3>العرض</h3>
+    <button class="btn" id="slFull">⛶</button>
+    <button class="btn primary" id="slDl">⬇️</button>
     <button class="btn" id="closeSl">✕</button>
   </div>
-  <iframe id="slFrame" title="العرض"></iframe>
+  <iframe id="slFrame"></iframe>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -380,59 +362,50 @@ ol.steps{margin:8px 20px 0 0;font-size:.8rem;color:var(--dim);line-height:2.1}
 "use strict";
 const $=s=>document.querySelector(s);
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}}};
-function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){toast("⚠️ مساحة التخزين ممتلئة")}}
-
-/* ============ المفاتيح المدمجة ============ */
+function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){}}
 const BUILTIN={gemini:"",groq:"",openrouter:"",github:"",mistral:"",cohere:""};
 
-/* ============ التنقل ============ */
 function gotoView(v){
-  document.querySelectorAll("section.view").forEach(x=>x.classList.remove("on"));
-  $("#v-"+v).classList.add("on");
+ ["chat","img","vid"].forEach(id=>$("#v-"+id).style.display=id===v?"flex":"none");
 }
+function closeMenu(){$("#menuModal").classList.remove("open");}
 
-/* ============ الثيم ============ */
 let theme=LS.get("theme","light");
-function applyTheme(){
-  document.body.classList.toggle("dark",theme==="dark");
-  $("#themeBtn").textContent=theme==="dark"?"☀️":"🌙";
-}
+function applyTheme(){document.body.classList.toggle("dark",theme==="dark");$("#themeBtn").textContent=theme==="dark"?"☀️":"🌙";}
 $("#themeBtn").onclick=()=>{theme=theme==="dark"?"light":"dark";save("theme",theme);applyTheme();};
 applyTheme();
 
-/* ============ الأوضاع ============ */
 const MODES={
- general:{name:"💬 محادثة عامة",sys:"أنت «Salman-Bot»، مساعد ذكاء اصطناعي عربي ودود ودقيق. أجب بالعربية المبسطة إلا إذا طُلب غير ذلك. نظّم إجاباتك بعناوين ونقاط عند الحاجة، واستخدم Markdown.",
-  chips:["✍️ اكتب لي رسالة رسمية","🧠 اشرح مفهوماً معقداً ببساطة","📅 خطط لي يومي","🌍 ترجم واشرح نصاً"]},
- reports:{name:"📊 تقرير أو بحث علمي",sys:"أنت «Salman-Bot»، باحث وخبير في إعداد التقارير والأبحاث العلمية الاحترافية. أنتج التقرير كاملاً داخل كتلة واحدة تبدأ بـ ```report وتنتهي بـ ``` بدون وسم html أو body أو CSS. البنية:\n<h1>عنوان التقرير</h1>\n<p>مقدمة وملخص تنفيذي</p>\nأقسام بـ <h2> و<h3> وفقرات <p> وقوائم <ul>/<ol>\n2 إلى 4 جداول <table> بيانات مناسبة (مع <thead> و<tbody>)\n3 إلى 5 صور توضيحية: <img src=\"IMG:english descriptive prompt\"> (الوصف إنجليزي)\n<h2>الخلاصة والتوصيات</h2>\n<h2>المراجع</h2> بقائمة <ol>\nلا تكتب أي كلام خارج كتلة report.",
-  chips:["📊 تقرير عن الطاقة المتجددة","🔬 بحث علمي عن الذكاء الاصطناعي","📈 تقرير تحليل السوق السعودي","🧪 بحث في الأحياء عن الخلايا"]},
- slides:{name:"📽️ عرض تقديمي",sys:"أنت «Salman-Bot»، خبير تصميم العروض التقديمية. أنتج العرض كاملاً داخل كتلة واحدة تبدأ بـ ```slides وتنتهي بـ ``` بدون وسم html أو CSS. البنية:\nمن 7 إلى 10 شرائح، كل شريحة داخل <section>...</section>\nالأولى: <h1>عنوان العرض</h1> و<p>سطر تعريفي</p>\nكل شريحة: <h2>عنوان</h2> + <ul> من 3 إلى 5 نقاط + <p> شرح موجز\nشريحة واحدة على الأقل فيها <table> بيانات\nكل شريحتين صورة: <img src=\"IMG:english descriptive prompt\">\nالأخيرة: <h2>شكراً لكم</h2>\nلا تكتب أي كلام خارج كتلة slides.",
-  chips:["📽️ عرض عن الطاقة الشمسية","🎓 عرض تعليمي عن البراكين","📊 عرض لخطة عمل","🧬 عرض عن الوراثة"]},
- coder:{name:"💻 مبرمج",sys:"أنت «Salman-Bot» في وضع المبرمج. قدّم كوداً كاملاً قابلاً للتشغيل داخل كتل ``` مع شرح موجز. عند طلب صفحات ويب اكتب ملف HTML كاملاً داخل كتلة ```html. ركّز على أفضل الممارسات.",
-  chips:["🌐 صفحة هبوط HTML كاملة","🐍 حل تمرين بايثون","🐞 صحح لي هذا الكود","🎮 لعبة جافاسكربت بسيطة"]},
- writer:{name:"✍️ كاتب محتوى",sys:"أنت «Salman-Bot» في وضع كاتب المحتوى. اكتب محتوى عربياً إبداعياً جذاباً: مقالات، منشورات، إعلانات، قصص. اقترح عناوين بديلة دائماً.",
-  chips:["📝 مقال عن الذكاء الاصطناعي","📱 منشور إنستغرام جذاب","🚀 وصف منتج تسويقي","📖 قصة قصيرة للأطفال"]},
- files:{name:"📂 محلل ملفات",sys:"أنت «Salman-Bot» في وضع محلل الملفات. سيرفق المستخدم محتوى الملفات في رسالته. حلّلها بدقة: ملخص، نقاط رئيسية، ملاحظات، وتوصيات.",
-  chips:["📊 لخّص الملف المرفق","🔍 ابحث عن أخطاء في الكود","📈 استخرج النقاط المهمة","❓ اطرح أسئلة عن الملف"]},
- images:{name:"🎨 توليد صور",sys:"أنت «Salman-Bot» في وضع توليد الصور. حوّل فكرة المستخدم إلى وصف إنجليزي غني ومفصل (prompt) لتوليد صور مذهلة. أجب باختصار واذكر الوصف الذي صغته.",
-  chips:["🏙️ مدينة مستقبلية بالغروب","🐱 قط رائد فضاء كرتوني","🍜 صورة طعام احترافية","🌄 منظر طبيعي خيالي"]},
+ general:{name:"💬 عام",sys:"أنت «Salman-Bot»، مساعد ذكي عربي ودود ودقيق. أجب بالعربية وبإيجاز منظم، واستخدم Markdown.",
+  chips:["✍️ رسالة رسمية","🧠 اشرح مفهوماً ببساطة","📅 خطة يومي"]},
+ reports:{name:"📊 تقرير/بحث",sys:"أنت «Salman-Bot» باحث علمي. أنتج التقرير كاملاً داخل كتلة واحدة ```report ... ``` بدون html/body/CSS:\n<h1>العنوان</h1>\n<p>مقدمة</p>\nأقسام <h2>/<h3> وفقرات <p> وقوائم\n2-4 جداول <table> مع <thead> و<tbody>\n3-5 صور: <img src=\"IMG:english prompt\">\n<h2>الخلاصة والتوصيات</h2>\n<h2>المراجع</h2> بقائمة <ol>\nلا تكتب شيئاً خارج الكتلة.",
+  chips:["📊 تقرير عن الطاقة المتجددة","🔬 بحث عن الذكاء الاصطناعي","🧪 بحث في الأحياء"]},
+ slides:{name:"📽️ عرض",sys:"أنت «Salman-Bot» مصمم عروض. أنتج العرض داخل كتلة ```slides ... ``` بدون html/CSS:\n7-10 شرائح، كل شريحة <section>...</section>\nالأولى: <h1>العنوان</h1><p>سطر تعريفي</p>\nكل شريحة: <h2>عنوان</h2> + <ul> 3-5 نقاط + <p> شرح\nشريحة فيها <table>\nكل شريحتين صورة <img src=\"IMG:english prompt\">\nالأخيرة: <h2>شكراً لكم</h2>",
+  chips:["📽️ عرض عن الطاقة الشمسية","🎓 عرض عن البراكين","📊 عرض خطة عمل"]},
+ coder:{name:"💻 مبرمج",sys:"أنت «Salman-Bot» مبرمج. قدّم كوداً كاملاً داخل كتل ``` مع شرح موجز. صفحات الويب داخل كتلة ```html كاملة.",
+  chips:["🌐 صفحة HTML","🐍 تمرين بايثون","🐞 صحح كودي"]},
+ writer:{name:"✍️ كاتب",sys:"أنت «Salman-Bot» كاتب محتوى. اكتب محتوى عربياً جذاباً واقترح عناوين بديلة.",
+  chips:["📝 مقال قصير","📱 منشور إنستغرام","📖 قصة قصيرة"]},
+ files:{name:"📂 ملفات",sys:"أنت «Salman-Bot» محلل ملفات. لخّص وانتقد وحلّل المرفقات بدقة مع توصيات.",
+  chips:["📊 لخّص الملف","🔍 أخطاء الكود","📈 النقاط المهمة"]},
+ images:{name:"🎨 صور",sys:"أنت «Salman-Bot» مولّد صور. حوّل فكرة المستخدم إلى وصف إنجليزي (prompt) دقيق ومفصل، ثم اذكره فقط.",
+  chips:["🏙️ مدينة مستقبلية","🐱 قط فضاء","🌄 منظر خيالي"]},
 };
 let mode=LS.get("mode","auto");
 function detectMode(t){
  const s=t.toLowerCase();
- if(/تقرير|بحث|دراسة|ورقة علمية|research|report/.test(s))return "reports";
- if(/عرض|شرائح|بريزن|presentation|سلايد/.test(s))return "slides";
+ if(/تقرير|بحث|دراسة|research|report/.test(s))return "reports";
+ if(/عرض|شرائح|presentation|سلايد/.test(s))return "slides";
  if(/كود|برمج|برنامج|دالة|خطأ|html|css|javascript|python|bug/.test(s))return "coder";
- if(/مقال|منشور|إعلان|قصة|محتوى تسويقي/.test(s))return "writer";
- if(/لخص|حلل الملف|مرفق|ملف/.test(s))return "files";
+ if(/مقال|منشور|إعلان|قصة/.test(s))return "writer";
+ if(/لخص|حلل|مرفق|ملف/.test(s))return "files";
  return "general";
 }
 
-/* ============ المحركات ============ */
 const ENG={
- pollinations:{name:"Pollinations · مجاني",keyless:true},
- gemini:{name:"Google Gemini",model:"gemini-2.0-flash"},
- groq:{name:"Groq LPU",model:"llama-3.3-70b-versatile"},
+ pollinations:{name:"Pollinations",keyless:true},
+ gemini:{name:"Gemini",model:"gemini-2.0-flash"},
+ groq:{name:"Groq",model:"llama-3.3-70b-versatile"},
  openrouter:{name:"OpenRouter",model:"meta-llama/llama-3.3-70b-instruct:free"},
  github:{name:"GitHub Models",model:"openai/gpt-4o-mini"},
  mistral:{name:"Mistral",model:"mistral-small-latest"},
@@ -444,11 +417,10 @@ let pModel=LS.get("pmodel","openai");
 let userName=LS.get("userName","");
 function engLabel(){
  const b=BUILTIN[engine]&&BUILTIN[engine].trim();
- $("#engName").textContent=ENG[engine].name+(engine==="pollinations"?" · "+pModel:"")+(b?" · مفتاح مدمج":"");
+ $("#engName").textContent=ENG[engine].name+(engine==="pollinations"?" · "+pModel:"")+(b?" · مفتاح":"");
 }
 engLabel();
 
-/* ============ Markdown ============ */
 function md(text){
  let t=String(text).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
  t=t.replace(/```(\w*)\n?([\s\S]*?)```/g,(m,l,c)=>'<pre><code>'+c+'</code></pre>');
@@ -456,14 +428,11 @@ function md(text){
  t=t.replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>');
  t=t.replace(/(^|[^*])\*([^*\n]+)\*/g,'$1<em>$2</em>');
  t=t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
- // جداول
  t=t.replace(/(?:^\|.*\|\s*$\n?)+/gm,block=>{
    const rows=block.trim().split("\n").filter(r=>r.includes("|"));
    if(rows.length<2)return block;
    const clean=r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim());
-   const head=clean(rows[0]);
-   const body=rows.slice(2).map(clean);
-   return '<table><thead><tr>'+head.map(h=>'<th>'+h+'</th>').join("")+'</tr></thead><tbody>'+body.map(r=>'<tr>'+r.map(c=>'<td>'+c+'</td>').join("")+'</tr>').join("")+'</tbody></table>';
+   return '<table><thead><tr>'+clean(rows[0]).map(h=>'<th>'+h+'</th>').join("")+'</tr></thead><tbody>'+rows.slice(2).map(r=>'<tr>'+clean(r).map(c=>'<td>'+c+'</td>').join("")+'</tr>').join("")+'</tbody></table>';
  });
  t=t.replace(/^### (.+)$/gm,'<h4>$1</h4>').replace(/^## (.+)$/gm,'<h3>$1</h3>').replace(/^# (.+)$/gm,'<h2>$1</h2>');
  t=t.replace(/^\s*[-*•] (.+)$/gm,'<li>$1</li>');
@@ -473,19 +442,14 @@ function md(text){
  return t;
 }
 
-/* ============ الاتصال ============ */
 function buildReq(messages,engOverride){
- const eng=engOverride||engine;
- const e=ENG[eng];
+ const eng=engOverride||engine,e=ENG[eng];
  const k=((keys[eng]&&keys[eng].trim())||BUILTIN[eng]||"").trim();
- if(!e.keyless&&!k)throw new Error("أضف مفتاح API من ⚙️ أو استخدم المحرك الافتراضي");
+ if(!e.keyless&&!k)throw new Error("أضف مفتاحاً من ⚙️ أولاً");
  if(eng==="gemini")return {gemini:true,key:k,model:e.model};
  const urls={pollinations:"https://text.pollinations.ai/openai",groq:"https://api.groq.com/openai/v1/chat/completions",openrouter:"https://openrouter.ai/api/v1/chat/completions",github:"https://models.github.ai/inference/chat/completions",mistral:"https://api.mistral.ai/v1/chat/completions",cohere:"https://api.cohere.ai/compatibility/v1/chat/completions"};
  const h={"Content-Type":"application/json"};
- if(!e.keyless){
-   h["Authorization"]="Bearer "+k;
-   if(eng==="openrouter"){h["HTTP-Referer"]=location.origin;h["X-Title"]="Salman-Bot";}
- }
+ if(!e.keyless){h["Authorization"]="Bearer "+k;if(eng==="openrouter"){h["HTTP-Referer"]=location.origin;h["X-Title"]="Salman-Bot";}}
  return {url:urls[eng],headers:h,model:eng==="pollinations"?pModel:e.model};
 }
 async function askStreamed(messages,onDelta,engOverride,signal){
@@ -493,13 +457,13 @@ async function askStreamed(messages,onDelta,engOverride,signal){
  if(req.gemini){
    const contents=messages.map(m=>({role:m.role==="assistant"?"model":"user",parts:[{text:m.content}]}));
    const r=await fetch("https://generativelanguage.googleapis.com/v1beta/models/"+req.model+":generateContent?key="+req.key,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({contents}),signal});
-   if(!r.ok)throw new Error("فشل Gemini (رمز "+r.status+")");
+   if(!r.ok)throw new Error("فشل Gemini ("+r.status+")");
    const j=await r.json();
-   const out=j.candidates?.[0]?.content?.parts?.[0]?.text||"لم أتلقَّ رداً";
+   const out=j.candidates?.[0]?.content?.parts?.[0]?.text||"";
    onDelta(out);return out;
  }
  const r=await fetch(req.url,{method:"POST",headers:req.headers,body:JSON.stringify({model:req.model,messages,stream:true}),signal});
- if(!r.ok)throw new Error("فشل الاتصال (رمز "+r.status+")");
+ if(!r.ok)throw new Error("فشل الاتصال ("+r.status+")");
  let full="";
  const reader=r.body.getReader(),dec=new TextDecoder();
  let buf="";
@@ -516,39 +480,36 @@ async function askStreamed(messages,onDelta,engOverride,signal){
      try{const j=JSON.parse(d);const delta=j.choices?.[0]?.delta?.content||"";if(delta){full+=delta;onDelta(delta);}}catch{}
    }
  }
- if(!full){ // بعض المحركات لا تدعم البث
-   const r2=await fetch(req.url,{method:"POST",headers:req.headers,body:JSON.stringify({model:req.model,messages})});
+ if(!full){
+   const r2=await fetch(req.url,{method:"POST",headers:req.headers,body:JSON.stringify({model:req.model,messages}),signal});
    const j=await r2.json();
-   full=j.choices?.[0]?.message?.content||j.choices?.[0]?.text||"لم أتلقَّ رداً";
+   full=j.choices?.[0]?.message?.content||j.choices?.[0]?.text||"";
    onDelta(full);
  }
  return full;
 }
 
-/* ============ الشخصية ============ */
 function setState(s,msg){
  $("#orb").className="dot"+(s==="idle"?"":" state-"+s);
  if(msg)$("#status").textContent=msg;
 }
-
-/* ============ النطق والاستماع ============ */
 const synth=window.speechSynthesis;
 function speak(text){
  if(!synth)return;
  synth.cancel();
- const u=new SpeechSynthesisUtterance(text.replace(/```[\s\S]*?```/g," جاهز ").slice(0,600));
+ const u=new SpeechSynthesisUtterance(text.replace(/```[\s\S]*?```/g," جاهز ").slice(0,500));
  const ar=synth.getVoices().find(v=>v.lang&&v.lang.startsWith("ar"));
  if(ar)u.voice=ar;
  u.lang="ar-SA";
- u.onstart=()=>setState("speak","🔊 Salman-Bot يتحدث...");
- u.onend=()=>setState("idle","جاهز — كيف أساعدك؟");
+ u.onstart=()=>setState("speak","يتحدث...");
+ u.onend=()=>setState("idle","جاهز");
  synth.speak(u);
 }
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 $("#micBtn").onclick=()=>{
- if(!SR){toast("متصفحك لا يدعم الاستماع الصوتي — استخدم Chrome أو Edge");return;}
+ if(!SR){toast("استخدم Chrome أو Edge");return;}
  const r=new SR();r.lang="ar-SA";r.interimResults=false;
- setState("listen","🎙️ أستمع إليك...");
+ setState("listen","أستمع...");
  $("#micBtn").classList.add("rec");
  const stop=()=>{$("#micBtn").classList.remove("rec");try{r.stop()}catch{}setState("idle","جاهز");};
  r.onresult=e=>{stop();$("#input").value=e.results[0][0].transcript;$("#input").dispatchEvent(new Event("input"));$("#sendBtn").click();};
@@ -556,114 +517,94 @@ $("#micBtn").onclick=()=>{
  r.start();
 };
 
-/* ============ أدوات ============ */
 function imgURL(prompt,w,h){
  return "https://image.pollinations.ai/prompt/"+encodeURIComponent(prompt.trim())+"?width="+(w||1024)+"&height="+(h||1024)+"&nologo=true&seed="+Math.floor(Math.random()*1e6);
 }
-function fillImages(html){
- return html.replace(/IMG:\s*([^"'<>\n]{3,200})/g,(m,p)=>imgURL(p,1024,576));
-}
-function extractBlock(text,tag){
- const m=text.match(new RegExp("```"+tag+"\\s*([\\s\\S]*?)```","i"));
- return m?m[1]:null;
-}
-function firstTag(html,tag){
- try{const d=new DOMParser().parseFromString(html,"text/html");const e=d.querySelector(tag);return e?e.textContent.trim():"";}catch{return "";}
-}
+function fillImages(html){return html.replace(/IMG:\s*([^"'<>\n]{3,200})/g,(m,p)=>imgURL(p,1024,576));}
+function extractBlock(text,tag){const m=text.match(new RegExp("```"+tag+"\\s*([\\s\\S]*?)```","i"));return m?m[1]:null;}
+function firstTag(html,tag){try{const d=new DOMParser().parseFromString(html,"text/html");const e=d.querySelector(tag);return e?e.textContent.trim():"";}catch{return "";}}
 function download(name,blobOrText,type){
  const blob=blobOrText instanceof Blob?blobOrText:new Blob([blobOrText],{type:type||"text/html"});
- const a=document.createElement("a");
- a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;a.click();URL.revokeObjectURL(a.href);
 }
 function mkBtn(txt,fn){const b=document.createElement("button");b.className="actBtn";b.textContent=txt;b.onclick=fn;return b;}
 
-/* ============ أنماط التقارير والعروض ============ */
 const REPORT_CSS=`
- body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;max-width:860px;margin:0 auto;padding:36px 28px;color:#14201a;background:#fff;line-height:1.9;font-size:15px}
- h1{color:#065f46;border-bottom:3px solid #10b981;padding-bottom:10px;font-size:1.7rem}
- h2{color:#065f46;border-right:4px solid #10b981;padding-right:10px;margin-top:28px}
- h3{color:#047857;margin-top:20px}
- table{border-collapse:collapse;width:100%;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
- th{background:#065f46;color:#fff;padding:9px 12px;font-size:.88rem}
- td{border:1px solid #d1e7dd;padding:8px 12px;font-size:.88rem}
+ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;max-width:860px;margin:0 auto;padding:32px 22px;color:#14201a;background:#fff;line-height:1.9;font-size:15px}
+ h1{color:#065f46;border-bottom:3px solid #10b981;padding-bottom:8px;font-size:1.6rem}
+ h2{color:#065f46;border-right:4px solid #10b981;padding-right:10px;margin-top:24px}
+ h3{color:#047857;margin-top:18px}
+ table{border-collapse:collapse;width:100%;margin:12px 0}
+ th{background:#065f46;color:#fff;padding:8px 10px;font-size:.86rem}
+ td{border:1px solid #d1e7dd;padding:7px 10px;font-size:.86rem}
  tr:nth-child(even) td{background:#f2faf6}
- img{max-width:100%;border-radius:10px;display:block;margin:14px auto;box-shadow:0 3px 14px rgba(0,0,0,.12)}
- ul,ol{padding-right:22px;margin:10px 0}li{margin:5px 0}p{margin:9px 0}
- @media print{img{box-shadow:none}body{padding:10mm}}
+ img{max-width:100%;border-radius:8px;display:block;margin:12px auto}
+ ul,ol{padding-right:20px;margin:8px 0}li{margin:4px 0}p{margin:8px 0}
+ @media print{body{padding:8mm}}
 `;
 const DECK_CSS=`
  *{box-sizing:border-box;margin:0}
- body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:#0d1117;overflow:hidden}
- #deck{width:100vw;height:calc(100vh - 56px);position:relative}
- .slide{display:none;width:100%;height:100%;padding:5vh 7vw;flex-direction:column;justify-content:center;color:#e6edf3}
+ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:#0f1115;overflow:hidden}
+ #deck{width:100vw;height:calc(100dvh - 48px)}
+ .slide{display:none;width:100%;height:100%;padding:5vh 6vw;flex-direction:column;justify-content:center;color:#e8eaed}
  .slide.on{display:flex}
- .slide h1{color:#10b981;font-size:2.5rem;margin-bottom:14px}
- .slide h2{color:#10b981;font-size:1.8rem;margin-bottom:16px;border-right:5px solid #10b981;padding-right:14px}
- .slide p{font-size:1.12rem;line-height:1.9;color:#c9d1d9;max-width:60ch}
- .slide ul{padding-right:24px;font-size:1.12rem;line-height:2}
- .slide li{margin:6px 0}
- .slide img{max-height:32vh;max-width:44vw;border-radius:12px;display:block;margin:14px 0}
- .slide table{border-collapse:collapse;margin:12px 0;font-size:1rem}
- .slide th{background:#065f46;color:#fff;padding:9px 16px}
- .slide td{border:1px solid #30363d;padding:8px 16px}
- .ctr{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;background:#161b22;border-top:1px solid #30363d;z-index:9}
- .ctr button{background:#1f2630;border:1px solid #10b981;color:#10b981;font-size:1rem;padding:8px 22px;border-radius:10px;cursor:pointer}
- .ctr button:hover{background:#10b981;color:#fff}
- .ctr span{color:#8b949e;font-size:.9rem;min-width:70px;text-align:center}
+ .slide h1{color:#10b981;font-size:2.4rem;margin-bottom:12px}
+ .slide h2{color:#10b981;font-size:1.7rem;margin-bottom:14px;border-right:5px solid #10b981;padding-right:12px}
+ .slide p{font-size:1.1rem;line-height:1.8;color:#c9d1d9;max-width:60ch}
+ .slide ul{padding-right:22px;font-size:1.1rem;line-height:1.9}
+ .slide img{max-height:30vh;max-width:44vw;border-radius:10px;display:block;margin:12px 0}
+ .slide table{border-collapse:collapse;margin:10px 0}
+ .slide th{background:#065f46;color:#fff;padding:8px 14px}
+ .slide td{border:1px solid #2a3138;padding:7px 14px}
+ .ctr{position:fixed;bottom:0;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:center;gap:12px;background:#161a20;border-top:1px solid #2a3138;z-index:9}
+ .ctr button{background:#1e242c;border:1px solid #10b981;color:#10b981;font-size:.95rem;padding:6px 18px;border-radius:8px;cursor:pointer}
+ .ctr span{color:#8a93a0;font-size:.85rem;min-width:60px;text-align:center}
 `;
 
-/* ============ الدردشة ============ */
 const chatBox=$("#chat");
 let history=LS.get("history",[]);
 let currentReport=null,currentDeck=null;
-let gening=false, currentAbort=null;
+let gening=false,currentAbort=null;
 
 function addMsg(role,content,extra){
  const d=document.createElement("div");d.className="msg "+(role==="user"?"user":"bot");
- if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml){
-   d.classList.add("md");d.innerHTML=md(content);
- }else d.textContent=content;
+ if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml){d.classList.add("md");d.innerHTML=md(content);}
+ else d.textContent=content;
  (extra?.attachments||[]).forEach(a=>{
    if(a.img){const im=document.createElement("img");im.className="att";im.src=a.data;d.appendChild(im);}
    else{const s=document.createElement("span");s.className="attach";s.textContent="📎 "+a.name;d.appendChild(s);}
  });
  if(extra?.genimg){
    const im=document.createElement("img");im.className="genimg";im.src=extra.genimg;d.appendChild(im);
-   const a=document.createElement("a");a.href=extra.genimg;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";d.appendChild(a);
-   d.appendChild(mkBtn("🎨 فتح في الاستوديو",()=>openStudioUrl(extra.genimg)));
+   const a=document.createElement("a");a.href=extra.genimg;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل";d.appendChild(a);
+   d.appendChild(mkBtn("🎨 الاستوديو",()=>openStudioUrl(extra.genimg)));
  }
  if(extra?.reportHtml){
-   d.appendChild(mkBtn("📖 فتح التقرير",()=>openReport(extra.reportHtml)));
+   d.appendChild(mkBtn("📖 فتح",()=>openReport(extra.reportHtml)));
    d.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-report.html",wrapReport(extra.reportHtml))));
  }
  if(extra?.slidesHtml){
-   d.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(extra.slidesHtml)));
+   d.appendChild(mkBtn("▶️ تشغيل",()=>openSlides(extra.slidesHtml)));
    d.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-presentation.html",extra.slidesHtml)));
  }
  if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml&&content){
-   d.appendChild(mkBtn("📋 نسخ",()=>{navigator.clipboard.writeText(content).then(()=>toast("تم النسخ")).catch(()=>toast("تعذر النسخ"));}));
+   d.appendChild(mkBtn("📋 نسخ",()=>{navigator.clipboard.writeText(content).then(()=>toast("تم النسخ")).catch(()=>{});}));
    d.appendChild(mkBtn("🔄 إعادة",regenerate));
+   if(/```html/i.test(content)&&/<html|<!DOCTYPE|<div|<body/i.test(content))d.appendChild(mkBtn("👁️ معاينة",()=>openPreview(content)));
  }
- if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml)decorate(d,content);
  chatBox.appendChild(d);chatBox.scrollTop=chatBox.scrollHeight;
  return d;
 }
-function decorate(d,content){
- if(/```html/i.test(content)&&/<html|<!DOCTYPE|<div|<body/i.test(content)){
-   d.appendChild(mkBtn("👁️ معاينة HTML",()=>openPreview(content)));
- }
-}
 function render(){
  chatBox.innerHTML="";
- if(!history.length)addMsg("bot","أهلاً! أنا **Salman-Bot** ✳️ — مساعدك الذكي المجاني.\n\n- 💬 اسألني أي شيء أو تحدث صوتياً 🎤\n- ✨ الوضع **التلقائي** يكتشف طلبك: تقرير، بحث، عرض، كود، صورة...\n- 🎨🎬 استوديو الصور والفيديو من الشريط العلوي\n- ⚙️ أضف مفتاحاً مجانياً (Gemini/Groq) لجودة أقوى\n\nكيف أساعدك اليوم؟");
+ if(!history.length)addMsg("bot","مرحباً 👋 كيف أساعدك؟");
  else history.forEach(m=>addMsg(m.role,m.content,m));
 }
 render();
 
 function buildModes(){
  const sel=$("#modeSel");sel.innerHTML="";
- const opts=[["auto","✨ تلقائي (يفهم طلبك)"],...Object.entries(MODES).map(([id,m])=>[id,m.name])];
- opts.forEach(([id,label])=>{
+ [["auto","✨ تلقائي"],...Object.entries(MODES).map(([id,m])=>[id,m.name])].forEach(([id,label])=>{
    const o=document.createElement("option");o.value=id;o.textContent=label;
    if(id===mode)o.selected=true;
    sel.appendChild(o);
@@ -681,7 +622,6 @@ function buildChips(){
 }
 buildModes();
 
-/* ============ المرفقات ============ */
 let attachments=[];
 $("#attBtn").onclick=()=>$("#fileInput").click();
 $("#fileInput").onchange=e=>{
@@ -700,17 +640,16 @@ function renderAtt(){
  $("#attRow").innerHTML="";
  attachments.forEach((a,i)=>{
    const p=document.createElement("span");p.className="attPill";
-   p.innerHTML=(a.isImg?"🖼️ ":"📄 ")+a.name.replace(/</g,"&lt;");
+   p.textContent=(a.isImg?"🖼️ ":"📄 ")+a.name;
    const x=document.createElement("button");x.textContent="✕";x.onclick=()=>{attachments.splice(i,1);renderAtt();};
    p.appendChild(x);$("#attRow").appendChild(p);
  });
 }
 
-/* ============ الإرسال ============ */
 $("#input").addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("#sendBtn").click();}});
-$("#input").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,130)+"px";});
+$("#input").addEventListener("input",function(){this.style.height="auto";this.style.height=Math.min(this.scrollHeight,120)+"px";});
 $("#sendBtn").onclick=async()=>{
- if(gening){ if(currentAbort)currentAbort.abort(); return; }
+ if(gening){if(currentAbort)currentAbort.abort();return;}
  const input=$("#input"),text=input.value.trim();
  if(!text&&!attachments.length)return;
  input.value="";input.style.height="auto";
@@ -718,177 +657,135 @@ $("#sendBtn").onclick=async()=>{
  addMsg("user",text||"(مرفقات)",{attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
  history.push({role:"user",content:text||"(مرفقات)",attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
  save("history",history);
-
  if(/^\/imagine\b/i.test(text)){
    const p=text.replace(/^\/imagine\s*/i,"");
-   if(!p){toast("اكتب وصف الصورة بعد /imagine");return;}
-   await genImage(p);
-   return;
+   if(!p){toast("اكتب وصف الصورة");return;}
+   await genImage(p);return;
  }
  await runChat(text,atts);
 };
 
 async function runChat(text,atts){
  const eff=mode==="auto"?detectMode(text):mode;
- gening=true;
- $("#sendBtn").textContent="⏹";$("#sendBtn").classList.add("stopping");
+ gening=true;$("#sendBtn").textContent="⏹";$("#sendBtn").classList.add("stopping");
  currentAbort=new AbortController();
- setState("think","💭 أفكّر...");
+ setState("think","أفكّر...");
  const typing=addMsg("bot","");
- typing.classList.add("md");
  typing.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';
  let acc="";
  const onDelta=d=>{acc+=d;typing.textContent=acc;chatBox.scrollTop=chatBox.scrollHeight;};
-
  const finish=()=>{gening=false;$("#sendBtn").textContent="➤";$("#sendBtn").classList.remove("stopping");currentAbort=null;};
-
  try{
    if(eff==="images"){
      const r=await askStreamed([{role:"system",content:MODES[eff].sys},{role:"user",content:text}],()=>{},null,currentAbort.signal);
-     finish();
-     typing.innerHTML="";typing.innerHTML=md(r);
-     await genImage(r.slice(0,600));
-     return;
+     finish();typing.innerHTML=md(r);
+     await genImage(r.slice(0,600));return;
    }
    let fileNote="";
-   if(atts&&atts.length){
-     fileNote="\n\n📎 مرفقات المستخدم:\n"+atts.map(a=>a.isImg?"[صورة: "+a.name+"]":"[ملف: "+a.name+"]\n"+a.text).join("\n---\n");
-   }
+   if(atts&&atts.length)fileNote="\n\n📎 مرفقات:\n"+atts.map(a=>a.isImg?"[صورة: "+a.name+"]":"[ملف: "+a.name+"]\n"+a.text).join("\n---\n");
    let sys=MODES[eff].sys;
-   if(userName)sys+="\nاسم المستخدم: "+userName+" — خاطبه باسمه بلطف.";
-   const msgs=[{role:"system",content:sys},
-     ...history.slice(-20).map(m=>({role:m.role==="bot"?"assistant":"user",content:m.content}))];
+   if(userName)sys+="\nاسم المستخدم: "+userName;
+   const msgs=[{role:"system",content:sys},...history.slice(-20).map(m=>({role:m.role==="bot"?"assistant":"user",content:m.content}))];
    if(fileNote)msgs[msgs.length-1].content+=fileNote;
-
    let reply="";
-   try{
-     reply=await askStreamed(msgs,onDelta,engine,currentAbort.signal);
-   }catch(err){
+   try{reply=await askStreamed(msgs,onDelta,engine,currentAbort.signal);}
+   catch(err){
      if(err.name==="AbortError")throw err;
      if(engine!=="pollinations"){
-       toast("⚠️ "+err.message+" — تجربة المحرك الافتراضي...");
-       acc+="\n\n(تعذر المحرك المحدد — تم استخدام الافتراضي)\n\n";
-       typing.textContent=acc;
+       acc+="\n\n(تعذر المحرك — الافتراضي)\n\n";typing.textContent=acc;
        reply=await askStreamed(msgs,onDelta,"pollinations",currentAbort.signal);
      }else throw err;
    }
    finish();
-
    const repBlock=extractBlock(reply,"report");
    if(repBlock){
-     const html=fillImages(repBlock);
-     const title=firstTag(html,"h1")||"تقرير بدون عنوان";
-     const summary="📊 جاهز! أعددت لك تقريراً كاملاً: «"+title+"» — يشمل صوراً توضيحية وجداول بيانات وشروحاً علمية.";
+     const html=fillImages(repBlock),title=firstTag(html,"h1")||"تقرير";
+     const summary="📊 جاهز: «"+title+"»";
      typing.innerHTML="";typing.textContent=summary;
      typing.appendChild(mkBtn("📖 فتح التقرير",()=>openReport(html)));
-     typing.appendChild(mkBtn("⬇️ تحميل التقرير",()=>download("salman-report.html",wrapReport(html))));
-     history.push({role:"bot",content:summary,reportHtml:html});
-     save("history",history);speak(summary);
+     typing.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-report.html",wrapReport(html))));
+     history.push({role:"bot",content:summary,reportHtml:html});save("history",history);speak(summary);
    }else{
      const slBlock=extractBlock(reply,"slides");
      if(slBlock){
-       const deck=buildDeck(slBlock);
-       const title=firstTag(slBlock,"h1")||"عرض تقديمي";
+       const deck=buildDeck(slBlock),title=firstTag(slBlock,"h1")||"عرض";
        const count=(slBlock.match(/<section/gi)||[]).length;
-       const summary="📽️ جاهز! أنشأت لك عرضاً من "+count+" شريحة: «"+title+"» — بالصور والجداول والشروح.";
+       const summary="📽️ جاهز: «"+title+"» ("+count+" شريحة)";
        typing.innerHTML="";typing.textContent=summary;
        typing.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(deck)));
-       typing.appendChild(mkBtn("⬇️ تحميل العرض",()=>download("salman-presentation.html",deck)));
-       history.push({role:"bot",content:summary,slidesHtml:deck});
-       save("history",history);speak(summary);
+       typing.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-presentation.html",deck)));
+       history.push({role:"bot",content:summary,slidesHtml:deck});save("history",history);speak(summary);
      }else{
-       history.push({role:"bot",content:reply});
-       save("history",history);
+       history.push({role:"bot",content:reply});save("history",history);
        typing.innerHTML="";typing.innerHTML=md(reply);
-       typing.appendChild(mkBtn("📋 نسخ",()=>{navigator.clipboard.writeText(reply).then(()=>toast("تم النسخ"));}));
+       typing.appendChild(mkBtn("📋 نسخ",()=>{navigator.clipboard.writeText(reply).then(()=>toast("تم النسخ")).catch(()=>{});}));
        typing.appendChild(mkBtn("🔄 إعادة",regenerate));
-       decorate(typing,reply);
+       if(/```html/i.test(reply)&&/<html|<!DOCTYPE|<div|<body/i.test(reply))typing.appendChild(mkBtn("👁️ معاينة",()=>openPreview(reply)));
        speak(reply);
      }
    }
-   if(!synth)setState("idle","جاهز — كيف أساعدك؟");
+   if(!synth)setState("idle","جاهز");
  }catch(err){
    finish();
    if(err.name==="AbortError"){
-     if(acc){history.push({role:"bot",content:acc+"\n\n⏹ (تم الإيقاف)"});save("history",history);typing.innerHTML=md(acc);}
-     else typing.textContent="⏹ تم الإيقاف";
-     setState("idle","جاهز — كيف أساعدك؟");
+     if(acc){history.push({role:"bot",content:acc});save("history",history);typing.innerHTML=md(acc);}
+     else typing.textContent="⏹";
+     setState("idle","جاهز");
    }else{
      typing.innerHTML="";typing.textContent="⚠️ "+err.message;
-     setState("idle","حدث خطأ — حاول مرة أخرى");
+     setState("idle","خطأ");
    }
  }
 }
+
 async function regenerate(){
- if(gening){toast("انتظر انتهاء الرد الحالي");return;}
+ if(gening){toast("انتظر");return;}
  let idx=-1;
  for(let i=history.length-1;i>=0;i--){if(history[i].role==="user"){idx=i;break;}}
- if(idx<0){toast("لا يوجد سؤال لإعادته");return;}
+ if(idx<0){toast("لا يوجد سؤال");return;}
  const last=history[idx];
- history=history.slice(0,idx+1);
- save("history",history);
- render();
+ history=history.slice(0,idx+1);save("history",history);render();
  await runChat(last.content,[]);
 }
 
 async function genImage(prompt){
- setState("think","🎨 أولّد صورتك...");
+ setState("think","توليد صورة...");
  const url=imgURL(prompt);
- const t=addMsg("bot","🎨 إليك صورتك — من وصف: "+prompt);
+ const t=addMsg("bot","🎨 "+prompt);
  const im=document.createElement("img");im.className="genimg";im.src=url;
- const a=document.createElement("a");a.href=url;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";
+ const a=document.createElement("a");a.href=url;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل";
  t.appendChild(im);t.appendChild(a);
- t.appendChild(mkBtn("🎨 فتح في الاستوديو",()=>openStudioUrl(url)));
+ t.appendChild(mkBtn("🎨 الاستوديو",()=>openStudioUrl(url)));
  history.push({role:"bot",content:"🎨 "+prompt,genimg:url});save("history",history);
  chatBox.scrollTop=chatBox.scrollHeight;
- setState("idle","جاهز — جرّب وصفاً آخر");
+ setState("idle","جاهز");
 }
 
-/* ============ عارض التقارير ============ */
-function wrapReport(html){
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — Salman-Bot</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
-}
-function openReport(html){
- currentReport=html;
- $("#repFrame").srcdoc=wrapReport(html);
- $("#repModal").classList.add("open");
-}
+function wrapReport(html){return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — Salman-Bot</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';}
+function openReport(html){currentReport=html;$("#repFrame").srcdoc=wrapReport(html);$("#repModal").classList.add("open");}
 $("#closeRep").onclick=()=>$("#repModal").classList.remove("open");
 $("#repModal").onclick=e=>{if(e.target.id==="repModal")$("#repModal").classList.remove("open");};
 $("#repDl").onclick=()=>{if(currentReport)download("salman-report.html",wrapReport(currentReport));};
-$("#repPrint").onclick=()=>{try{$("#repFrame").contentWindow.focus();$("#repFrame").contentWindow.print();}catch{toast("استخدم زر التحميل ثم اطبع من الملف");}};
+$("#repPrint").onclick=()=>{try{$("#repFrame").contentWindow.focus();$("#repFrame").contentWindow.print();}catch{}};
 
-/* ============ عارض العروض ============ */
 function buildDeck(block){
  const filled=fillImages(block);
  let secs=[];
- try{
-   const d=new DOMParser().parseFromString(filled,"text/html");
-   secs=[...d.querySelectorAll("section")].map(s=>s.innerHTML);
- }catch{}
+ try{const d=new DOMParser().parseFromString(filled,"text/html");secs=[...d.querySelectorAll("section")].map(s=>s.innerHTML);}catch{}
  if(!secs.length)secs=[filled];
- const slides=secs.map(s=>'<section class="slide">'+s+'</section>').join("");
- return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — Salman-Bot</title><style>'+DECK_CSS+'</style></head><body>'
-   +'<div id="deck">'+slides+'</div>'
-   +'<div class="ctr"><button onclick="go(-1)">السابق ▶</button><span id="cnt"></span><button onclick="go(1)">◀ التالي</button><button onclick="fs()">⛶</button></div>'
-   +'<script>\nvar i=0,S=document.querySelectorAll(".slide");\nfunction show(){S.forEach(function(s,k){s.classList.toggle("on",k===i)});document.getElementById("cnt").textContent=(i+1)+" / "+S.length;}\nfunction go(d){i=Math.min(S.length-1,Math.max(0,i+d));show();}\nfunction fs(){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}\ndocument.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(1);if(e.key==="ArrowRight")go(-1);});\nshow();\n<\/script></body></html>';
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض — Salman-Bot</title><style>'+DECK_CSS+'</style></head><body><div id="deck">'+secs.map(s=>'<section class="slide">'+s+'</section>').join("")+'</div><div class="ctr"><button onclick="go(-1)">السابق</button><span id="cnt"></span><button onclick="go(1)">التالي</button><button onclick="fs()">⛶</button></div><script>\nvar i=0,S=document.querySelectorAll(".slide");\nfunction show(){S.forEach(function(s,k){s.classList.toggle("on",k===i)});document.getElementById("cnt").textContent=(i+1)+" / "+S.length;}\nfunction go(d){i=Math.min(S.length-1,Math.max(0,i+d));show();}\nfunction fs(){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}\ndocument.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(1);if(e.key==="ArrowRight")go(-1);});\nshow();\n<\/script></body></html>';
 }
-function openSlides(deck){
- currentDeck=deck;
- $("#slFrame").srcdoc=deck;
- $("#slModal").classList.add("open");
-}
+function openSlides(deck){currentDeck=deck;$("#slFrame").srcdoc=deck;$("#slModal").classList.add("open");}
 $("#closeSl").onclick=()=>$("#slModal").classList.remove("open");
 $("#slDl").onclick=()=>{if(currentDeck)download("salman-presentation.html",currentDeck);};
 $("#slFull").onclick=()=>{const el=$("#slModal");if(document.fullscreenElement)document.exitFullscreen();else el.requestFullscreen&&el.requestFullscreen();};
-
 function openPreview(content){
  const m=content.match(/```(?:html)?\s*([\s\S]*?)```/i);
  $("#repFrame").srcdoc=m?m[1]:content;
  $("#repModal").classList.add("open");
 }
 
-/* ============ استوديو الصور ============ */
+/* ===== استوديو الصور ===== */
 let img=null;
 const ist={src:null,srcType:null,rot:0,fx:1,fy:1};
 function filterStr(pre){
@@ -905,18 +802,17 @@ function filterStr(pre){
 }
 ["br","ct","sa","hu","gr","se","bl"].forEach(id=>$("#i"+id).addEventListener("input",function(){
  const map={br:"vbr",ct:"vct",sa:"vsa",hu:"vhu",gr:"vgr",se:"vse",bl:"vbl"};
- $("#"+map[id]).textContent=["hu"].includes(id)?this.value+"°":["bl"].includes(id)?this.value+"px":this.value+"%";
+ $("#"+map[id]).textContent=id==="hu"?this.value+"°":id==="bl"?this.value+"px":this.value+"%";
  renderImg();
 }));
 ["rsSel","txtImg","tsi","tci","tpi"].forEach(id=>$("#"+id).addEventListener("input",renderImg));
 $("#tsi").addEventListener("input",function(){$("#vti").textContent=this.value;});
-
 function loadSource(src,type){
  ist.src=src;ist.srcType=type;ist.rot=0;ist.fx=1;ist.fy=1;
  const im=new Image();
  if(type==="url")im.crossOrigin="anonymous";
- im.onload=()=>{img=im;renderImg();toast("✅ تم تحميل الصورة");};
- im.onerror=()=>toast("⚠️ تعذر تحميل الصورة");
+ im.onload=()=>{img=im;renderImg();};
+ im.onerror=()=>toast("تعذر تحميل الصورة");
  im.src=src;
 }
 function openStudioUrl(url){gotoView("img");$("#imgUrl").value=url;loadSource(url,"url");}
@@ -924,16 +820,10 @@ $("#imgFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const rd=new FileReader();rd.onload=()=>loadSource(rd.result,"local");rd.readAsDataURL(f);e.target.value="";
 };
-$("#loadUrlBtn").onclick=()=>{
- const u=$("#imgUrl").value.trim();
- if(!u){toast("الصق رابط صورة أولاً");return;}
- loadSource(u,"url");
-};
+$("#loadUrlBtn").onclick=()=>{const u=$("#imgUrl").value.trim();if(!u){toast("الصق رابطاً");return;}loadSource(u,"url");};
 $("#genNewImg").onclick=()=>{
- const p=$("#aiEditPrompt").value.trim()||prompt("اكتب وصف الصورة المطلوب توليدها:");
- if(!p)return;
- toast("🎨 Salman-Bot يولّد صورتك...");
- loadSource(imgURL(p,1024,1024),"url");
+ const p=$("#aiEditPrompt").value.trim()||prompt("وصف الصورة:");
+ if(!p)return;toast("توليد...");loadSource(imgURL(p,1024,1024),"url");
 };
 $("#btnRot").onclick=()=>{ist.rot=(ist.rot+90)%360;renderImg();};
 $("#btnFlh").onclick=()=>{ist.fx*=-1;renderImg();};
@@ -941,8 +831,7 @@ $("#btnFlv").onclick=()=>{ist.fy*=-1;renderImg();};
 $("#imgReset").onclick=()=>{
  ["br","ct","sa"].forEach(id=>{$("#i"+id).value=100;$("#v"+id).textContent="100%";});
  ["gr","se"].forEach(id=>{$("#i"+id).value=0;$("#v"+id).textContent="0%";});
- $("#ihu").value=0;$("#vhu").textContent="0°";
- $("#ibl").value=0;$("#vbl").textContent="0px";
+ $("#ihu").value=0;$("#vhu").textContent="0°";$("#ibl").value=0;$("#vbl").textContent="0px";
  ist.rot=0;ist.fx=1;ist.fy=1;$("#txtImg").value="";renderImg();
 };
 function drawText(ctx,w,h,txt,size,color,pos){
@@ -957,7 +846,7 @@ function drawText(ctx,w,h,txt,size,color,pos){
 }
 function renderImg(){
  const c=$("#imgCv"),ctx=c.getContext("2d");
- if(!img){c.width=640;c.height=400;ctx.fillStyle="#e5e7eb";ctx.fillRect(0,0,640,400);return;}
+ if(!img){c.width=640;c.height=400;ctx.fillStyle="#ddd";ctx.fillRect(0,0,640,400);return;}
  const rs=$("#rsSel").value;
  let w=img.naturalWidth,h=img.naturalHeight;
  if(rs==="1080"){const s=Math.min(1,1080/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);}
@@ -973,39 +862,32 @@ function renderImg(){
  if(rs==="sq"){
    const s=Math.min(img.naturalWidth,img.naturalHeight);
    ctx.drawImage(img,(img.naturalWidth-s)/2,(img.naturalHeight-s)/2,s,s,-w/2,-h/2,w,h);
- }else{
-   ctx.drawImage(img,-w/2,-h/2,w,h);
- }
+ }else ctx.drawImage(img,-w/2,-h/2,w,h);
  ctx.restore();
  drawText(ctx,c.width,c.height,$("#txtImg").value,+$("#tsi").value,$("#tci").value,$("#tpi").value);
 }
-$("#dlPng").onclick=()=>{
- try{$("#imgCv").toBlob(b=>{if(b)download("salman-image.png",b,"image/png");});}
- catch{toast("⚠️ الصورة من مصدر محمي — استخدم زر التحميل من المحادثة");}
-};
+$("#dlPng").onclick=()=>{try{$("#imgCv").toBlob(b=>{if(b)download("salman-image.png",b,"image/png");});}catch{toast("مصدر محمي");}};
 $("#dlJpg").onclick=()=>{
  try{
    const c2=document.createElement("canvas");c2.width=$("#imgCv").width;c2.height=$("#imgCv").height;
    const x=c2.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c2.width,c2.height);x.drawImage($("#imgCv"),0,0);
    c2.toBlob(b=>{if(b)download("salman-image.jpg",b,"image/jpeg");});
- }catch{toast("⚠️ الصورة من مصدر محمي — استخدم زر التحميل من المحادثة");}
+ }catch{toast("مصدر محمي");}
 };
 $("#aiEditBtn").onclick=()=>{
  const p=$("#aiEditPrompt").value.trim();
- if(!p){toast("اكتب وصف التعديل المطلوب");return;}
+ if(!p){toast("اكتب وصف التعديل");return;}
  if(!ist.src){toast("حمّل صورة أولاً");return;}
  let imgParam="";
  if(ist.srcType==="url"||ist.src.startsWith("data:"))imgParam="&image="+encodeURIComponent(ist.src);
- const url="https://image.pollinations.ai/prompt/"+encodeURIComponent(p)+"?model=kontext&nologo=true"+imgParam;
- toast("🪄 Salman-Bot يعدّل صورتك... قد تستغرق دقيقة");
- const im=new Image();
- im.crossOrigin="anonymous";
+ toast("جارٍ التعديل...");
+ const im=new Image();im.crossOrigin="anonymous";
  im.onload=()=>loadSource(im.src,"url");
- im.onerror=()=>toast("⚠️ فشل التعديل — جرّب صياغة أخرى");
- im.src=url;
+ im.onerror=()=>toast("فشل التعديل — جرّب وصفاً آخر");
+ im.src="https://image.pollinations.ai/prompt/"+encodeURIComponent(p)+"?model=kontext&nologo=true"+imgParam;
 };
 
-/* ============ استوديو الفيديو ============ */
+/* ===== استوديو الفيديو ===== */
 const vidPlayer=$("#vidPlayer");
 ["br2","ct2","sa2","gr2","se2","bl2"].forEach(id=>$("#v"+id).addEventListener("input",function(){
  const map={br2:"vvbr",ct2:"vvct",sa2:"vvsa",gr2:"vvgr",se2:"vvse",bl2:"vvbl"};
@@ -1028,19 +910,17 @@ $("#vidReset").onclick=()=>{
  ["gr2","se2","bl2"].forEach(id=>{$("#v"+id).value=0;});
  ["vvbr","vvct","vvsa"].forEach(id=>$("#"+id).textContent="100%");
  ["vvgr","vvse"].forEach(id=>$("#"+id).textContent="0%");
- $("#vvbl").textContent="0px";
- vidPlayer.style.filter="none";
+ $("#vvbl").textContent="0px";vidPlayer.style.filter="none";
 };
 function fmtT(t){t=Math.max(0,t);const m=Math.floor(t/60),s=Math.floor(t%60);return m+":"+String(s).padStart(2,"0");}
 $("#vidFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
- vidPlayer.style.display="block";
- vidPlayer.src=URL.createObjectURL(f);
+ vidPlayer.style.display="block";vidPlayer.src=URL.createObjectURL(f);
  vidPlayer.onloadedmetadata=()=>{
    $("#trimStart").max=vidPlayer.duration;$("#trimEnd").max=vidPlayer.duration;
    $("#trimStart").value=0;$("#trimEnd").value=vidPlayer.duration;
    $("#vts").textContent=fmtT(0);$("#vte").textContent=fmtT(vidPlayer.duration);
-   $("#vidProg").textContent="🎬 الفيديو جاهز ("+fmtT(vidPlayer.duration)+")";
+   $("#vidProg").textContent="جاهز ("+fmtT(vidPlayer.duration)+")";
  };
  e.target.value="";
 };
@@ -1050,35 +930,26 @@ $("#trimStart").addEventListener("input",function(){$("#vts").textContent=fmtT(+
 $("#trimEnd").addEventListener("input",function(){$("#vte").textContent=fmtT(+this.value);});
 $("#vtsz").addEventListener("input",function(){$("#vvt").textContent=this.value;});
 $("#vidExport").onclick=async()=>{
- if(!vidPlayer.src||!vidPlayer.videoWidth){toast("حمّل فيديو أولاً");return;}
+ if(!vidPlayer.src||!vidPlayer.videoWidth){toast("حمّل فيديو");return;}
  const s=+$("#trimStart").value,e2=+$("#trimEnd").value;
- if(e2-s<0.3){toast("مدة القص قصيرة جداً");return;}
+ if(e2-s<0.3){toast("مدة القص قصيرة");return;}
  const speed=+$("#spdSel").value;
  const c=$("#vidCv");c.width=vidPlayer.videoWidth;c.height=vidPlayer.videoHeight;
  const ctx=c.getContext("2d");
  const stream=c.captureStream(30);
  if(!$("#muteChk").checked){
-   try{
-     const vs=vidPlayer.captureStream?vidPlayer.captureStream():(vidPlayer.mozCaptureStream&&vidPlayer.mozCaptureStream());
-     if(vs)vs.getAudioTracks().forEach(t=>stream.addTrack(t));
-   }catch{}
+   try{const vs=vidPlayer.captureStream?vidPlayer.captureStream():(vidPlayer.mozCaptureStream&&vidPlayer.mozCaptureStream());if(vs)vs.getAudioTracks().forEach(t=>stream.addTrack(t));}catch{}
  }
  let mime="video/webm";
- try{
-   if(MediaRecorder.isTypeSupported("video/webm;codecs=vp9"))mime="video/webm;codecs=vp9";
-   else if(MediaRecorder.isTypeSupported("video/webm;codecs=vp8"))mime="video/webm;codecs=vp8";
- }catch{}
+ try{if(MediaRecorder.isTypeSupported("video/webm;codecs=vp9"))mime="video/webm;codecs=vp9";else if(MediaRecorder.isTypeSupported("video/webm;codecs=vp8"))mime="video/webm;codecs=vp8";}catch{}
  const rec=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6e6});
  const chunks=[];rec.ondataavailable=ev=>{if(ev.data.size)chunks.push(ev.data);};
- rec.onstop=()=>{
-   download("salman-video.webm",new Blob(chunks,{type:"video/webm"}),"video/webm");
-   $("#vidProg").textContent="";toast("🎬 تم تصدير الفيديو بنجاح");
- };
+ rec.onstop=()=>{download("salman-video.webm",new Blob(chunks,{type:"video/webm"}),"video/webm");$("#vidProg").textContent="";toast("تم التصدير");};
  vidPlayer.currentTime=s;vidPlayer.playbackRate=speed;vidPlayer.muted=true;
- try{await vidPlayer.play();}catch{toast("⚠️ اضغط على الفيديو أولاً لتفعيل التشغيل");return;}
+ try{await vidPlayer.play();}catch{toast("اضغط الفيديو أولاً");return;}
  rec.start(250);
  const dur=(e2-s)/speed,t0=Date.now();
- const prog=setInterval(()=>{$("#vidProg").textContent="🎬 يجري التصدير... "+Math.min(99,Math.round((Date.now()-t0)/1000/dur*100))+"%";},300);
+ const prog=setInterval(()=>{$("#vidProg").textContent="تصدير "+Math.min(99,Math.round((Date.now()-t0)/1000/dur*100))+"%";},300);
  const loop=()=>{
    ctx.filter=vFilter();
    ctx.drawImage(vidPlayer,0,0,c.width,c.height);
@@ -1091,19 +962,20 @@ $("#vidExport").onclick=async()=>{
    requestAnimationFrame(loop);
  };
  requestAnimationFrame(loop);
- toast("🎬 بدأ التصدير — لا تغيّر التبويب");
 };
 
-/* ============ إعدادات المحركات ============ */
+/* ===== الإعدادات ===== */
+$("#menuBtn").onclick=()=>$("#menuModal").classList.add("open");
+$("#menuModal").onclick=e=>{if(e.target.id==="menuModal")closeMenu();};
 function syncKeyUI(){
  const v=$("#engSel").value;
  $("#keyInput").value=keys[v]||"";
  $("#pModelSel").value=pModel;
  $("#userName").value=userName;
  const b=BUILTIN[v]&&BUILTIN[v].trim();
- $("#keyLabel").textContent=v==="pollinations"?"Pollinations يعمل بدون مفتاح:":(b?"يوجد مفتاح مدمج — اتركه فارغاً لاستخدامه:":"مفتاح API (يُخزَّن في متصفحك فقط):");
+ $("#keyLabel").textContent=v==="pollinations"?"بدون مفتاح:":(b?"مفتاح مدمج:":"المفتاح:");
 }
-$("#engBtn").onclick=()=>{$("#engSel").value=engine;syncKeyUI();$("#engModal").classList.add("open");};
+$("#engBtn").onclick=()=>{closeMenu();$("#engSel").value=engine;syncKeyUI();$("#engModal").classList.add("open");};
 $("#closeEng").onclick=()=>$("#engModal").classList.remove("open");
 $("#engModal").onclick=e=>{if(e.target.id==="engModal")$("#engModal").classList.remove("open");};
 $("#engSel").onchange=syncKeyUI;
@@ -1114,76 +986,62 @@ $("#saveEng").onclick=()=>{
  pModel=$("#pModelSel").value;
  userName=$("#userName").value.trim();
  save("engine",engine);save("keys",keys);save("pmodel",pModel);save("userName",userName);
- engLabel();
- $("#engModal").classList.remove("open");
- toast("✅ تم الحفظ");
+ engLabel();$("#engModal").classList.remove("open");toast("تم الحفظ");
 };
 $("#clearBtn").onclick=()=>{
+ closeMenu();
  if(synth)synth.cancel();
- if(confirm("محادثة جديدة؟")){history=[];save("history",[]);render();setState("idle","جاهز — كيف أساعدك؟");}
+ if(confirm("محادثة جديدة؟")){history=[];save("history",[]);render();setState("idle","جاهز");}
 };
 
-/* ============ سحابة GitHub ============ */
+/* ===== سحابة GitHub ===== */
 ["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).value=LS.get(id,""));
 ["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).addEventListener("input",function(){save(id,this.value);}));
-$("#cloudBtn").onclick=()=>$("#cloudModal").classList.add("open");
+$("#cloudBtn").onclick=()=>{closeMenu();$("#cloudModal").classList.add("open");};
 $("#closeCloud").onclick=()=>$("#cloudModal").classList.remove("open");
 $("#cloudModal").onclick=e=>{if(e.target.id==="cloudModal")$("#cloudModal").classList.remove("open");};
 $("#expBtn").onclick=()=>{
  const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([JSON.stringify({engine,history,updated:new Date().toISOString()},null,2)],{type:"application/json"}));
+ a.href=URL.createObjectURL(new Blob([JSON.stringify({engine,history},null,2)],{type:"application/json"}));
  a.download="salman-bot-data.json";a.click();URL.revokeObjectURL(a.href);
 };
 $("#impBtn").onclick=()=>$("#impFile").click();
 $("#impFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const rd=new FileReader();
- rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;engLabel();}save("history",history);save("engine",engine);render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;engLabel();}save("history",history);save("engine",engine);render();toast("تم الاستيراد");}catch{toast("ملف غير صالح");}};
  rd.readAsText(f);
 };
 $("#pushBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
- if(!u||!r||!t){toast("أكمل اسم المستخدم والمستودع والرمز أولاً");return;}
- setState("think","☁️ جارٍ الرفع...");
+ if(!u||!r||!t){toast("أكمل البيانات");return;}
+ setState("think","رفع...");
  try{
    let sha;
    const g=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{headers:{Authorization:"Bearer "+t}});
    if(g.ok)sha=(await g.json()).sha;
-   const p=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{
-     method:"PUT",
-     headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},
-     body:JSON.stringify({
-       message:"💾 Salman-Bot: مزامنة "+new Date().toLocaleString("ar"),
-       content:btoa(unescape(encodeURIComponent(JSON.stringify({engine,history,updated:new Date().toISOString()},null,2)))),
-       sha
-     })
-   });
-   if(!p.ok)throw new Error("فشل الرفع (رمز "+p.status+")");
-   toast("☁️✅ تم رفع "+history.length+" رسالة إلى مستودعك");
- }catch(err){toast("⚠️ "+err.message);}
+   const p=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{method:"PUT",headers:{Authorization:"Bearer "+t,"Content-Type":"application/json"},body:JSON.stringify({message:"💾 Salman-Bot "+new Date().toLocaleString("ar"),content:btoa(unescape(encodeURIComponent(JSON.stringify({engine,history},null,2)))),sha})});
+   if(!p.ok)throw new Error("فشل ("+p.status+")");
+   toast("تم الرفع");
+ }catch(err){toast(err.message);}
  setState("idle","جاهز");
 };
 $("#pullBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
- if(!u||!r){toast("أكمل اسم المستخدم واسم المستودع");return;}
- setState("think","☁️ جارٍ السحب...");
+ if(!u||!r){toast("أكمل البيانات");return;}
+ setState("think","سحب...");
  try{
    const res=await fetch("https://api.github.com/repos/"+u+"/"+r+"/contents/salman-bot-data.json",{headers:t?{Authorization:"Bearer "+t}:{}});
-   if(!res.ok)throw new Error(res.status===404?"لا توجد بيانات محفوظة بعد":"فشل السحب (رمز "+res.status+")");
+   if(!res.ok)throw new Error(res.status===404?"لا توجد بيانات":"فشل ("+res.status+")");
    const j=await res.json();
-   const d=JSON.parse(decodeURIComponent(escape(atob(j.content))));
-   history=d.history||[];
-   if(d.engine){engine=d.engine;engLabel();}
-   save("history",history);save("engine",engine);
-   render();
-   toast("☁️✅ تم سحب "+history.length+" رسالة");
- }catch(err){toast("⚠️ "+err.message);}
+   history=JSON.parse(decodeURIComponent(escape(atob(j.content)))).history||[];
+   save("history",history);render();toast("تم السحب");
+ }catch(err){toast(err.message);}
  setState("idle","جاهز");
 };
 
-/* ============ تنبيهات ============ */
 let tt;
-function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),3000);}
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2500);}
 if(synth)synth.getVoices();
 </script>
 </body>
