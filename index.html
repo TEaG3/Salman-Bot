@@ -3,123 +3,149 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>سلمان بوت — منصة الذكاء الاصطناعي السحابية المجانية</title>
-<meta name="description" content="سلمان بوت: موقع ذكاء اصطناعي مجاني 100% — شخصية هولوغرامية ناطقة، محادثة ذكية، توليد صور، تحليل ملفات، برمجة، ومزامنة سحابية عبر GitHub.">
+<title>SALMAN Bot — منصة الذكاء الاصطناعي السحابية المجانية</title>
+<meta name="description" content="سلمان بوت: موقع ذكاء اصطناعي مجاني 100% — شخصية ناطقة، تقارير وأبحاث علمية بالصور والجداول، عروض تقديمية، وتوليد صور، مع مزامنة سحابية عبر GitHub.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🤖</text></svg>">
 <style>
+/* ============ الوضع الليلي (افتراضي): أسود + أبيض + نيون أخضر ============ */
 :root{
-  --bg:#05070f; --bg2:#0a1020; --panel:#0e1729; --panel2:#152038; --line:#22375c;
-  --txt:#eaf2ff; --dim:#8ba3c7;
-  --cy:#22d3ee; --vi:#8b5cf6; --pk:#ec4899; --am:#f59e0b; --gr:#34d399; --gd:#fbbf24;
+  --bg:#040705; --bg2:#080f0b; --panel:#0a120d; --panel2:#0f1c15; --line:#123324;
+  --txt:#f2fff8; --dim:#7ea893;
+  --neon:#00ff9d; --neon-soft:rgba(0,255,157,.35); --neon-dim:rgba(0,255,157,.12);
+  --pk:#ec4899; --am:#f59e0b; --gd:#7dffb0;
+  --glow:0 0 14px var(--neon-soft);
+}
+/* ============ الوضع النهاري ============ */
+body.light{
+  --bg:#f2f7f3; --bg2:#e8efe9; --panel:#ffffff; --panel2:#eef6f0; --line:#c9ded0;
+  --txt:#0c1f15; --dim:#527565;
+  --neon:#00a35c; --neon-soft:rgba(0,163,92,.28); --neon-dim:rgba(0,163,92,.08);
+  --gd:#007a45; --glow:0 0 10px var(--neon-soft);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;color:var(--txt);height:100vh;overflow:hidden;background:
- radial-gradient(1200px 600px at 85% -10%,#14304f 0%,transparent 55%),
- radial-gradient(1000px 550px at 8% 108%,#2b1a54 0%,transparent 55%),var(--bg)}
+  linear-gradient(var(--neon-dim) 1px,transparent 1px),
+  linear-gradient(90deg,var(--neon-dim) 1px,transparent 1px),
+  radial-gradient(1100px 550px at 85% -10%,rgba(0,255,157,.10) 0%,transparent 55%),
+  radial-gradient(900px 500px at 8% 108%,rgba(0,255,157,.07) 0%,transparent 55%),var(--bg);
+  background-size:44px 44px,44px 44px,auto,auto}
 .app{max-width:1100px;margin:0 auto;padding:12px 14px;height:100vh;display:flex;flex-direction:column}
 
 /* ===== الترويسة ===== */
-header{display:flex;align-items:center;gap:12px;padding:6px 2px 10px;flex-wrap:wrap}
-.logo{width:46px;height:46px;border-radius:50%;background:conic-gradient(from 0deg,var(--cy),var(--vi),var(--pk),var(--cy));
-  display:grid;place-items:center;box-shadow:0 0 20px rgba(34,211,238,.4);animation:spin 9s linear infinite}
-.logo span{width:37px;height:37px;border-radius:50%;background:var(--bg);display:grid;place-items:center;font-size:19px;animation:spin 9s linear infinite reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
-h1{font-size:1.25rem}h1 small{display:block;font-size:.7rem;color:var(--dim);font-weight:400}
+header{display:flex;align-items:center;gap:12px;padding:6px 2px 10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.logo{width:46px;height:46px;border-radius:12px;background:#02120a;border:2px solid var(--neon);
+  display:grid;place-items:center;font-size:22px;box-shadow:var(--glow);animation:gl 3s ease-in-out infinite}
+@keyframes gl{0%,100%{box-shadow:0 0 10px var(--neon-soft)}50%{box-shadow:0 0 26px var(--neon-soft)}}
+h1{font-size:1.22rem;font-weight:700}
+h1 b{color:var(--neon);text-shadow:0 0 12px var(--neon-soft)}
+h1 small{display:block;font-size:.68rem;color:var(--dim);font-weight:400}
 .grow{flex:1}
 .hbtn{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:8px 13px;border-radius:10px;cursor:pointer;font-size:.84rem;transition:.2s}
-.hbtn:hover{color:var(--txt);border-color:var(--cy)}
-.hbtn.on{color:var(--gr);border-color:var(--gr)}
+.hbtn:hover{color:var(--neon);border-color:var(--neon);box-shadow:var(--glow)}
+.hbtn.on{color:var(--neon);border-color:var(--neon)}
 
-/* ===== الشخصية الهولوغرامية ===== */
+/* ===== الشخصية ===== */
 .hero{display:flex;align-items:center;gap:16px;padding:8px 4px}
-.orb{position:relative;width:96px;height:96px;flex-shrink:0}
+.orb{position:relative;width:92px;height:92px;flex-shrink:0}
 .orb .core{position:absolute;inset:14px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#7ef9ff 0%,var(--cy) 35%,#155e75 75%,#083344 100%);
-  box-shadow:0 0 30px rgba(34,211,238,.55),inset 0 0 16px rgba(255,255,255,.25);transition:.4s}
-.orb .ring{position:absolute;inset:4px;border-radius:50%;border:2px solid rgba(34,211,238,.35);animation:pulse 2.6s infinite}
+  background:radial-gradient(circle at 35% 30%,#d8ffe9 0%,var(--neon) 40%,#014d30 80%);
+  box-shadow:0 0 26px var(--neon-soft),inset 0 0 14px rgba(255,255,255,.3);transition:.4s}
+.orb .ring{position:absolute;inset:4px;border-radius:50%;border:2px solid var(--neon-soft);animation:pulse 2.6s infinite}
 .orb .ring.r2{inset:-4px;animation-delay:1.3s}
 @keyframes pulse{0%{transform:scale(.92);opacity:.8}70%{transform:scale(1.14);opacity:0}100%{opacity:0}}
-.orb.state-listen .core{background:radial-gradient(circle at 35% 30%,#a7f3d0 0%,var(--gr) 40%,#065f46 80%);box-shadow:0 0 34px rgba(52,211,153,.6)}
-.orb.state-listen .ring{border-color:rgba(52,211,153,.5)}
-.orb.state-think .core{background:radial-gradient(circle at 35% 30%,#fde68a 0%,var(--am) 40%,#92400e 80%);box-shadow:0 0 34px rgba(245,158,11,.6);animation:flick .9s infinite}
-.orb.state-think .ring{border-color:rgba(245,158,11,.5)}
-.orb.state-speak .core{background:radial-gradient(circle at 35% 30%,#ddd6fe 0%,var(--vi) 40%,#4c1d95 80%);box-shadow:0 0 38px rgba(139,92,246,.65)}
-.orb.state-speak .ring{border-color:rgba(139,92,246,.55)}
+.orb.state-listen .core{background:radial-gradient(circle at 35% 30%,#d8ffe9 0%,#5eead4 40%,#0f766e 80%);box-shadow:0 0 30px rgba(94,234,212,.5)}
+.orb.state-think .core{background:radial-gradient(circle at 35% 30%,#fef3c7 0%,var(--am) 40%,#92400e 80%);box-shadow:0 0 30px rgba(245,158,11,.55);animation:flick .9s infinite}
+.orb.state-speak .core{background:radial-gradient(circle at 35% 30%,#fce7f3 0%,var(--pk) 40%,#831843 80%);box-shadow:0 0 32px rgba(236,72,153,.55)}
 @keyframes flick{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
 .heroInfo{flex:1;min-width:0}
-.heroInfo .name{font-weight:bold;font-size:1.05rem}
-.heroInfo .name em{font-style:normal;color:var(--cy)}
+.heroInfo .name{font-weight:700;font-size:1.02rem}
+.heroInfo .name em{font-style:normal;color:var(--neon);font-size:.85rem}
 .heroInfo .st{font-size:.8rem;color:var(--dim);margin-top:2px;min-height:1.2em}
-#waves{width:100%;max-width:420px;height:44px;display:block;opacity:.9}
+#waves{width:100%;max-width:400px;height:42px;display:block;opacity:.9}
 
 /* ===== الأوضاع ===== */
 .modes{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
 .modes button{background:var(--panel);border:1px solid var(--line);color:var(--dim);padding:7px 13px;border-radius:99px;cursor:pointer;font-size:.82rem;transition:.2s}
-.modes button.active{background:linear-gradient(135deg,#0e3a4a,#2b1a54);color:#fff;border-color:var(--cy);box-shadow:0 0 10px rgba(34,211,238,.25)}
+.modes button.active{background:var(--neon-dim);color:var(--neon);border-color:var(--neon);box-shadow:var(--glow);text-shadow:0 0 8px var(--neon-soft)}
 
 /* ===== الدردشة ===== */
-.chat{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:10px;min-height:120px}
+.chat{flex:1;overflow-y:auto;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:10px;min-height:120px;box-shadow:inset 0 0 40px rgba(0,0,0,.25)}
 .msg{max-width:85%;padding:10px 14px;border-radius:14px;line-height:1.8;white-space:pre-wrap;word-break:break-word}
-.msg.user{align-self:flex-start;background:linear-gradient(135deg,#1e3a8a,#4c1d95);border:1px solid #5b21b6}
+.msg.user{align-self:flex-start;background:linear-gradient(135deg,#062b1c,#0a1f33);border:1px solid var(--neon)}
+body.light .msg.user{background:linear-gradient(135deg,#e6fbf0,#e8f4ff);border:1px solid var(--neon)}
 .msg.bot{align-self:flex-end;background:var(--panel2);border:1px solid var(--line)}
-.msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:#0c1a2e;border:1px solid var(--line);border-radius:8px;font-size:.76rem;color:var(--cy)}
+.msg .attach{display:inline-block;margin:6px 0 0;padding:5px 10px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;font-size:.76rem;color:var(--neon)}
 .msg img.att{max-width:200px;border-radius:10px;display:block;margin-top:6px}
-.msg img.genimg{max-width:100%;border-radius:10px;margin-top:8px;display:block}
+.msg img.genimg{max-width:100%;border-radius:10px;margin-top:8px;display:block;border:1px solid var(--line)}
 .dlImg{color:var(--gd);font-size:.78rem;text-decoration:none;display:block;margin-top:6px}
-.previewBtn{display:block;margin-top:8px;background:linear-gradient(135deg,var(--gr),var(--cy));border:none;color:#04211a;font-weight:bold;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:.8rem}
+.actBtn{display:inline-block;margin:8px 4px 0 0;background:transparent;border:1px solid var(--neon);color:var(--neon);font-weight:bold;padding:7px 14px;border-radius:8px;cursor:pointer;font-size:.8rem;transition:.2s}
+.actBtn:hover{background:var(--neon);color:#01130b;box-shadow:var(--glow)}
 .typing{display:inline-flex;gap:4px;padding:4px 2px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--dim);animation:bnc 1s infinite}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--neon);animation:bnc 1s infinite;box-shadow:0 0 8px var(--neon-soft)}
 .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
 @keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* الأزرار السريعة */
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}
 .chips button{background:transparent;border:1px dashed var(--line);color:var(--dim);padding:5px 11px;border-radius:99px;cursor:pointer;font-size:.76rem}
-.chips button:hover{color:var(--gd);border-color:var(--gd)}
+.chips button:hover{color:var(--neon);border-color:var(--neon)}
 
 /* ===== الإدخال ===== */
 .compose{margin-top:8px}
 .attRow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.76rem;color:var(--cy)}
+.attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:.76rem;color:var(--neon)}
 .attPill button{background:none;border:none;color:var(--pk);cursor:pointer;font-size:.9rem}
 .inRow{display:flex;gap:8px;align-items:flex-end}
 .inRow textarea{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--txt);padding:12px 14px;resize:none;font-family:inherit;font-size:1rem;min-height:50px;max-height:140px}
-.inRow textarea:focus{outline:none;border-color:var(--cy)}
+.inRow textarea:focus{outline:none;border-color:var(--neon);box-shadow:var(--glow)}
 .inRow button{width:50px;height:50px;border:none;border-radius:14px;font-size:1.15rem;cursor:pointer;flex-shrink:0}
-.send{background:linear-gradient(135deg,var(--cy),var(--vi));color:#fff}
+.send{background:var(--neon);color:#01130b;font-weight:bold}
+.send:hover{box-shadow:0 0 22px var(--neon-soft)}
 .inRow button.ghost{background:var(--panel);border:1px solid var(--line);color:var(--dim)}
 .inRow button.ghost.rec{background:#7f1d1d;color:#fff;border-color:var(--pk)}
 .hint{font-size:.7rem;color:var(--dim);margin-top:5px;text-align:center}
-.hint code{color:var(--gd);direction:ltr;display:inline-block}
+.hint code{color:var(--neon);direction:ltr;display:inline-block}
 
 /* ===== النوافذ ===== */
-.modal{position:fixed;inset:0;background:rgba(4,6,12,.82);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(4px)}
+.modal{position:fixed;inset:0;background:rgba(2,6,4,.85);display:none;align-items:center;justify-content:center;z-index:50;padding:14px;backdrop-filter:blur(5px)}
 .modal.open{display:flex}
-.sheet{background:var(--panel);border:1px solid var(--line);border-radius:18px;width:100%;max-width:660px;max-height:90vh;overflow-y:auto;padding:20px}
-.sheet h3{margin-bottom:6px}
+.sheet{background:var(--panel);border:1px solid var(--neon);border-radius:18px;width:100%;max-width:660px;max-height:90vh;overflow-y:auto;padding:20px;box-shadow:0 0 40px var(--neon-dim)}
+.sheet h3{margin-bottom:6px;color:var(--neon)}
 .sheet .sub{font-size:.8rem;color:var(--dim);line-height:1.8;margin-bottom:8px}
 .sheet label{display:block;font-size:.82rem;color:var(--dim);margin:12px 0 4px}
 .sheet input,.sheet select{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit}
-.sheet a{color:var(--cy)}
+.sheet a{color:var(--neon)}
 .rowBtns{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
 .btn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:9px 16px;border-radius:10px;cursor:pointer;font-size:.88rem}
-.btn:hover{border-color:var(--cy)}
-.btn.primary{background:linear-gradient(135deg,var(--cy),var(--vi));color:#fff;border:none;font-weight:bold}
+.btn:hover{border-color:var(--neon);color:var(--neon)}
+.btn.primary{background:var(--neon);color:#01130b;border:none;font-weight:bold}
+.btn.primary:hover{box-shadow:0 0 18px var(--neon-soft);color:#01130b}
 .btn.warn{border-color:#7f1d1d;color:#fca5a5}
 .divider{border:none;border-top:1px solid var(--line);margin:16px 0}
 ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
-#pvFrame{width:100%;height:68vh;border:none;border-radius:12px;background:#fff}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--cy);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:var(--panel2);border:1px solid var(--neon);padding:10px 20px;border-radius:12px;opacity:0;transition:.3s;pointer-events:none;z-index:99;max-width:90vw;box-shadow:var(--glow)}
 .toast.show{opacity:1}
 ::-webkit-scrollbar{width:8px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+
+/* ===== عارض التقارير ===== */
+#repSheet{max-width:1020px;width:100%}
+.repBar{display:flex;gap:8px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.repBar h3{margin:0;flex:1}
+#repFrame{width:100%;height:72vh;border:1px solid var(--line);border-radius:12px;background:#fff}
+
+/* ===== عارض العروض ===== */
+#slModal{padding:0;background:#000}
+.slTop{display:flex;gap:8px;align-items:center;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+.slTop h3{margin:0;flex:1;color:var(--neon);font-size:.95rem}
+#slFrame{width:100%;height:calc(100vh - 53px);border:none;background:#0a0f0c}
 </style>
 </head>
 <body>
 <div class="app">
   <header>
-    <div class="logo"><span>🤖</span></div>
-    <h1>سلمان بوت <small>منصة الذكاء الاصطناعي السحابية — مجانية 100% وبدون تسجيل</small></h1>
+    <div class="logo">🤖</div>
+    <h1><b>SALMAN Bot</b> <small>منصة الذكاء الاصطناعي السحابية — تقارير · أبحاث · عروض تقديمية · مجانية 100%</small></h1>
     <div class="grow"></div>
+    <button class="hbtn" id="themeBtn" title="الوضع الليلي / النهاري">☀️ نهاري</button>
     <button class="hbtn" id="cloudBtn">☁️ سحابة GitHub</button>
     <button class="hbtn" id="engBtn">⚙️ المحركات</button>
     <button class="hbtn" id="clearBtn">🗑️</button>
@@ -129,9 +155,9 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   <div class="hero">
     <div class="orb" id="orb"><div class="ring"></div><div class="ring r2"></div><div class="core"></div></div>
     <div class="heroInfo">
-      <div class="name">سلمان <em id="engName">· نَبراس الحر (مجاني)</em></div>
+      <div class="name">SALMAN <em id="engName">· نَبراس الحر (مجاني)</em></div>
       <div class="st" id="status">مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖</div>
-      <canvas id="waves" width="840" height="88"></canvas>
+      <canvas id="waves" width="800" height="84"></canvas>
     </div>
   </div>
 
@@ -144,10 +170,10 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
     <div class="inRow">
       <button class="ghost" id="micBtn" title="تحدث بالصوت">🎤</button>
       <button class="ghost" id="attBtn" title="إرفاق ملفات">📎</button>
-      <textarea id="input" rows="1" placeholder="اكتب رسالتك لسلمان بوت... أو /imagine وصف الصورة"></textarea>
+      <textarea id="input" rows="1" placeholder="اكتب رسالتك لسلمان... أو /imagine وصف الصورة"></textarea>
       <button class="send" id="sendBtn" title="إرسال">🚀</button>
     </div>
-    <div class="hint">مجاني بالكامل عبر المحرك الافتراضي · ولقدرات أضف مفتاحاً مجانياً من ⚙️ المحركات · استخدم <code>/imagine</code> لتوليد الصور</div>
+    <div class="hint">مجاني بالكامل · جرّب: تقرير · بحث علمي · عرض تقديمي · <code>/imagine</code> للصور · مفتاح مجاني من ⚙️ المحركات</div>
   </div>
 </div>
 
@@ -156,7 +182,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 <!-- نافذة المحركات -->
 <div class="modal" id="engModal"><div class="sheet">
   <h3>⚙️ محركات الذكاء الاصطناعي المجانية</h3>
-  <p class="sub">اربط سلمان بوت بأي محرك سحابي مجاني عالمي. الافتراضي يعمل فوراً بدون مفتاح، والمفاتيح تُخزَّن في متصفحك فقط.</p>
+  <p class="sub">اربط سلمان بأي محرك سحابي مجاني عالمي. الافتراضي يعمل فوراً بدون مفتاح، والمفاتيح تُخزَّن في متصفحك فقط.</p>
   <label>المحرك:</label>
   <select id="engSel">
     <option value="pollinations">🌊 Pollinations — مجاني بدون مفتاح (افتراضي)</option>
@@ -170,13 +196,13 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
   <label id="keyLabel">مفتاح API:</label>
   <input id="keyInput" type="password" placeholder="اتركه فارغاً مع Pollinations">
   <p style="font-size:.76rem;color:var(--dim);margin-top:10px;line-height:2">
-    🔑 روابط الحصول على مفاتيح مجانية:<br>
+    🔑 روابط المفاتيح المجانية:<br>
     • Gemini: <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">aistudio.google.com/apikey</a><br>
     • Groq: <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a><br>
     • OpenRouter: <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a><br>
     • Mistral: <a href="https://console.mistral.ai/api-keys" target="_blank" rel="noopener">console.mistral.ai/api-keys</a><br>
     • Cohere: <a href="https://dashboard.cohere.com/api-keys" target="_blank" rel="noopener">dashboard.cohere.com/api-keys</a><br>
-    • GitHub Models: رمزك الشخصي من <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Tokens</a>
+    • GitHub Models: <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Tokens</a>
   </p>
   <div class="rowBtns">
     <button class="btn primary" id="saveEng">💾 حفظ</button>
@@ -187,7 +213,7 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
 <!-- نافذة سحابة GitHub -->
 <div class="modal" id="cloudModal"><div class="sheet">
   <h3>☁️ سحابة GitHub — مزامنة ونشر مجاني</h3>
-  <p class="sub">استخدم مستودعك على GitHub كقاعدة بيانات سحابية مجانية لحفظ محادثاتك ومزامنتها بين جميع أجهزتك، وانشر الموقع مجاناً على GitHub Pages.</p>
+  <p class="sub">استخدم مستودعك كقاعدة بيانات سحابية مجانية لمزامنة محادثاتك وتقاريرك بين جميع أجهزتك، وانشر الموقع مجاناً على GitHub Pages.</p>
   <div class="rowBtns" style="margin-top:0">
     <button class="btn primary" id="dlBtn">⬇️ تحميل index.html للنشر</button>
     <button class="btn" id="expBtn">📤 تصدير JSON</button>
@@ -211,38 +237,65 @@ ol.steps{margin:8px 20px 0 0;font-size:.82rem;color:var(--dim);line-height:2.1}
     <li>اضغط «تحميل index.html للنشر» أعلاه.</li>
     <li>في مستودعك: <b>Add file → Upload files</b> وارفع الملف.</li>
     <li>اذهب إلى <b>Settings → Pages</b> واختر <b>main / (root)</b> ثم Save.</li>
-    <li>موقعك الجاهز خلال دقيقة: <span id="pagesUrl" style="direction:ltr;display:inline-block;color:var(--gd)">https://USERNAME.github.io/REPO/</span></li>
+    <li>موقعك الجاهز خلال دقيقة: <span id="pagesUrl" style="direction:ltr;display:inline-block;color:var(--gd)">https://teag3.github.io/Salman-Bot/</span></li>
   </ol>
   <div class="rowBtns"><button class="btn" id="closeCloud">إغلاق</button></div>
 </div></div>
 
-<!-- نافذة معاينة HTML -->
-<div class="modal" id="pvModal"><div class="sheet" style="max-width:920px">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-    <h3 style="margin:0">👁️ معاينة كود HTML</h3>
-    <button class="btn" id="closePv">✕</button>
+<!-- عارض التقارير والأبحاث -->
+<div class="modal" id="repModal"><div class="sheet" id="repSheet">
+  <div class="repBar">
+    <h3>📊 عارض التقارير والأبحاث</h3>
+    <button class="btn" id="repPrint">🖨️ طباعة / PDF</button>
+    <button class="btn primary" id="repDl">⬇️ تحميل التقرير</button>
+    <button class="btn" id="closeRep">✕</button>
   </div>
-  <iframe id="pvFrame" sandbox="allow-scripts" title="معاينة"></iframe>
+  <iframe id="repFrame" title="التقرير"></iframe>
 </div></div>
+
+<!-- عارض العروض التقديمية -->
+<div class="modal" id="slModal">
+  <div class="slTop">
+    <h3>📽️ العرض التقديمي</h3>
+    <button class="btn" id="slFull">⛶ ملء الشاشة</button>
+    <button class="btn primary" id="slDl">⬇️ تحميل العرض</button>
+    <button class="btn" id="closeSl">✕</button>
+  </div>
+  <iframe id="slFrame" title="العرض"></iframe>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
 const $=s=>document.querySelector(s);
-const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}},set:(k,v)=>localStorage.setItem("salman_"+k,JSON.stringify(v))};
+const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}}};
+function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){toast("⚠️ مساحة التخزين ممتلئة — صدّر المحادثة أو امسح القديمة")}}
+
+/* ==================== الوضع الليلي/النهاري ==================== */
+let theme=LS.get("theme","dark");
+function applyTheme(){
+  document.body.classList.toggle("light",theme==="light");
+  $("#themeBtn").textContent=theme==="light"?"🌙 ليلي":"☀️ نهاري";
+}
+$("#themeBtn").onclick=()=>{theme=theme==="light"?"dark":"light";save("theme",theme);applyTheme();};
+applyTheme();
 
 /* ==================== الأوضاع ==================== */
 const MODES={
- general:{name:"🌟 شامل",sys:"أنت «سلمان»، مساعد ذكاء اصطناعي سحابي عربي ودود ودقيق. أجب بالعربية المبسطة إلا إذا طُلب غير ذلك، وبإجابات منظمة وعملية.",
+ general:{name:"🌟 شامل",sys:"أنت «SALMAN»، مساعد ذكاء اصطناعي سحابي عربي ودود ودقيق. أجب بالعربية المبسطة إلا إذا طُلب غير ذلك، وبإجابات منظمة وعملية.",
   chips:["✍️ اكتب لي رسالة رسمية","🧠 اشرح مفهوماً معقداً ببساطة","📅 خطط لي يومي","🌍 ترجم واشرح نصاً"]},
- coder:{name:"💻 مبرمج",sys:"أنت «سلمان» في وضع المبرمج. قدّم كوداً كاملاً قابلاً للتشغيل مع شرح موجز. عند طلب صفحات ويب اكتب ملف HTML كاملاً داخل كتلة ```html ليتمكن المستخدم من معاينته مباشرة. ركّز على أفضل الممارسات.",
+ reports:{name:"📊 تقارير وأبحاث",sys:"أنت «SALMAN»، باحث وخبير في إعداد التقارير والأبحاث العلمية الاحترافية. عند طلب المستخدم تقريراً أو بحثاً، أنتج التقرير كاملاً داخل كتلة واحدة تبدأ بـ ```report وتنتهي بـ ``` بدون وسم html أو body أو أي CSS. البنية المطلوبة:\n<h1>عنوان التقرير</h1>\n<p>مقدمة وملخص تنفيذي</p>\nأقسام بـ <h2> و<h3> وفقرات <p> وقوائم <ul>/<ol>\n2 إلى 4 جداول <table> بيانات حقيقية مناسبة لموضوع البحث (استخدم <thead> و<tbody>)\n3 إلى 5 صور توضيحية مكانها الصحيح بالشكل: <img src=\"IMG:english descriptive prompt\"> (الوصف دائماً بالإنجليزية بعد IMG:)\n<h2>الخلاصة والتوصيات</h2>\n<h2>المراجع</h2> بقائمة <ol>\nاجعل المحتوى علمياً دقيقاً وغنياً بالشروحات. لا تكتب أي كلام خارج كتلة report.",
+  chips:["📊 تقرير عن الطاقة المتجددة","🔬 بحث علمي عن الذكاء الاصطناعي","📈 تقرير تحليل السوق السعودي","🧪 بحث في علم الأحياء عن الخلايا"]},
+ slides:{name:"📽️ عروض تقديمية",sys:"أنت «SALMAN»، خبير في تصميم العروض التقديمية العلمية والمهنية. عند طلب المستخدم عرضاً تقديمياً، أنتج العرض كاملاً داخل كتلة واحدة تبدأ بـ ```slides وتنتهي بـ ``` بدون وسم html أو CSS. البنية:\nمن 7 إلى 10 شرائح، كل شريحة داخل <section> ... </section>\nالشريحة الأولى: <h1>عنوان العرض</h1> و<p>سطر تعريفي</p>\nكل شريحة متوسطة: <h2>عنوان الشريحة</h2> + <ul> من 3 إلى 5 نقاط + <p> شرح علمي موجز\nشريحة واحدة على الأقل فيها <table> بيانات مناسبة\nكل شريحتين تقريباً صورة توضيحية: <img src=\"IMG:english descriptive prompt\"> (وصف إنجليزي دائماً)\nالشريحة الأخيرة: خاتمة وشكر <h2>شكراً لكم</h2>\nلا تكتب أي كلام خارج كتلة slides.",
+  chips:["📽️ عرض عن الطاقة الشمسية","🎓 عرض تعليمي عن البراكين","📊 عرض تقديمي لخطة عمل","🧬 عرض عن علم الوراثة"]},
+ coder:{name:"💻 مبرمج",sys:"أنت «SALMAN» في وضع المبرمج. قدّم كوداً كاملاً قابلاً للتشغيل مع شرح موجز. عند طلب صفحات ويب اكتب ملف HTML كاملاً داخل كتلة ```html ليتمكن المستخدم من معاينته مباشرة. ركّز على أفضل الممارسات.",
   chips:["🌐 صفحة هبوط HTML كاملة","🐍 حل تمرين بايثون","🐞 صحح لي هذا الكود","🎮 لعبة جافاسكربت بسيطة"]},
- writer:{name:"✍️ كاتب",sys:"أنت «سلمان» في وضع كاتب المحتوى. اكتب محتوى عربياً إبداعياً جذاباً: مقالات، منشورات، إعلانات، قصص، سيناريوهات. اقترح عناوين بديلة دائماً.",
+ writer:{name:"✍️ كاتب",sys:"أنت «SALMAN» في وضع كاتب المحتوى. اكتب محتوى عربياً إبداعياً جذاباً: مقالات، منشورات، إعلانات، قصص، سيناريوهات. اقترح عناوين بديلة دائماً.",
   chips:["📝 مقال عن الذكاء الاصطناعي","📱 منشور إنستغرام جذاب","🚀 وصف منتج تسويقي","📖 قصة قصيرة للأطفال"]},
- files:{name:"📂 محلل ملفات",sys:"أنت «سلمان» في وضع محلل الملفات. سيرفق المستخدم محتوى الملفات في رسالته. حلّلها بدقة: ملخص، نقاط رئيسية، ملاحظات، وتوصيات. وإن كانت كوداً فحلّلها برمجياً واقترح تحسينات.",
+ files:{name:"📂 محلل ملفات",sys:"أنت «SALMAN» في وضع محلل الملفات. سيرفق المستخدم محتوى الملفات في رسالته. حلّلها بدقة: ملخص، نقاط رئيسية، ملاحظات، وتوصيات. وإن كانت كوداً فحلّلها برمجياً واقترح تحسينات.",
   chips:["📊 لخّص الملف المرفق","🔍 ابحث عن أخطاء في الكود","📈 استخرج النقاط المهمة","❓ اطرح أسئلة عن الملف"]},
- images:{name:"🎨 منشئ صور",sys:"أنت «سلمان» في وضع منشئ الصور. مهمتك تحويل فكرة المستخدم إلى وصف إنجليزي غني ومفصل (prompt) احترافي لتوليد صور مذهلة. أجب باختصار واذكر الوصف الذي صغته.",
+ images:{name:"🎨 منشئ صور",sys:"أنت «SALMAN» في وضع منشئ الصور. مهمتك تحويل فكرة المستخدم إلى وصف إنجليزي غني ومفصل (prompt) احترافي لتوليد صور مذهلة. أجب باختصار واذكر الوصف الذي صغته.",
   chips:["🏙️ مدينة مستقبلية بالغروب","🐱 قط رائد فضاء كرتوني","🍜 صورة طعام احترافية","🌄 منظر طبيعي خيالي"]},
 };
 let mode=LS.get("mode","general");
@@ -286,7 +339,7 @@ async function callAI(messages,images){
 
 /* ==================== الشخصية الهولوغرامية ==================== */
 const cv=$("#waves"),wx=cv.getContext("2d");
-const COLORS={idle:[34,211,238],listen:[52,211,153],think:[245,158,11],speak:[139,92,246]};
+const COLORS={idle:[0,255,157],listen:[94,234,212],think:[245,158,11],speak:[236,72,153]};
 let botState="idle",wt=0;
 function drawWaves(){
  const [r,g,b]=COLORS[botState];
@@ -315,11 +368,11 @@ const synth=window.speechSynthesis;
 function speak(text){
  if(!synth)return;
  synth.cancel();
- const u=new SpeechSynthesisUtterance(text.replace(/```[\s\S]*?```/g," كود ").slice(0,600));
+ const u=new SpeechSynthesisUtterance(text.replace(/```[\s\S]*?```/g," جاهز ").slice(0,600));
  const ar=synth.getVoices().find(v=>v.lang&&v.lang.startsWith("ar"));
  if(ar)u.voice=ar;
  u.lang="ar-SA";
- u.onstart=()=>setState("speak","🔴 سلمان يتحدث... (اضغط 🗑️ مرتين لإيقاف الصوت)");
+ u.onstart=()=>setState("speak","🔴 SALMAN يتحدث...");
  u.onend=()=>setState("idle","جاهز — اكتب سؤالك أو اضغط 🎤");
  synth.speak(u);
 }
@@ -335,12 +388,72 @@ $("#micBtn").onclick=()=>{
  r.start();
 };
 
+/* ==================== أدوات مساعدة ==================== */
+function imgURL(prompt,w,h){
+ return "https://image.pollinations.ai/prompt/"+encodeURIComponent(prompt.trim())+"?width="+(w||1024)+"&height="+(h||1024)+"&nologo=true&seed="+Math.floor(Math.random()*1e6);
+}
+function fillImages(html){
+ return html.replace(/IMG:\s*([^"'<>\n]{3,200})/g,(m,p)=>imgURL(p,1024,576));
+}
+function extractBlock(text,tag){
+ const m=text.match(new RegExp("```"+tag+"\\s*([\\s\\S]*?)```","i"));
+ return m?m[1]:null;
+}
+function firstTag(html,tag){
+ try{const d=new DOMParser().parseFromString(html,"text/html");const e=d.querySelector(tag);return e?e.textContent.trim():"";}catch{return "";}
+}
+function download(name,html){
+ const a=document.createElement("a");
+ a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));
+ a.download=name;a.click();URL.revokeObjectURL(a.href);
+}
+
+/* ==================== أنماط التقرير والعرض ==================== */
+const REPORT_CSS=`
+ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;max-width:860px;margin:0 auto;padding:36px 28px;color:#14201a;background:#fff;line-height:1.9;font-size:15px}
+ h1{color:#014d30;border-bottom:3px solid #00ff9d;padding-bottom:10px;font-size:1.7rem}
+ h2{color:#014d30;border-right:4px solid #00ff9d;padding-right:10px;margin-top:28px}
+ h3{color:#036e44;margin-top:20px}
+ table{border-collapse:collapse;width:100%;margin:14px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+ th{background:#014d30;color:#fff;padding:9px 12px;font-size:.88rem}
+ td{border:1px solid #cfe5d9;padding:8px 12px;font-size:.88rem}
+ tr:nth-child(even) td{background:#f2faf6}
+ img{max-width:100%;border-radius:10px;border:1px solid #cfe5d9;display:block;margin:14px auto;box-shadow:0 3px 14px rgba(0,0,0,.12)}
+ ul,ol{padding-right:22px;margin:10px 0}
+ li{margin:5px 0}
+ p{margin:9px 0}
+ @media print{img{box-shadow:none}body{padding:10mm}}
+`;
+const DECK_CSS=`
+ *{box-sizing:border-box;margin:0}
+ body{font-family:"Segoe UI",Tahoma,Arial,sans-serif;direction:rtl;background:#04070a;overflow:hidden}
+ #deck{width:100vw;height:calc(100vh - 56px);position:relative}
+ .slide{display:none;width:100%;height:100%;padding:5vh 7vw;flex-direction:column;justify-content:center;background:radial-gradient(900px 500px at 85% -10%,rgba(0,255,157,.12),transparent 55%),#060b09;color:#f2fff8}
+ .slide.on{display:flex}
+ .slide h1{color:#00ff9d;font-size:2.6rem;text-shadow:0 0 24px rgba(0,255,157,.45);margin-bottom:14px}
+ .slide h2{color:#00ff9d;font-size:1.9rem;margin-bottom:16px;border-right:5px solid #00ff9d;padding-right:14px}
+ .slide p{font-size:1.15rem;line-height:1.9;color:#cfe5d9;max-width:60ch}
+ .slide ul{padding-right:24px;font-size:1.15rem;line-height:2}
+ .slide li{margin:6px 0}
+ .slide img{max-height:34vh;max-width:46vw;border-radius:12px;border:2px solid rgba(0,255,157,.4);box-shadow:0 0 30px rgba(0,255,157,.2);display:block;margin:14px 0}
+ .slide table{border-collapse:collapse;margin:12px 0;font-size:1rem}
+ .slide th{background:#014d30;color:#fff;padding:9px 16px}
+ .slide td{border:1px solid #1a3a2c;padding:8px 16px}
+ .slide .two{display:flex;gap:5vw;align-items:center}
+ .ctr{position:fixed;bottom:0;left:0;right:0;height:56px;display:flex;align-items:center;justify-content:center;gap:14px;background:#0a120d;border-top:1px solid #123324;z-index:9}
+ .ctr button{background:#0f1c15;border:1px solid #00ff9d;color:#00ff9d;font-size:1.05rem;padding:8px 22px;border-radius:10px;cursor:pointer}
+ .ctr button:hover{background:#00ff9d;color:#01130b}
+ .ctr span{color:#7ea893;font-size:.9rem;min-width:70px;text-align:center}
+`;
+
 /* ==================== واجهة الدردشة ==================== */
 const chatBox=$("#chat");
 let history=LS.get("history",[]);
+let currentReport=null,currentDeck=null;
+
 function decorate(d,content){
  if(/```html/i.test(content)&&/<html|<!DOCTYPE|<div|<body/i.test(content)){
-   const b=document.createElement("button");b.className="previewBtn";b.textContent="👁️ معاينة كود HTML";
+   const b=document.createElement("button");b.className="actBtn";b.textContent="👁️ معاينة كود HTML";
    b.onclick=()=>openPreview(content);d.appendChild(b);
  }
 }
@@ -353,15 +466,29 @@ function addMsg(role,content,extra){
  });
  if(extra?.genimg){
    const im=document.createElement("img");im.className="genimg";im.src=extra.genimg;d.appendChild(im);
-   const a=document.createElement("a");a.href=extra.genimg;a.download="salman-bot-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";d.appendChild(a);
+   const a=document.createElement("a");a.href=extra.genimg;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";d.appendChild(a);
  }
- if(role==="bot")decorate(d,content);
+ if(extra?.reportHtml){
+   const b1=document.createElement("button");b1.className="actBtn";b1.textContent="📖 فتح التقرير";
+   b1.onclick=()=>openReport(extra.reportHtml);
+   const b2=document.createElement("button");b2.className="actBtn";b2.textContent="⬇️ تحميل";
+   b2.onclick=()=>download("salman-report.html",wrapReport(extra.reportHtml));
+   d.appendChild(b1);d.appendChild(b2);
+ }
+ if(extra?.slidesHtml){
+   const b1=document.createElement("button");b1.className="actBtn";b1.textContent="▶️ تشغيل العرض";
+   b1.onclick=()=>openSlides(extra.slidesHtml);
+   const b2=document.createElement("button");b2.className="actBtn";b2.textContent="⬇️ تحميل";
+   b2.onclick=()=>download("salman-presentation.html",extra.slidesHtml);
+   d.appendChild(b1);d.appendChild(b2);
+ }
+ if(role==="bot"&&!extra?.reportHtml&&!extra?.slidesHtml)decorate(d,content);
  chatBox.appendChild(d);chatBox.scrollTop=chatBox.scrollHeight;
  return d;
 }
 function render(){
  chatBox.innerHTML="";
- if(!history.length)addMsg("bot","مرحباً! أنا سلمان 🤖 — ذكاؤك السحابي المجاني.\n\n• اسألني عن أي شيء، أو تحدث معي صوتياً بـ 🎤\n• أرفق ملفات ليحللها بـ 📎\n• ولنرّي صناعة الصور اكتب: /imagine وصف الصورة\n• بدّل بين الأوضاع: مبرمج، كاتب، محلل، منشئ صور\n\nكيف أساعدك اليوم؟");
+ if(!history.length)addMsg("bot","مرحباً! أنا SALMAN 🤖 — ذكاؤك السحابي المجاني.\n\n• 📊 اطلب تقريراً أو بحثاً علمياً كاملاً بالصور التوضيحية والجداول\n• 📽️ اطلب عرضاً تقديمياً جاهزاً للتقديم\n• 🎤 تحدث معي صوتياً · 📎 أرفق ملفات · 🎨 /imagine وصف الصورة\n• ☀️🌙 بدّل بين الوضع النهاري والليلي من الأعلى\n\nكيف أساعدك اليوم؟");
  else history.forEach(m=>addMsg(m.role,m.content,m));
 }
 render();
@@ -372,7 +499,7 @@ function buildModes(){
  Object.entries(MODES).forEach(([id,m])=>{
    const b=document.createElement("button");b.textContent=m.name;
    if(id===mode)b.classList.add("active");
-   b.onclick=()=>{mode=id;LS.set("mode",mode);buildModes();};
+   b.onclick=()=>{mode=id;save("mode",mode);buildModes();};
    bar.appendChild(b);
  });
  MODES[mode].chips.forEach(c=>{
@@ -418,8 +545,8 @@ $("#sendBtn").onclick=async()=>{
  const atts=attachments.splice(0);renderAtt();
  addMsg("user",text||"(مرفقات)",{attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
  history.push({role:"user",content:text||"(مرفقات)",attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
+ save("history",history);
 
- /* أمر توليد الصور المباشر */
  if(/^\/imagine\b/i.test(text)){
    const p=text.replace(/^\/imagine\s*/i,"");
    if(!p){toast("اكتب وصف الصورة بعد الأمر /imagine");return;}
@@ -427,17 +554,18 @@ $("#sendBtn").onclick=async()=>{
    return;
  }
 
- setState("think","💭 سلمان يفكّر...");
+ setState("think","💭 SALMAN يفكّر...");
  const typing=addMsg("bot","");
  typing.innerHTML='<span class="typing"><i></i><i></i><i></i></span>';
  try{
    if(mode==="images"){
      const p=await callAI([{role:"system",content:MODES[mode].sys},{role:"user",content:text}]);
-     history.push({role:"bot",content:p});LS.set("history",history);
+     save("history",history);
      typing.innerHTML="";typing.textContent=p;decorate(typing,p);
      await genImage(p.slice(0,600),true);
      return;
    }
+
    let fileNote="";
    if(atts.length){
      fileNote="\n\n📎 مرفقات المستخدم:\n"+atts.map(a=>a.isImg?"[صورة: "+a.name+"]":"[ملف: "+a.name+"]\n"+a.text).join("\n---\n");
@@ -446,37 +574,108 @@ $("#sendBtn").onclick=async()=>{
    const msgs=[{role:"system",content:MODES[mode].sys},
      ...history.slice(-20).map(m=>({role:m.role==="bot"?"assistant":"user",content:m.content}))];
    if(fileNote)msgs[msgs.length-1].content+=fileNote;
-   const imgs=atts.filter(a=>a.isImg&&(engine==="gemini")).map(a=>({mime:a.mime,b64:a.data.split(",")[1]}));
+   const imgs=atts.filter(a=>a.isImg&&engine==="gemini").map(a=>({mime:a.mime,b64:a.data.split(",")[1]}));
    const reply=await callAI(msgs,imgs);
-   history.push({role:"bot",content:reply});LS.set("history",history);
-   typing.innerHTML="";typing.textContent=reply;decorate(typing,reply);
-   speak(reply);
+
+   /* === معالجة التقارير === */
+   const repBlock=extractBlock(reply,"report");
+   if(repBlock){
+     const html=fillImages(repBlock);
+     const title=firstTag(html,"h1")||"تقرير بدون عنوان";
+     const summary="📊 جاهز! أعددت لك تقريراً كاملاً: «"+title+"» — يشمل صوراً توضيحية وجداول بيانات وشروحاً علمية.";
+     typing.innerHTML="";typing.textContent=summary;
+     typing.appendChild(mkBtn("📖 فتح التقرير",()=>openReport(html)));
+     typing.appendChild(mkBtn("⬇️ تحميل التقرير",()=>download("salman-report.html",wrapReport(html))));
+     history.push({role:"bot",content:summary,reportHtml:html});
+     save("history",history);
+     speak(summary);
+   }
+   /* === معالجة العروض === */
+   else{
+     const slBlock=extractBlock(reply,"slides");
+     if(slBlock){
+       const deck=buildDeck(slBlock);
+       const title=firstTag(slBlock,"h1")||"عرض تقديمي";
+       const count=(slBlock.match(/<section/gi)||[]).length;
+       const summary="📽️ جاهز! أنشأت لك عرضاً تقديمياً من "+count+" شريحة: «"+title+"» — بالصور والجداول والشروح.";
+       typing.innerHTML="";typing.textContent=summary;
+       typing.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(deck)));
+       typing.appendChild(mkBtn("⬇️ تحميل العرض",()=>download("salman-presentation.html",deck)));
+       history.push({role:"bot",content:summary,slidesHtml:deck});
+       save("history",history);
+       speak(summary);
+     }
+     else{
+       history.push({role:"bot",content:reply});
+       save("history",history);
+       typing.innerHTML="";typing.textContent=reply;decorate(typing,reply);
+       speak(reply);
+     }
+   }
  }catch(err){
    typing.innerHTML="";typing.textContent="⚠️ "+err.message;
    setState("idle","حدث خطأ — حاول مرة أخرى");return;
  }
  if(botState!=="speak")setState("idle","جاهز — اكتب سؤالك أو اضغط 🎤");
 };
+function mkBtn(txt,fn){const b=document.createElement("button");b.className="actBtn";b.textContent=txt;b.onclick=fn;return b;}
+
 async function genImage(prompt,keepText){
  setState("think","🎨 أُولّد صورتك الآن...");
- const url="https://image.pollinations.ai/prompt/"+encodeURIComponent(prompt)+"?width=1024&height=1024&nologo=true&seed="+Math.floor(Math.random()*1e6);
+ const url=imgURL(prompt);
  const t=addMsg("bot","🎨 إليك صورتك — من وصف: "+prompt);
  const im=document.createElement("img");im.className="genimg";im.src=url;
- const a=document.createElement("a");a.href=url;a.download="salman-bot-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";
+ const a=document.createElement("a");a.href=url;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل الصورة";
  t.appendChild(im);t.appendChild(a);
- history.push({role:"bot",content:"🎨 "+prompt,genimg:url});LS.set("history",history);
+ history.push({role:"bot",content:"🎨 "+prompt,genimg:url});save("history",history);
  chatBox.scrollTop=chatBox.scrollHeight;
  setState("idle","جاهز — جرّب وصفاً آخر أو عد إلى المحادثة");
 }
 
-/* ==================== معاينة HTML ==================== */
+/* ==================== عارض التقارير ==================== */
+function wrapReport(html){
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>تقرير — سلمان بوت</title><style>'+REPORT_CSS+'</style></head><body>'+html+'</body></html>';
+}
+function openReport(html){
+ currentReport=html;
+ $("#repFrame").srcdoc=wrapReport(html);
+ $("#repModal").classList.add("open");
+}
+$("#closeRep").onclick=()=>$("#repModal").classList.remove("open");
+$("#repModal").onclick=e=>{if(e.target.id==="repModal")$("#repModal").classList.remove("open");};
+$("#repDl").onclick=()=>{if(currentReport)download("salman-report.html",wrapReport(currentReport));};
+$("#repPrint").onclick=()=>{try{$("#repFrame").contentWindow.focus();$("#repFrame").contentWindow.print();}catch{toast("استخدم زر التحميل ثم اطبع من الملف");}};
+
+/* ==================== عارض العروض ==================== */
+function buildDeck(block){
+ const filled=fillImages(block);
+ let secs=[];
+ try{
+   const d=new DOMParser().parseFromString(filled,"text/html");
+   secs=[...d.querySelectorAll("section")].map(s=>s.innerHTML);
+ }catch{}
+ if(!secs.length)secs=[filled];
+ const slides=secs.map(s=>'<section class="slide">'+s+'</section>').join("");
+ return '<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>عرض تقديمي — سلمان بوت</title><style>'+DECK_CSS+'</style></head><body>'
+   +'<div id="deck">'+slides+'</div>'
+   +'<div class="ctr"><button onclick="go(-1)">السابق ▶</button><span id="cnt"></span><button onclick="go(1)">◀ التالي</button><button onclick="fs()">⛶</button></div>'
+   +'<script>\nvar i=0,S=document.querySelectorAll(".slide");\nfunction show(){S.forEach(function(s,k){s.classList.toggle("on",k===i)});document.getElementById("cnt").textContent=(i+1)+" / "+S.length;}\nfunction go(d){i=Math.min(S.length-1,Math.max(0,i+d));show();}\nfunction fs(){if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();}\ndocument.addEventListener("keydown",function(e){if(e.key==="ArrowLeft")go(1);if(e.key==="ArrowRight")go(-1);});\nshow();\n<\/script></body></html>';
+}
+function openSlides(deck){
+ currentDeck=deck;
+ $("#slFrame").srcdoc=deck;
+ $("#slModal").classList.add("open");
+}
+$("#closeSl").onclick=()=>$("#slModal").classList.remove("open");
+$("#slDl").onclick=()=>{if(currentDeck)download("salman-presentation.html",currentDeck);};
+$("#slFull").onclick=()=>{const el=$("#slModal");if(document.fullscreenElement)document.exitFullscreen();else el.requestFullscreen&&el.requestFullscreen();};
+
+/* ==================== معاينة HTML العامة ==================== */
 function openPreview(content){
  const m=content.match(/```(?:html)?\s*([\s\S]*?)```/i);
- $("#pvFrame").srcdoc=m?m[1]:content;
- $("#pvModal").classList.add("open");
+ $("#repFrame").srcdoc=m?m[1]:content;
+ $("#repModal").classList.add("open");
 }
-$("#closePv").onclick=()=>$("#pvModal").classList.remove("open");
-$("#pvModal").onclick=e=>{if(e.target.id==="pvModal")$("#pvModal").classList.remove("open");};
 
 /* ==================== نافذة المحركات ==================== */
 function syncKeyUI(){
@@ -492,34 +691,31 @@ $("#saveEng").onclick=()=>{
  engine=$("#engSel").value;
  const k=$("#keyInput").value.trim();
  if(k)keys[engine]=k;else delete keys[engine];
- LS.set("engine",engine);LS.set("keys",keys);
+ save("engine",engine);save("keys",keys);
  $("#engName").textContent="· "+ENG[engine].name;
  $("#engModal").classList.remove("open");
- toast("✅ تم الحفظ — سلمان يعمل الآن عبر: "+ENG[engine].name);
+ toast("✅ تم الحفظ — SALMAN يعمل الآن عبر: "+ENG[engine].name);
 };
 $("#clearBtn").onclick=()=>{
  if(synth)synth.cancel();
- if(confirm("مسح كل المحادثة؟")){history=[];LS.set("history",[]);render();toast("تم مسح المحادثة");setState("idle","مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖");}
+ if(confirm("مسح كل المحادثة؟")){history=[];save("history",[]);render();toast("تم مسح المحادثة");setState("idle","مرحباً! اكتب سؤالك أو اضغط 🎤 لنتحدث صوتياً 🤖");}
 };
 
 /* ==================== سحابة GitHub ==================== */
 ["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).value=LS.get(id,""));
-["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).addEventListener("input",function(){LS.set(id,this.value);updatePagesUrl();}));
+["ghUser","ghRepo","ghToken"].forEach(id=>$("#"+id).addEventListener("input",function(){save(id,this.value);updatePagesUrl();}));
 function updatePagesUrl(){
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim();
- $("#pagesUrl").textContent=u&&r?("https://"+u+".github.io/"+r+"/"):"https://USERNAME.github.io/REPO/";
+ $("#pagesUrl").textContent=u&&r?("https://"+u+".github.io/"+r+"/"):"https://teag3.github.io/Salman-Bot/";
 }
 updatePagesUrl();
 $("#cloudBtn").onclick=()=>$("#cloudModal").classList.add("open");
 $("#closeCloud").onclick=()=>$("#cloudModal").classList.remove("open");
 $("#cloudModal").onclick=e=>{if(e.target.id==="cloudModal")$("#cloudModal").classList.remove("open");};
 
-/* تحميل نسخة الموقع الحالية للنشر */
 $("#dlBtn").onclick=()=>{
  const html="<!DOCTYPE html>\n"+document.documentElement.outerHTML;
- const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([html],{type:"text/html"}));
- a.download="index.html";a.click();URL.revokeObjectURL(a.href);
+ download("index.html",html);
  toast("🚀 تم التحميل — ارفعه إلى مستودعك وفعّل GitHub Pages");
 };
 $("#expBtn").onclick=()=>{
@@ -531,11 +727,10 @@ $("#impBtn").onclick=()=>$("#impFile").click();
 $("#impFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const rd=new FileReader();
- rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;$("#engSel").value=engine;}LS.set("history",history);LS.set("engine",engine);$("#engName").textContent="· "+ENG[engine].name;render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;$("#engSel").value=engine;$("#engName").textContent="· "+ENG[engine].name;}save("history",history);save("engine",engine);render();toast("✅ تم استيراد "+history.length+" رسالة");}catch{toast("ملف غير صالح");}};
  rd.readAsText(f);
 };
 
-/* رفع/سحب عبر GitHub Contents API (المستودع = قاعدة بيانات سحابية) */
 $("#pushBtn").onclick=async()=>{
  const u=$("#ghUser").value.trim(),r=$("#ghRepo").value.trim(),t=$("#ghToken").value.trim();
  if(!u||!r||!t){toast("أكمل اسم المستخدم والمستودع والرمز أولاً");return;}
@@ -569,7 +764,7 @@ $("#pullBtn").onclick=async()=>{
    const d=JSON.parse(decodeURIComponent(escape(atob(j.content))));
    history=d.history||[];
    if(d.engine){engine=d.engine;$("#engSel").value=engine;$("#engName").textContent="· "+ENG[engine].name;}
-   LS.set("history",history);LS.set("engine",engine);
+   save("history",history);save("engine",engine);
    render();
    toast("☁️✅ تم سحب "+history.length+" رسالة من السحابة");
  }catch(err){toast("⚠️ "+err.message);}
