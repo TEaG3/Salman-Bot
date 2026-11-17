@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Salman-Bot</title>
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>✳️</text></svg>">
 <style>
 :root{
@@ -14,7 +15,8 @@ body.dark{--bg:#0f1115;--panel:#161a20;--panel2:#1e242c;--line:#2a3138;--txt:#e8
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:"Segoe UI",system-ui,Tahoma,Arial,sans-serif;color:var(--txt);background:var(--bg);overflow:hidden}
-.app{max-width:860px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;padding:0 12px}
+.app{max-width:900px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;padding:0 12px}
+@supports not (height:100dvh){.app{height:100vh}}
 header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);flex-shrink:0}
 .dot{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d1fae5,var(--acc) 65%,#047857);flex-shrink:0;transition:.3s}
 .dot.state-listen{background:radial-gradient(circle at 35% 30%,#d1fae5,#34d399 65%,#065f46);animation:bl 1s infinite}
@@ -22,6 +24,7 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 .dot.state-speak{background:radial-gradient(circle at 35% 30%,#fce7f3,#ec4899 65%,#9d174d)}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.5}}
 .brand{font-weight:700;font-size:1rem;white-space:nowrap}
+.ver{font-size:.6rem;color:var(--acc);border:1px solid var(--acc);border-radius:99px;padding:1px 6px;opacity:.75;flex-shrink:0}
 .chip{font-size:.7rem;color:var(--dim);background:var(--panel2);padding:2px 8px;border-radius:99px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
 .grow{flex:1}
 .view{flex:1;min-height:0;flex-direction:column}
@@ -61,8 +64,17 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 .chips{display:flex;gap:6px;flex-wrap:wrap;padding:2px 0 8px;flex-shrink:0}
 .chips button{background:none;border:1px solid var(--line);color:var(--dim);padding:5px 11px;border-radius:99px;cursor:pointer;font-size:.75rem}
 .chips button:hover{color:var(--acc);border-color:var(--acc)}
+.hero{margin:auto;text-align:center;padding:8px 0 16px;width:100%}
+.heroT{font-size:1.35rem;font-weight:700;margin-bottom:4px}
+.heroS{font-size:.78rem;color:var(--dim);margin-bottom:18px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-width:520px;margin:0 auto}
+.card{display:flex;flex-direction:column;align-items:flex-start;gap:1px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;color:var(--txt);font-family:inherit;text-align:right}
+.card:hover{border-color:var(--acc);background:var(--panel2)}
+.card .ci{font-size:1.1rem}
+.card b{font-size:.85rem;margin-top:3px}
+.card span{font-size:.72rem;color:var(--dim)}
 
-.compose{padding:4px 0 12px;flex-shrink:0}
+.compose{padding:4px 0 calc(12px + env(safe-area-inset-bottom));flex-shrink:0}
 .attRow{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:5px}
 .attPill{display:inline-flex;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:99px;padding:3px 9px;font-size:.74rem}
 .attPill button{background:none;border:none;color:#ef4444;cursor:pointer}
@@ -122,6 +134,8 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
   .chip{display:none}
   .msg{max-width:96%}
   .stCanvasBox,.stCtrls{flex:1 1 100%}
+  .inRow textarea{font-size:16px}
+  .heroT{font-size:1.15rem}
 }
 </style>
 </head>
@@ -130,6 +144,7 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
   <header>
     <span class="dot" id="orb"></span>
     <span class="brand">Salman-Bot</span>
+    <span class="ver">v7</span>
     <span class="chip" id="engName">Pollinations</span>
     <span class="grow"></span>
     <button class="ico" id="themeBtn" title="الوضع">🌙</button>
@@ -282,6 +297,8 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 <input type="file" id="fileInput" multiple hidden>
 
 <div class="modal" id="menuModal"><div class="sheet" style="max-width:360px;padding:8px">
+  <button class="menuItem" id="speakToggle">🔇 قراءة الردود: مغلق</button>
+  <button class="menuItem" onclick="location.replace(location.pathname+'?v='+Date.now())">🔄 تحديث الواجهة</button>
   <button class="menuItem" id="engBtn">⚙️ المحركات والمفاتيح</button>
   <button class="menuItem" id="cloudBtn">☁️ سحابة GitHub</button>
   <button class="menuItem" onclick="gotoView('img');closeMenu()">🎨 استوديو الصور</button>
@@ -364,6 +381,22 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 const $=s=>document.querySelector(s);
 const LS={get:(k,d)=>{try{return JSON.parse(localStorage.getItem("salman_"+k))??d}catch{return d}}};
 function save(k,v){try{localStorage.setItem("salman_"+k,JSON.stringify(v))}catch(e){}}
+function saveHistory(){
+ try{
+   const slim=history.map(m=>{
+     const o={role:m.role,content:m.content};
+     if(m.reportHtml)o.reportHtml=m.reportHtml;
+     if(m.slidesHtml)o.slidesHtml=m.slidesHtml;
+     if(m.genimg)o.genimg=m.genimg;
+     if(m.attachments)o.attachments=m.attachments.map(a=>({name:a.name,img:a.img}));
+     return o;
+   });
+   localStorage.setItem("salman_history",JSON.stringify(slim));
+ }catch(e){
+   history=history.slice(-12);
+   try{localStorage.setItem("salman_history",JSON.stringify(history));}catch{}
+ }
+}
 const BUILTIN={gemini:"",groq:"",openrouter:"",github:"",mistral:"",cohere:""};
 
 function gotoView(v){
@@ -490,15 +523,27 @@ async function askStreamed(messages,onDelta,engOverride,signal){
  return full;
 }
 
+async function askPlain(msgs,signal){
+ const sys=(msgs.find(m=>m.role==="system")||{}).content||"";
+ const user=(msgs.filter(m=>m.role==="user").slice(-1)[0]||{}).content||"";
+ const url="https://text.pollinations.ai/"+encodeURIComponent(user.slice(0,4000))+"?model=openai&system="+encodeURIComponent(sys.slice(0,3000));
+ const r=await fetch(url,{signal});
+ if(!r.ok)throw new Error("فشل الاتصال ("+r.status+")");
+ const t=(await r.text()).trim();
+ if(!t)throw new Error("رد فارغ");
+ return t;
+}
+
 function setState(s,msg){
  $("#orb").className="dot"+(s==="idle"?"":" state-"+s);
  if(msg)$("#status").textContent=msg;
 }
 const synth=window.speechSynthesis;
-function speak(text){
- if(!synth)return;
+let speakOn=LS.get("speakOn",false);
+function speakNow(text){
+ if(!synth||!text)return;
  synth.cancel();
- const u=new SpeechSynthesisUtterance(text.replace(/```[\s\S]*?```/g," جاهز ").slice(0,500));
+ const u=new SpeechSynthesisUtterance(String(text).replace(/```[\s\S]*?```/g," جاهز ").replace(/[#*`>|]/g," ").slice(0,600));
  const ar=synth.getVoices().find(v=>v.lang&&v.lang.startsWith("ar"));
  if(ar)u.voice=ar;
  u.lang="ar-SA";
@@ -506,6 +551,7 @@ function speak(text){
  u.onend=()=>setState("idle","جاهز");
  synth.speak(u);
 }
+function speak(text){if(speakOn)speakNow(text);}
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
 $("#micBtn").onclick=()=>{
  if(!SR){toast("استخدم Chrome أو Edge");return;}
@@ -598,7 +644,25 @@ function addMsg(role,content,extra){
 }
 function render(){
  chatBox.innerHTML="";
- if(!history.length)addMsg("bot","مرحباً 👋 كيف أساعدك؟");
+ if(!history.length){
+   const w=document.createElement("div");w.className="hero";
+   w.innerHTML='<div class="heroT">كيف أساعدك؟</div><div class="heroS">Salman-Bot · مجاني</div>';
+   const g=document.createElement("div");g.className="cards";
+   [["💬","محادثة","اسأل أي شيء","general"],
+    ["📊","تقرير","بحث بجداول وصور","reports"],
+    ["📽️","عرض","شرائح تقديمية","slides"],
+    ["🎨","صورة","توليد بالذكاء","images"]].forEach(([ic,t,s,md2])=>{
+     const b=document.createElement("button");b.className="card";
+     b.innerHTML='<span class="ci">'+ic+'</span><b>'+t+'</b><span>'+s+'</span>';
+     b.onclick=()=>{
+       if(md2==="images"){gotoView("img");return;}
+       mode=md2;save("mode",mode);buildModes();$("#input").focus();
+     };
+     g.appendChild(b);
+   });
+   w.appendChild(g);
+   chatBox.appendChild(w);
+ }
  else history.forEach(m=>addMsg(m.role,m.content,m));
 }
 render();
@@ -655,9 +719,10 @@ $("#sendBtn").onclick=async()=>{
  if(!text&&!attachments.length)return;
  input.value="";input.style.height="auto";
  const atts=attachments.splice(0);renderAtt();
+ chatBox.querySelector(".hero")?.remove();
  addMsg("user",text||"(مرفقات)",{attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
  history.push({role:"user",content:text||"(مرفقات)",attachments:atts.map(a=>({name:a.name,img:a.isImg,data:a.data}))});
- save("history",history);
+ saveHistory();
  if(/^\/imagine\b/i.test(text)){
    const p=text.replace(/^\/imagine\s*/i,"");
    if(!p){toast("اكتب وصف الصورة");return;}
@@ -695,19 +760,24 @@ async function runChat(text,atts){
      if(engine!=="pollinations"){
        acc+="\n\n(تعذر المحرك — الافتراضي)\n\n";typing.textContent=acc;
        reply=await askStreamed(msgs,onDelta,"pollinations",currentAbort.signal);
-     }else throw err;
+     }else{
+       acc+="(إعادة محاولة...)\n";typing.textContent=acc;
+       reply=await askPlain(msgs,currentAbort.signal);
+     }
    }
    finish();
-   const repBlock=extractBlock(reply,"report");
+   let repBlock=extractBlock(reply,"report");
+   if(!repBlock&&/<h1[\s>]/i.test(reply)&&/<table[\s>]/i.test(reply)&&reply.length>900)repBlock=reply;
    if(repBlock){
      const html=fillImages(repBlock),title=firstTag(html,"h1")||"تقرير";
      const summary="📊 جاهز: «"+title+"»";
      typing.innerHTML="";typing.textContent=summary;
      typing.appendChild(mkBtn("📖 فتح التقرير",()=>openReport(html)));
      typing.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-report.html",wrapReport(html))));
-     history.push({role:"bot",content:summary,reportHtml:html});save("history",history);speak(summary);
+     history.push({role:"bot",content:summary,reportHtml:html});saveHistory();speak(summary);
    }else{
-     const slBlock=extractBlock(reply,"slides");
+     let slBlock=extractBlock(reply,"slides");
+     if(!slBlock&&(reply.match(/<section/gi)||[]).length>=3&&/<h1[\s>]/i.test(reply))slBlock=reply;
      if(slBlock){
        const deck=buildDeck(slBlock),title=firstTag(slBlock,"h1")||"عرض";
        const count=(slBlock.match(/<section/gi)||[]).length;
@@ -715,13 +785,14 @@ async function runChat(text,atts){
        typing.innerHTML="";typing.textContent=summary;
        typing.appendChild(mkBtn("▶️ تشغيل العرض",()=>openSlides(deck)));
        typing.appendChild(mkBtn("⬇️ تحميل",()=>download("salman-presentation.html",deck)));
-       history.push({role:"bot",content:summary,slidesHtml:deck});save("history",history);speak(summary);
+       history.push({role:"bot",content:summary,slidesHtml:deck});saveHistory();speak(summary);
      }else{
-       history.push({role:"bot",content:reply});save("history",history);
+       history.push({role:"bot",content:reply});saveHistory();
        typing.innerHTML="";typing.innerHTML=md(reply);
        typing.appendChild(mkBtn("📋 نسخ",()=>{navigator.clipboard.writeText(reply).then(()=>toast("تم النسخ")).catch(()=>{});}));
        typing.appendChild(mkBtn("🔄 إعادة",regenerate));
        if(/```html/i.test(reply)&&/<html|<!DOCTYPE|<div|<body/i.test(reply))typing.appendChild(mkBtn("👁️ معاينة",()=>openPreview(reply)));
+       typing.appendChild(mkBtn("🔊",()=>speakNow(reply)));
        speak(reply);
      }
    }
@@ -729,7 +800,7 @@ async function runChat(text,atts){
  }catch(err){
    finish();
    if(err.name==="AbortError"){
-     if(acc){history.push({role:"bot",content:acc});save("history",history);typing.innerHTML=md(acc);}
+     if(acc){history.push({role:"bot",content:acc});saveHistory();typing.innerHTML=md(acc);}
      else typing.textContent="⏹";
      setState("idle","جاهز");
    }else{
@@ -745,7 +816,7 @@ async function regenerate(){
  for(let i=history.length-1;i>=0;i--){if(history[i].role==="user"){idx=i;break;}}
  if(idx<0){toast("لا يوجد سؤال");return;}
  const last=history[idx];
- history=history.slice(0,idx+1);save("history",history);render();
+ history=history.slice(0,idx+1);saveHistory();render();
  await runChat(last.content,[]);
 }
 
@@ -757,7 +828,7 @@ async function genImage(prompt){
  const a=document.createElement("a");a.href=url;a.download="salman-image.jpg";a.className="dlImg";a.textContent="⬇️ تحميل";
  t.appendChild(im);t.appendChild(a);
  t.appendChild(mkBtn("🎨 الاستوديو",()=>openStudioUrl(url)));
- history.push({role:"bot",content:"🎨 "+prompt,genimg:url});save("history",history);
+ history.push({role:"bot",content:"🎨 "+prompt,genimg:url});saveHistory();
  chatBox.scrollTop=chatBox.scrollHeight;
  setState("idle","جاهز");
 }
@@ -968,6 +1039,12 @@ $("#vidExport").onclick=async()=>{
 /* ===== الإعدادات ===== */
 $("#menuBtn").onclick=()=>$("#menuModal").classList.add("open");
 $("#menuModal").onclick=e=>{if(e.target.id==="menuModal")closeMenu();};
+$("#speakToggle").onclick=function(){
+ speakOn=!speakOn;save("speakOn",speakOn);
+ this.textContent=speakOn?"🔊 قراءة الردود: مفتوح":"🔇 قراءة الردود: مغلق";
+ if(!speakOn&&synth)synth.cancel();
+};
+$("#speakToggle").textContent=speakOn?"🔊 قراءة الردود: مفتوح":"🔇 قراءة الردود: مغلق";
 function syncKeyUI(){
  const v=$("#engSel").value;
  $("#keyInput").value=keys[v]||"";
@@ -992,7 +1069,7 @@ $("#saveEng").onclick=()=>{
 $("#clearBtn").onclick=()=>{
  closeMenu();
  if(synth)synth.cancel();
- if(confirm("محادثة جديدة؟")){history=[];save("history",[]);render();setState("idle","جاهز");}
+ if(confirm("محادثة جديدة؟")){history=[];saveHistory();render();setState("idle","جاهز");}
 };
 
 /* ===== سحابة GitHub ===== */
@@ -1010,7 +1087,7 @@ $("#impBtn").onclick=()=>$("#impFile").click();
 $("#impFile").onchange=e=>{
  const f=e.target.files[0];if(!f)return;
  const rd=new FileReader();
- rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;engLabel();}save("history",history);save("engine",engine);render();toast("تم الاستيراد");}catch{toast("ملف غير صالح");}};
+ rd.onload=()=>{try{const d=JSON.parse(rd.result);history=d.history||[];if(d.engine){engine=d.engine;engLabel();}saveHistory();save("engine",engine);render();toast("تم الاستيراد");}catch{toast("ملف غير صالح");}};
  rd.readAsText(f);
 };
 $("#pushBtn").onclick=async()=>{
@@ -1036,7 +1113,7 @@ $("#pullBtn").onclick=async()=>{
    if(!res.ok)throw new Error(res.status===404?"لا توجد بيانات":"فشل ("+res.status+")");
    const j=await res.json();
    history=JSON.parse(decodeURIComponent(escape(atob(j.content)))).history||[];
-   save("history",history);render();toast("تم السحب");
+   saveHistory();render();toast("تم السحب");
  }catch(err){toast(err.message);}
  setState("idle","جاهز");
 };
