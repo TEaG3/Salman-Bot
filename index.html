@@ -850,7 +850,7 @@ async function runChat(text,atts){
        speak(reply);
      }
    }
-   if(!synth)setState("idle","جاهز");
+   setState("idle","جاهز");
  }catch(err){
    finish();
    if(err.name==="AbortError"){
