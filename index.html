@@ -15,7 +15,22 @@ body.dark{--bg:#0f1115;--panel:#161a20;--panel2:#1e242c;--line:#2a3138;--txt:#e8
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:"Segoe UI",system-ui,Tahoma,Arial,sans-serif;color:var(--txt);background:var(--bg);overflow:hidden}
-.app{max-width:900px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;padding:0 12px}
+.app{width:calc(100% - 280px);max-width:none;margin:0 0 0 0;margin-right:280px;height:100dvh;display:flex;flex-direction:column;padding:0 24px;transition:width .2s,margin .2s}
+.sidebar{position:fixed;z-index:30;inset:0 0 0 auto;width:260px;height:100dvh;background:var(--panel2);border-left:1px solid var(--line);display:flex;flex-direction:column;padding:14px;gap:12px}
+.sidebarBrand{display:flex;align-items:center;justify-content:space-between;font-weight:750;padding:4px 2px 12px}
+.sidebarBtn{width:100%;display:flex;align-items:center;gap:10px;text-align:right;border:1px solid var(--line);background:var(--panel);color:var(--txt);border-radius:10px;padding:11px 12px;font:inherit;cursor:pointer}
+.sidebarBtn:hover,.sideNav button:hover{border-color:var(--acc);color:var(--acc)}
+.sidebarLabel{font-size:.72rem;color:var(--dim);padding:8px 4px 0}
+.sideNav{display:flex;flex-direction:column;gap:4px}
+.sideNav button{border:1px solid transparent;background:transparent;color:var(--txt);text-align:right;border-radius:9px;padding:10px;cursor:pointer;font:inherit;font-size:.86rem}
+.sideCurrent{display:flex;align-items:center;gap:8px;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:10px;font-size:.8rem;overflow:hidden}
+.sideCurrent span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sidebarSpacer{flex:1}
+.sidebarBackdrop{display:none}
+body.sidebar-collapsed .sidebar{transform:translateX(105%);transition:transform .2s}
+body.sidebar-collapsed .app{width:100%;margin-right:0}
+body.sidebar-open .sidebar{transform:translateX(0)}
+body.sidebar-open .sidebarBackdrop{display:block;position:fixed;inset:0;background:#0008;z-index:25}
 @supports not (height:100dvh){.app{height:100vh}}
 header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);flex-shrink:0}
 .dot{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#d1fae5,var(--acc) 65%,#047857);flex-shrink:0;transition:.3s}
@@ -129,6 +144,12 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 .toast{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:var(--txt);color:var(--bg);padding:9px 18px;border-radius:10px;opacity:0;transition:.25s;pointer-events:none;z-index:99;max-width:90vw;font-size:.82rem}
 .toast.show{opacity:1}
 ::-webkit-scrollbar{width:7px}::-webkit-scrollbar-thumb{background:var(--line);border-radius:7px}
+@media (max-width:760px){
+  .app{width:100%;margin-right:0;padding:0 10px}
+  .sidebar{transform:translateX(105%);transition:transform .2s}
+  body.sidebar-open .sidebar{transform:translateX(0)}
+  body.sidebar-collapsed .sidebar{transform:translateX(105%)}
+}
 @media (max-width:520px){
   .app{padding:0 8px}
   .chip{display:none}
@@ -140,15 +161,32 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
 </style>
 </head>
 <body>
+<div class="sidebarBackdrop" id="sidebarBackdrop"></div>
+<aside class="sidebar" id="sidebar" aria-label="التنقل والمحادثات">
+  <div class="sidebarBrand"><span>✳ Salman-Bot</span><span class="ver">v8</span></div>
+  <button class="sidebarBtn" id="sidebarNewChat">＋ محادثة جديدة</button>
+  <div class="sidebarLabel">مساحة العمل</div>
+  <nav class="sideNav">
+    <button data-view="chat">▤ المحادثة</button>
+    <button data-view="img">▧ استوديو الصور</button>
+    <button data-view="vid">▣ استوديو الفيديو</button>
+  </nav>
+  <div class="sidebarLabel">المحادثات</div>
+  <div class="sideCurrent"><span>◉</span><span id="sideCurrentTitle">محادثة جديدة</span></div>
+  <div class="sidebarSpacer"></div>
+  <button class="sidebarBtn" id="sidebarBackend">⌁ اتصال خادم Ruby</button>
+  <button class="sidebarBtn" id="sidebarSettings">⚙ الإعدادات والمحركات</button>
+  <div class="note">واجهة Salman Bot الجديدة</div>
+</aside>
 <div class="app">
   <header>
     <span class="dot" id="orb"></span>
     <span class="brand">Salman-Bot</span>
-    <span class="ver">v7</span>
+    <span class="ver">v8</span>
     <span class="chip" id="engName">Pollinations</span>
     <span class="grow"></span>
     <button class="ico" id="themeBtn" title="الوضع">🌙</button>
-    <button class="ico" id="menuBtn" title="القائمة">☰</button>
+    <button class="ico" id="menuBtn" title="إظهار/إخفاء الشريط الجانبي">☰</button>
   </header>
 
   <section class="view" id="v-chat" style="display:flex">
@@ -334,6 +372,19 @@ header{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px 
     <button class="btn primary" id="saveEng">حفظ</button>
     <button class="btn" id="closeEng">إلغاء</button>
   </div>
+</div></div>
+
+<div class="modal" id="backendModal"><div class="sheet">
+  <h3>خادم Ruby on Rails</h3>
+  <p class="note">أدخل رابط خادم Rails بعد نشره. يتم استخدامه حالياً لفحص حالة الخادم فقط؛ تبقى محركات الذكاء الاصطناعي الحالية كما هي حتى نكمل ربطها بأمان.</p>
+  <label>رابط API (HTTPS):</label>
+  <input id="apiBaseInput" type="url" placeholder="https://your-salman-api.example.com">
+  <div class="rowBtns">
+    <button class="btn primary" id="saveApiBase">حفظ الرابط</button>
+    <button class="btn" id="testApiBase">فحص الاتصال</button>
+    <button class="btn" id="closeBackend">إغلاق</button>
+  </div>
+  <div class="prog" id="apiHealthStatus" role="status">لم يتم ضبط رابط الخادم بعد.</div>
 </div></div>
 
 <div class="modal" id="cloudModal"><div class="sheet">
@@ -664,6 +715,8 @@ function render(){
    chatBox.appendChild(w);
  }
  else history.forEach(m=>addMsg(m.role,m.content,m));
+ const firstUser=history.find(m=>m.role==="user"&&m.content);
+ $("#sideCurrentTitle").textContent=firstUser?(firstUser.content||"محادثة حالية").slice(0,42):"محادثة جديدة";
 }
 render();
 
@@ -1037,7 +1090,36 @@ $("#vidExport").onclick=async()=>{
 };
 
 /* ===== الإعدادات ===== */
-$("#menuBtn").onclick=()=>$("#menuModal").classList.add("open");
+$("#menuBtn").onclick=()=>{
+ if(window.matchMedia("(max-width: 760px)").matches)document.body.classList.toggle("sidebar-open");
+ else document.body.classList.toggle("sidebar-collapsed");
+};
+$("#sidebarBackdrop").onclick=()=>document.body.classList.remove("sidebar-open");
+$("#sidebarNewChat").onclick=()=>{document.body.classList.remove("sidebar-open");$("#clearBtn").click();};
+$("#sidebarSettings").onclick=()=>{document.body.classList.remove("sidebar-open");$("#menuModal").classList.add("open");};
+$("#sidebarBackend").onclick=()=>{document.body.classList.remove("sidebar-open");$("#apiBaseInput").value=LS.get("apiBase","");$("#backendModal").classList.add("open");};
+document.querySelectorAll(".sideNav [data-view]").forEach(b=>b.addEventListener("click",()=>{gotoView(b.dataset.view);document.body.classList.remove("sidebar-open");}));
+$("#closeBackend").onclick=()=>$("#backendModal").classList.remove("open");
+$("#backendModal").onclick=e=>{if(e.target.id==="backendModal")$("#backendModal").classList.remove("open");};
+function normalizedApiBase(){return String($("#apiBaseInput").value||"").trim().replace(/\/+$/,"");}
+$("#saveApiBase").onclick=()=>{
+ const value=normalizedApiBase();
+ if(value&&!/^https:\/\//i.test(value)){toast("استخدم رابط HTTPS");return;}
+ save("apiBase",value);toast(value?"تم حفظ رابط خادم Ruby":"تم مسح رابط الخادم");
+};
+$("#testApiBase").onclick=async()=>{
+ const base=normalizedApiBase();
+ if(!base){$("#apiHealthStatus").textContent="أدخل رابط الخادم أولاً.";return;}
+ if(!/^https:\/\//i.test(base)){ $("#apiHealthStatus").textContent="يجب استخدام HTTPS.";return;}
+ $("#apiHealthStatus").textContent="جارٍ فحص الخادم...";
+ try{
+   const response=await fetch(base+"/api/v1/health",{headers:{Accept:"application/json"}});
+   if(!response.ok)throw new Error("HTTP "+response.status);
+   const data=await response.json();
+   if(data.status!=="ok")throw new Error("استجابة غير متوقعة");
+   $("#apiHealthStatus").textContent="متصل — Ruby "+(data.ruby||"")+" · API v"+(data.version||"1");
+ }catch(error){$("#apiHealthStatus").textContent="تعذر الاتصال: "+error.message+" — تحقق من النشر وإعداد CORS.";}
+};
 $("#menuModal").onclick=e=>{if(e.target.id==="menuModal")closeMenu();};
 $("#speakToggle").onclick=function(){
  speakOn=!speakOn;save("speakOn",speakOn);
