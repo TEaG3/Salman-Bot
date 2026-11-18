@@ -4,6 +4,15 @@ module Api
       before_action :require_api_token!
       before_action :set_automation, only: %i[show update destroy run]
 
+      def preview
+        definition = params.require(:definition).permit(steps: %i[type message key value operator expected]).to_h
+        automation = Automation.new(name: "Preview", definition: definition)
+        result = AutomationRunner.new(automation).call
+        render json: { result: result }
+      rescue AutomationRunner::UnsafeWorkflow => e
+        render json: { error: e.message }, status: :unprocessable_entity
+      end
+
       def index
         render json: Automation.order(updated_at: :desc)
       end
