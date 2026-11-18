@@ -1101,7 +1101,7 @@ $("#sidebarBackend").onclick=()=>{document.body.classList.remove("sidebar-open")
 document.querySelectorAll(".sideNav [data-view]").forEach(b=>b.addEventListener("click",()=>{gotoView(b.dataset.view);document.body.classList.remove("sidebar-open");}));
 $("#closeBackend").onclick=()=>$("#backendModal").classList.remove("open");
 $("#backendModal").onclick=e=>{if(e.target.id==="backendModal")$("#backendModal").classList.remove("open");};
-function normalizedApiBase(){return String($("#apiBaseInput").value||"").trim().replace(/\\/+$/,"");}
+function normalizedApiBase(){return String($("#apiBaseInput").value||"").trim().replace(/\/+$/,"");}
 $("#saveApiBase").onclick=()=>{
  const value=normalizedApiBase();
  if(value&&!/^https:\/\//i.test(value)){toast("استخدم رابط HTTPS");return;}
