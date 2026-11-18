@@ -2,7 +2,7 @@ FROM ruby:3.3-slim
 
 RUN apt-get update -qq && apt-get install --no-install-recommends -y build-essential libpq-dev curl && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
-COPY Gemfile Gemfile.lock* ./
+COPY Gemfile ./
 RUN bundle install
 COPY . .
 ENV RAILS_ENV=production
