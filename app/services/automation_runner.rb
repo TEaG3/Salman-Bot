@@ -34,7 +34,7 @@ class AutomationRunner
     end
 
     payload = { status: "completed", steps: results, context: context }
-    @automation.update!(last_run_at: Time.current, last_result: payload)
+    @automation.update!(last_run_at: Time.current, last_result: payload) if @automation.persisted?
     payload
   end
 end
